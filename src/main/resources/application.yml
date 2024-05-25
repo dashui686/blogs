@@ -144,7 +144,7 @@ mybatis-plus:
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
   # token名称 (同时也是cookie名称)
-  token-name: dashui
+  token-name: Authorization
   # token有效期，单位s 默认30天, -1代表永不过期
   timeout: 604800
   # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
@@ -175,7 +175,7 @@ sa-token:
 logging:
   level:
 #    com.dashui: @logging.level@
-#    com.dashui: info
+    com.dashui: info
     org.springframework: warn
     tech.powerjob.worker.background: warn
 #  config: classpath:logback-plus.xml

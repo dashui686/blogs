@@ -13,5 +13,5 @@ public interface WebConstants {
     /**
      * admin url
      */
-    String ADMIN_WEB_KEY =  "admin";
+    String ADMIN_WEB_KEY =  "/admin";
 }

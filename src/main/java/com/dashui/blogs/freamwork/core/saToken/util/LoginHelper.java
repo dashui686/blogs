@@ -70,6 +70,7 @@ public class LoginHelper {
             return session.get(LOGIN_USER_KEY);
         });
     }
+
     /**
      * 获取管理员(多级缓存)
      */

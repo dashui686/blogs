@@ -14,6 +14,7 @@ import com.dashui.blogs.service.admin.AdminRuleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.HashMap;
@@ -30,19 +31,24 @@ import static com.dashui.blogs.freamwork.core.saToken.util.LoginHelper.*;
  * @Version 1.0
  */
 @RequestMapping(ADMIN_WEB_KEY+"/index")
+@RestController
 @RequiredArgsConstructor
-public class IndexController {
+public class AdminIndexController {
 
 
     private final AdminIndexService adminIndexService;
+
     private final AdminRuleService adminRuleService;
 
-    @GetMapping("/index")
+    @GetMapping
     public AjaxResult index(){
         SiteConfig siteConfig = ConfigUtils.getSiteConfig();
         return AjaxResult.success(new HashMap<String,Object>(){{
-            put("adminInfo",new LoginAdminVo(getLoginAdmin()));
-            put("menu",adminRuleService.getRouter());
+            LoginAdminVo loginVo = new LoginAdminVo(getLoginAdmin());
+            loginVo.setToken("Bearer "+StpUtil.getTokenValue());
+
+            put("adminInfo", loginVo);
+            put("menus",adminRuleService.getRouter());
             put("siteConfig",siteConfig);
         }});
     }

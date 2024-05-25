@@ -30,7 +30,7 @@ public class Config implements Serializable {
     /**
      * 分组
      */
-    @TableField(value = "group")
+    @TableField(value = "`group`")
     private String group;
 
     /**

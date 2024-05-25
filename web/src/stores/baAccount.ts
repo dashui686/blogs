@@ -20,7 +20,7 @@ export const useBaAccount = defineStore('baAccount', {
             score: 0,
             motto: '',
             token: '',
-            refresh_token: '',
+            refreshToken: '',
         }
     },
     actions: {
@@ -29,7 +29,7 @@ export const useBaAccount = defineStore('baAccount', {
         },
         removeToken() {
             this.token = ''
-            this.refresh_token = ''
+            this.refreshToken = ''
         },
         getGenderIcon() {
             let icon = { name: 'fa fa-transgender-alt', color: 'var(--el-text-color-secondary)' }
@@ -44,11 +44,11 @@ export const useBaAccount = defineStore('baAccount', {
             return icon
         },
         setToken(token: string, type: 'auth' | 'refresh') {
-            const field = type == 'auth' ? 'token' : 'refresh_token'
+            const field = type == 'auth' ? 'token' : 'refreshToken'
             this[field] = token
         },
         getToken(type: 'auth' | 'refresh' = 'auth') {
-            return type === 'auth' ? this.token : this.refresh_token
+            return type === 'auth' ? this.token : this.refreshToken
         },
         logout() {
             postLogout().then((res) => {

@@ -24,7 +24,7 @@
     <!-- 日志界别 -->
     <property name="log.level" value="info"/>
     <!-- 打印sql语句 需要指定dao层包的位置 -->
-    <property name="mapper.package" value="com.vshop.veat.mapper" />
+    <property name="mapper.package" value="com.dashui.blogs.mapper" />
 
     <!--*****************************************************************************-->
     <!--自定义项 结束-->

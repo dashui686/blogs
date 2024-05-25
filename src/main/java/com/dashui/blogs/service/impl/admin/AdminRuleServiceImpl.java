@@ -2,6 +2,7 @@ package com.dashui.blogs.service.impl.admin;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.utils.StringUtils;
@@ -32,23 +33,26 @@ public class AdminRuleServiceImpl extends ServiceImpl<AdminRuleMapper, AdminRule
     public List<AdminRuleRoute> getRouter(){
         String routeId = adminRuleMapper.getRouteId(StpUtil.getLoginIdAsLong());
         List<AdminRule> adminRules = Collections.emptyList();
-        if(Constants.ADMIN_RULE.equals(routeId)){
-            adminRules = this.list();
-        } else {
-            adminRules = this.listByIds(Arrays.asList(StringUtils.split(routeId, ",")));
-        }
 
+        if(Constants.ADMIN_RULE.equals(routeId)){
+            adminRules = this.list(new LambdaQueryWrapper<AdminRule>().notIn(AdminRule::getType,"button"));
+        } else {
+            adminRules = this.list(new LambdaQueryWrapper<AdminRule>().notIn(AdminRule::getType,"button").in(AdminRule::getId,StringUtils.split(routeId, ",")));
+        }
 
         return buildMenu(adminRules,0);
     }
 
     public List<AdminRuleRoute> buildMenu(List<AdminRule> rule,Integer parentId){
+
         List<AdminRule> parentRoute = rule.stream().filter(e -> {
             return e.getPid().equals(parentId);
         }).collect(Collectors.toList());
+
         if(CollUtil.isEmpty(parentRoute)){
             return null;
         }
+
         return parentRoute.stream().map(e -> {
             AdminRuleRoute adminRuleRoute = new AdminRuleRoute(e);
             adminRuleRoute.setChildren(buildMenu(rule, e.getId()));

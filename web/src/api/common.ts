@@ -86,7 +86,7 @@ export function buildSuffixSvgUrl(suffix: string, background = '') {
     return (
         getUrl() +
         (isAdminApp() ? adminBuildSuffixSvgUrl : apiBuildSuffixSvgUrl) +
-        '?batoken=' +
+        '?Authorization=' +
         adminInfo.getToken() +
         '&suffix=' +
         suffix +
@@ -178,7 +178,17 @@ export function postClearCache(type: string) {
 export function buildTerminalUrl(commandKey: string, uuid: string, extend: string) {
     const adminInfo = useAdminInfo()
     return (
-        getUrl() + terminalUrl + '?command=' + commandKey + '&uuid=' + uuid + '&extend=' + extend + '&batoken=' + adminInfo.getToken() + '&server=1'
+        getUrl() +
+        terminalUrl +
+        '?command=' +
+        commandKey +
+        '&uuid=' +
+        uuid +
+        '&extend=' +
+        extend +
+        '&Authorization=' +
+        adminInfo.getToken() +
+        '&server=1'
     )
 }
 

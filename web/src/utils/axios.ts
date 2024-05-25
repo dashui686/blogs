@@ -85,7 +85,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
             // 自动携带token
             if (config.headers) {
                 const token = adminInfo.getToken()
-                if (token) (config.headers as anyObj).batoken = token
+                if (token) (config.headers as anyObj).Authorization = token
                 const userToken = options.anotherToken || userInfo.getToken()
                 if (userToken) (config.headers as anyObj)['ba-user-token'] = userToken
             }
@@ -112,7 +112,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                                 .then((res) => {
                                     if (res.data.type == 'admin-refresh') {
                                         adminInfo.setToken(res.data.token, 'auth')
-                                        response.headers.batoken = `${res.data.token}`
+                                        response.headers.Authorization = `${res.data.token}`
                                         window.requests.forEach((cb) => cb(res.data.token, 'admin-refresh'))
                                     } else if (res.data.type == 'user-refresh') {
                                         userInfo.setToken(res.data.token, 'auth')
@@ -129,7 +129,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                                             router.push({ name: 'adminLogin' })
                                             return Promise.reject(err)
                                         } else {
-                                            response.headers.batoken = ''
+                                            response.headers.Authorization = ''
                                             window.requests.forEach((cb) => cb('', 'admin-refresh'))
                                             window.requests = []
                                             return Axios(response.config)
@@ -155,7 +155,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                                 // 用函数形式将 resolve 存入，等待刷新后再执行
                                 window.requests.push((token: string, type: string) => {
                                     if (type == 'admin-refresh') {
-                                        response.headers.batoken = `${token}`
+                                        response.headers.Authorization = `${token}`
                                     } else {
                                         response.headers['ba-user-token'] = `${token}`
                                     }
@@ -324,7 +324,7 @@ function getPendingKey(config: AxiosRequestConfig) {
     return [
         url,
         method,
-        headers && (headers as anyObj).batoken ? (headers as anyObj).batoken : '',
+        headers && (headers as anyObj).Authorization ? (headers as anyObj).Authorization : '',
         headers && (headers as anyObj)['ba-user-token'] ? (headers as anyObj)['ba-user-token'] : '',
         JSON.stringify(params),
         JSON.stringify(data),

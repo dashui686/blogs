@@ -80,7 +80,7 @@
                     <FormItem
                         v-if="!['menu_dir', 'button', 'route'].includes(baTable.form.items!.type)"
                         :label="t('auth.rule.Menu type')"
-                        v-model="baTable.form.items!.menu_type"
+                        v-model="baTable.form.items!.menuType"
                         type="radio"
                         :data="{
                             content: { tab: t('auth.rule.Menu type tab'), link: t('auth.rule.Menu type link (offsite)'), iframe: 'Iframe' },
@@ -90,7 +90,7 @@
                     <!-- URL -->
                     <el-form-item
                         prop="url"
-                        v-if="!['menu_dir', 'button', 'route'].includes(baTable.form.items!.type) && baTable.form.items!.menu_type != 'tab'"
+                        v-if="!['menu_dir', 'button', 'route'].includes(baTable.form.items!.type) && baTable.form.items!.menuType != 'tab'"
                         :label="t('auth.rule.Link address')"
                     >
                         <el-input
@@ -101,7 +101,7 @@
                     </el-form-item>
                     <!-- 组件路径 -->
                     <el-form-item
-                        v-if="baTable.form.items!.type == 'route' || (!['menu_dir', 'button'].includes(baTable.form.items!.type) && baTable.form.items!.menu_type == 'tab')"
+                        v-if="baTable.form.items!.type == 'route' || (!['menu_dir', 'button'].includes(baTable.form.items!.type) && baTable.form.items!.menuType == 'tab')"
                         :label="t('auth.rule.Component path')"
                     >
                         <el-input
@@ -112,7 +112,7 @@
                     </el-form-item>
                     <!-- 扩展属性 -->
                     <el-form-item
-                        v-if="!['menu_dir', 'button'].includes(baTable.form.items!.type) && baTable.form.items!.menu_type == 'tab'"
+                        v-if="!['menu_dir', 'button'].includes(baTable.form.items!.type) && baTable.form.items!.menuType == 'tab'"
                         :label="t('auth.rule.Extended properties')"
                     >
                         <el-select

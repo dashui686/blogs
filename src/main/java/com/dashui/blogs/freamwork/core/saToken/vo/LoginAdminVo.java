@@ -4,10 +4,13 @@ import com.dashui.blogs.common.core.constants.UserConstants;
 import com.dashui.blogs.common.utils.StringUtils;
 import com.dashui.blogs.freamwork.core.saToken.domain.LoginAdmin;
 import com.dashui.blogs.vo.AdminVo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,18 +21,18 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
-public class LoginAdminVo {
+public class LoginAdminVo implements Serializable {
 
     /**
      * 授权令牌
      */
+    // json 序列化 名称
     @JsonProperty("token")
     private String token;
 
     /**
      * 刷新令牌
      */
-    @JsonProperty("refresh_token")
     private String refreshToken;
 
     /**
@@ -55,7 +58,8 @@ public class LoginAdminVo {
     /**
      * 最后登录时间
      */
-    @JsonProperty("last_login_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastLoginTime;
 
     /**

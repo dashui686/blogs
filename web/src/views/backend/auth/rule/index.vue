@@ -66,7 +66,7 @@ const baTable = new baTableClass(
     {
         defaultItems: {
             type: 'menu',
-            menu_type: 'tab',
+            menuType: 'tab',
             extend: 'none',
             keepalive: 0,
             status: '1',

@@ -18,28 +18,28 @@ export const useUserInfo = defineStore('userInfo', {
             birthday: '',
             money: 0,
             score: 0,
-            last_login_time: '',
+            lastLoginTime: '',
             last_login_ip: '',
             join_time: '',
             motto: '',
             token: '',
-            refresh_token: '',
+            refreshToken: '',
         }
     },
     actions: {
         removeToken() {
             this.token = ''
-            this.refresh_token = ''
+            this.refreshToken = ''
         },
         dataFill(state: UserInfo) {
             this.$state = { ...this.$state, ...state }
         },
         setToken(token: string, type: 'auth' | 'refresh') {
-            const field = type == 'auth' ? 'token' : 'refresh_token'
+            const field = type == 'auth' ? 'token' : 'refreshToken'
             this[field] = token
         },
         getToken(type: 'auth' | 'refresh' = 'auth') {
-            return type === 'auth' ? this.token : this.refresh_token
+            return type === 'auth' ? this.token : this.refreshToken
         },
         getGenderIcon() {
             let icon = { name: 'fa fa-transgender-alt', color: 'var(--el-text-color-secondary)' }

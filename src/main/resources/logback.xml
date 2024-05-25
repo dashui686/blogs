@@ -4,6 +4,8 @@
     <contextName>blogs</contextName>
     <timestamp key="keyValue" datePattern="yyyy-MM-dd"/>
 
+    <property name="mapper.package" value="com.dashui.blogs.mapper" />
+
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ALL</level>
@@ -47,6 +49,14 @@
             <MaxHistory>1</MaxHistory>
         </rollingPolicy>
     </appender>
+
+    <!--dao层包下的类的日志输出-->
+    <logger name="${mapper.package}" additivity="false" level="DEBUG">
+        <appender-ref ref="app"/>
+        <appender-ref ref="ERROR"/>
+        <!--打印控制台-->
+        <appender-ref ref="CONSOLE"/>
+    </logger>
 
     <root level="info">
         <appender-ref ref="consoleLog"/>

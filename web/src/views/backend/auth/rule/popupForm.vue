@@ -82,7 +82,7 @@
                     <FormItem
                         v-if="baTable.form.items!.type == 'menu'"
                         :label="t('auth.rule.Menu type')"
-                        v-model="baTable.form.items!.menu_type"
+                        v-model="baTable.form.items!.menuType"
                         type="radio"
                         :data="{
                             content: { tab: t('auth.rule.Menu type tab'), link: t('auth.rule.Menu type link (offsite)'), iframe: 'Iframe' },
@@ -91,7 +91,7 @@
                     />
                     <el-form-item
                         prop="url"
-                        v-if="baTable.form.items!.menu_type != 'tab' && baTable.form.items!.type != 'button'"
+                        v-if="baTable.form.items!.menuType != 'tab' && baTable.form.items!.type != 'button'"
                         :label="t('auth.rule.Link address')"
                     >
                         <el-input
@@ -101,7 +101,7 @@
                         ></el-input>
                     </el-form-item>
                     <el-form-item
-                        v-if="baTable.form.items!.type == 'menu' && baTable.form.items!.menu_type == 'tab'"
+                        v-if="baTable.form.items!.type == 'menu' && baTable.form.items!.menuType == 'tab'"
                         :label="t('auth.rule.Component path')"
                     >
                         <el-input
@@ -111,7 +111,7 @@
                         ></el-input>
                     </el-form-item>
                     <el-form-item
-                        v-if="baTable.form.items!.type == 'menu' && baTable.form.items!.menu_type == 'tab'"
+                        v-if="baTable.form.items!.type == 'menu' && baTable.form.items!.menuType == 'tab'"
                         :label="t('auth.rule.Extended properties')"
                     >
                         <el-select
