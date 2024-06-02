@@ -108,7 +108,7 @@ export default class baTable {
         return this.api
             .index(this.table.filter)
             .then((res) => {
-                this.table.data = res.data.list
+                this.table.data = res.data.rows
                 this.table.total = res.data.total
                 this.table.remark = res.data.remark
                 this.runAfter('getIndex', { res })

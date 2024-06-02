@@ -72,6 +72,12 @@ public interface Constants {
      */
     String TOKEN = "token";
 
+
+    /**
+     * 令牌
+     */
+    String DATA = "row";
+
     /**
      * 顶级部门id
      */

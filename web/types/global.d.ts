@@ -13,7 +13,7 @@ interface anyObj {
 }
 
 interface TableDefaultData<T = any> {
-    list: T
+    rows: T
     remark: string
     total: number
 }

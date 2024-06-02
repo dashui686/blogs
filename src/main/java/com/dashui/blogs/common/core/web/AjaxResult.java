@@ -146,6 +146,10 @@ public class AjaxResult extends HashMap<String, Object> implements Serializable
     {
         return AjaxResult.error("操作失败");
     }
+    public static AjaxResult error(Integer code, String message)
+    {
+        return new AjaxResult(code,message);
+    }
 
 
     /**

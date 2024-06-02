@@ -1,17 +1,13 @@
-package com.dashui.blogs.vo;
+package com.dashui.blogs.bo;
 
-import com.dashui.blogs.domain.Admin;
+import com.dashui.blogs.common.core.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.linpeilie.annotations.AutoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @Author Administrator$
@@ -24,8 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@AutoMapper(target = Admin.class)
-public class AdminVo {
+public class AdminBo extends BaseEntity {
     /**
      * 用户ID
      */
@@ -40,6 +35,11 @@ public class AdminVo {
      * 用户昵称
      */
     private String nickname;
+
+    /**
+     * 用户类型（sys_user系统用户）
+     */
+    private String userType;
 
     /**
      * 用户邮箱
@@ -89,24 +89,28 @@ public class AdminVo {
     private String remark;
 
     /**
-     * 备注
-     */
-    private String motto;
-
-    /**
      * 创建时间
      */
     private LocalDateTime createTime;
 
     /**
-     * 分组ID
+     * 部门对象
      */
-    private List<Long> groupArr;
-
+    // private SysDeptVo dept;
 
     /**
-     * 分组名称
+     * 角色对象
      */
-    private List<String> groupNameArr;
+    // private List<SysRoleVo> roles;
+
+    /**
+     * 角色组
+     */
+    private Long[] roleIds;
+
+    /**
+     * 岗位组
+     */
+    private Long[] postIds;
 
 }

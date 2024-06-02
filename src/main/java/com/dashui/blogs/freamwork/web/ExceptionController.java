@@ -1,5 +1,7 @@
 package com.dashui.blogs.freamwork.web;
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.hutool.http.HttpStatus;
 import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.freamwork.exception.ServiceException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -76,6 +78,17 @@ public class ExceptionController {
     {
         log.error("请求地址'{}',不支持'{}'请求", request.getRequestURI(), e.getMethod());
         return AjaxResult.error(e.getMessage());
+    }
+
+
+    /**
+     * 认证失败
+     */
+    @ExceptionHandler(NotLoginException.class)
+    public AjaxResult handleNotLoginException(NotLoginException e, HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        log.error("请求地址'{}',认证失败'{}',无法访问系统资源", requestURI, e.getMessage());
+        return AjaxResult.error(HttpStatus.HTTP_UNAUTHORIZED, "认证失败，无法访问系统资源");
     }
 
 

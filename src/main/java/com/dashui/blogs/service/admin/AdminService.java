@@ -1,7 +1,11 @@
 package com.dashui.blogs.service.admin;
 
+import com.dashui.blogs.bo.AdminBo;
+import com.dashui.blogs.common.core.page.PageQuery;
+import com.dashui.blogs.common.core.page.TableDataInfo;
 import com.dashui.blogs.domain.Admin;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dashui.blogs.vo.AdminVo;
 
 /**
 * @author Administrator
@@ -10,4 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface AdminService extends IService<Admin> {
 
+    TableDataInfo<AdminVo> queryPage(AdminBo adminBo, PageQuery pageQuery);
+
+    AdminVo queryVoById(Long id);
 }

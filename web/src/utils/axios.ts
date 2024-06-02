@@ -105,7 +105,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
 
             if (response.config.responseType == 'json') {
                 if (response.data && response.data.code !== 200) {
-                    if (response.data.code == 409) {
+                    if (response.data.code == 401) {
                         if (!window.tokenRefreshing) {
                             window.tokenRefreshing = true
                             return refreshToken()

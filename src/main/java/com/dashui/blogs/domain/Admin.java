@@ -79,7 +79,7 @@ public class Admin implements Serializable {
      * 状态:0=禁用,1=启用
      */
     @TableField(value = "status")
-    private Object status;
+    private String status;
 
     /**
      * 更新时间
@@ -109,7 +109,7 @@ public class Admin implements Serializable {
      * 是否删除
      */
     @TableField(value = "del_flag")
-    private Object delFlag;
+    private String delFlag;
 
     /**
      * 备注

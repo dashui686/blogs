@@ -24,4 +24,24 @@
         create_time,create_by,update_by,
         del_flag,remark
     </sql>
+
+    <select id="getAdminGroupIdsByAdminId" resultType="java.lang.Long">
+        select
+            id
+        from
+            admin_group ag
+                left join admin_group_access aga on aga.group_id = ag.id
+        where
+            aga.uid = #{id}
+    </select>
+
+    <select id="getAdminGroupNamesByAdminId" resultType="java.lang.String">
+        select
+            name
+        from
+            admin_group ag
+                left join admin_group_access aga on aga.group_id = ag.id
+        where
+            aga.uid = #{id}
+    </select>
 </mapper>

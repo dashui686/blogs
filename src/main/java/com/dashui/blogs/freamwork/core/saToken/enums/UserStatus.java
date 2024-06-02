@@ -11,14 +11,15 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum UserStatus {
-    /**
-     * 正常
-     */
-    OK("0", "正常"),
+
     /**
      * 停用
      */
-    DISABLE("1", "停用"),
+    DISABLE("0", "停用"),
+    /**
+     * 正常
+     */
+    OK("1", "正常"),
     /**
      * 删除
      */

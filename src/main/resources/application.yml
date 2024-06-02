@@ -37,8 +37,8 @@ spring:
       # 允许对象忽略json中不存在的属性
       fail_on_unknown_properties: false
   datasource:
-#    driverClassName: com.mysql.cj.jdbc.Driver # 8.0
-    driverClassName: com.mysql.jdbc.Driver # 5.7
+    driverClassName: com.mysql.cj.jdbc.Driver # 8.0
+#    driverClassName: com.mysql.jdbc.Driver # 5.7
     url: jdbc:mysql://localhost:3306/dashui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: root
@@ -124,7 +124,8 @@ mybatis-plus:
     # 更详细的日志输出 会有性能损耗 org.apache.ibatis.logging.stdout.StdOutImpl
     # 关闭日志记录 (可单纯使用 p6spy 分析) org.apache.ibatis.logging.nologging.NoLoggingImpl
     # 默认日志输出 org.apache.ibatis.logging.slf4j.Slf4jImpl
-    logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+#    logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+    logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     # 是否打印 Logo banner
     banner: true

@@ -35,13 +35,13 @@
             />
             <Icon :color="configStore.getColorVal('headerBarTabColor')" class="nav-menu-icon" v-else name="el-icon-FullScreen" size="18" />
         </div>
-        <div v-if="adminInfo.isSuper" @click="terminal.toggle()" class="nav-menu-item pt2">
+        <div v-if="adminInfo.super" @click="terminal.toggle()" class="nav-menu-item pt2">
             <el-badge :is-dot="terminal.state.showDot">
                 <Icon :color="configStore.getColorVal('headerBarTabColor')" class="nav-menu-icon" name="local-terminal" size="26" />
             </el-badge>
         </div>
         <el-dropdown
-            v-if="adminInfo.isSuper"
+            v-if="adminInfo.super"
             @visible-change="onCurrentNavMenu($event, 'clear')"
             class="h100"
             size="large"

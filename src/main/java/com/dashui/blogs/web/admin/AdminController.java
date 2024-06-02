@@ -1,9 +1,13 @@
 package com.dashui.blogs.web.admin;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.dashui.blogs.common.core.constants.UserConstants;
 import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.utils.ConfigUtils;
 import com.dashui.blogs.common.utils.StringUtils;
+import com.dashui.blogs.domain.Admin;
+import com.dashui.blogs.freamwork.config.SiteConfig;
 import com.dashui.blogs.freamwork.core.saToken.domain.LoginAdmin;
 import com.dashui.blogs.freamwork.core.saToken.domain.LoginBody;
 import com.dashui.blogs.freamwork.core.saToken.enums.LoginHandlerType;
@@ -11,9 +15,13 @@ import com.dashui.blogs.freamwork.core.saToken.service.IAuthStrategy;
 import com.dashui.blogs.freamwork.core.saToken.util.LoginHelper;
 import com.dashui.blogs.freamwork.core.saToken.vo.LoginAdminVo;
 import com.dashui.blogs.freamwork.core.websocket.utils.WebSocketUtils;
+import com.dashui.blogs.service.admin.AdminRuleService;
 import com.dashui.blogs.service.admin.AdminService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,6 +31,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static com.dashui.blogs.common.core.constants.WebConstants.ADMIN_WEB_KEY;
+import static com.dashui.blogs.freamwork.core.saToken.util.LoginHelper.getLoginAdmin;
 import static com.dashui.blogs.service.impl.admin.AdminIndexServiceImpl.ADMIN_INFO;
 
 /**
@@ -39,8 +48,22 @@ import static com.dashui.blogs.service.impl.admin.AdminIndexServiceImpl.ADMIN_IN
 public class AdminController {
 
 
-    private final AdminService adminService;
     private final ScheduledExecutorService scheduledExecutorService;
+    private final AdminRuleService adminRuleService;
+
+    @GetMapping("/index")
+    public AjaxResult index(){
+        SiteConfig siteConfig = ConfigUtils.getSiteConfig();
+        return AjaxResult.success(new HashMap<String,Object>(){{
+            LoginAdminVo loginVo = new LoginAdminVo(getLoginAdmin());
+            loginVo.setToken("Bearer "+ StpUtil.getTokenValue());
+
+            put("adminInfo", loginVo);
+            put("menus",adminRuleService.getRouter());
+            put("siteConfig",siteConfig);
+        }});
+    }
+
 
     /**
      * 获取登录配置
@@ -85,5 +108,6 @@ public class AdminController {
             put("routePath","/admin");
         }});
     }
+
 
 }
