@@ -24,6 +24,7 @@ import java.io.Serializable;
 public class  SiteConfig implements Serializable {
 
     public static final String CDN_URL = "cdn_url";
+    public static final String API_URL = "api_url";
     public static final String VERSION = "version";
     public static final String RECORD_NUMBER = "record_number";
     public static final String SITE_NAME = "site_name";
@@ -38,4 +39,6 @@ public class  SiteConfig implements Serializable {
     private String upload;
     // 版本号
     private String version;
+    // 版本号
+    private String apiUrl;
 }

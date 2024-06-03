@@ -35,9 +35,9 @@ public class AdminRuleServiceImpl extends ServiceImpl<AdminRuleMapper, AdminRule
         List<AdminRule> adminRules = Collections.emptyList();
 
         if(Constants.ADMIN_RULE.equals(routeId)){
-            adminRules = this.list(new LambdaQueryWrapper<AdminRule>().notIn(AdminRule::getType,"button"));
+            adminRules = this.list(new LambdaQueryWrapper<AdminRule>());
         } else {
-            adminRules = this.list(new LambdaQueryWrapper<AdminRule>().notIn(AdminRule::getType,"button").in(AdminRule::getId,StringUtils.split(routeId, ",")));
+            adminRules = this.list(new LambdaQueryWrapper<AdminRule>().in(AdminRule::getId,StringUtils.split(routeId, ",")));
         }
 
         return buildMenu(adminRules,0);

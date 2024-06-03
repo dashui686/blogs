@@ -28,11 +28,32 @@ public class ConfigUtils {
     }
 
     public static SiteConfig getSiteConfig(){
-        SiteConfig siteConfig = new SiteConfig();
-        siteConfig.setSiteName(getValueByName(SiteConfig.SITE_NAME));
-        siteConfig.setVersion(getValueByName(SiteConfig.VERSION));
-        siteConfig.setCdnUrl(getValueByName(SiteConfig.CDN_URL));
-        siteConfig.setRecordNumber(getValueByName(SiteConfig.RECORD_NUMBER));
-        return siteConfig;
+        SiteConfig bean = SpringUtils.getBean(SiteConfig.class);
+
+        String siteName = getValueByName(SiteConfig.SITE_NAME);
+        if(StringUtils.isNotBlank(siteName)){
+            bean.setSiteName(siteName);
+        }
+
+        String version = getValueByName(SiteConfig.VERSION);
+        if(StringUtils.isNotBlank(version)){
+            bean.setVersion(version);
+        }
+
+        String cdnUrl = getValueByName(SiteConfig.CDN_URL);
+        if(StringUtils.isNotBlank(cdnUrl)){
+            bean.setCdnUrl(cdnUrl);
+        }
+
+        String apiUrl = getValueByName(SiteConfig.API_URL);
+        if(StringUtils.isNotBlank(apiUrl)){
+            bean.setApiUrl(apiUrl);
+        }
+
+        String recordNumber = getValueByName(SiteConfig.RECORD_NUMBER);
+        if(StringUtils.isNotBlank(recordNumber)){
+            bean.setRecordNumber(recordNumber);
+        }
+        return bean;
     }
 }
