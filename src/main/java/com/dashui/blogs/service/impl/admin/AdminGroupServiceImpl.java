@@ -1,10 +1,14 @@
 package com.dashui.blogs.service.impl.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dashui.blogs.bo.AdminGroupBo;
+import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.service.GroupService;
 import com.dashui.blogs.domain.AdminGroup;
 import com.dashui.blogs.service.admin.AdminGroupService;
 import com.dashui.blogs.mapper.admin.AdminGroupMapper;
+import com.dashui.blogs.vo.AdminGroupVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +45,11 @@ public class AdminGroupServiceImpl extends ServiceImpl<AdminGroupMapper, AdminGr
     public List<String> getAdminGroupNamesByAdminId(Long id) {
         return adminGroupMapper.getAdminGroupNamesByAdminId(id);
 
+    }
+
+    @Override
+    public Page<AdminGroupVo> queryPage(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
+        return null;
     }
 }
 

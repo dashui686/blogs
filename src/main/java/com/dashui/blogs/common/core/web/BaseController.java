@@ -33,6 +33,16 @@ public class BaseController
     protected AjaxResult toAjax(boolean result) {
         return result ? AjaxResult.success() : AjaxResult.error();
     }
+
+    /**
+     * 成功响应返回结果
+     *
+     * @param data 结果
+     * @return 操作结果
+     */
+    protected AjaxResult success(Object data) {
+        return AjaxResult.success(data);
+    }
     /**
      * 页面跳转
      */
