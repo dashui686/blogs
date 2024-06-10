@@ -37,7 +37,7 @@
         update_by,del_flag
     </sql>
 
-    <select id="getRouteId" resultType="string" parameterType="long">
+    <select id="getRouteByLoginId" resultType="string" parameterType="long">
         select
             rules
         from
@@ -49,4 +49,13 @@
         where
             a.id = #{userId}
     </select>
+
+    <select id="getTitleCount" resultType="java.util.HashMap">
+        select
+            ar.title,
+            count(*) as 'count'
+        from admin_group ag left join admin_rule ar on find_in_set(ar.id ,ag.rules)
+        where ag.id = #{groupId}
+    </select>
+
 </mapper>

@@ -5,6 +5,7 @@ package com.dashui.blogs.web.admin;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dashui.blogs.bo.AdminBo;
 import com.dashui.blogs.bo.AdminGroupBo;
+import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.common.core.web.BaseController;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.dashui.blogs.common.core.constants.WebConstants.ADMIN_WEB_KEY;
+
 /**
  * 管理分组表(AdminGroup)表控制层
  *
@@ -23,7 +26,7 @@ import java.util.List;
  * @since 2024-06-04 22:03:30
  */
 @RestController
-@RequestMapping("auth.Group")
+@RequestMapping(ADMIN_WEB_KEY+"/auth.Group")
 public class AdminGroupController extends BaseController {
     /**
      * 服务对象
@@ -38,9 +41,9 @@ public class AdminGroupController extends BaseController {
      * @param pageQuery 查询实体
      * @return 所有数据
      */
-    @GetMapping
-    public AjaxResult selectAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
-        return success(adminGroupService.queryPage(adminGroupBo,pageQuery));
+    @GetMapping("/index")
+    public AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
+        return adminGroupService.selectTreeAll(adminGroupBo,pageQuery);
     }
 
     /**
@@ -49,9 +52,9 @@ public class AdminGroupController extends BaseController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public AjaxResult selectOne(@PathVariable Serializable id) {
-        return success(this.adminGroupService.getById(id));
+    @GetMapping("edit")
+    public AjaxResult selectOne(Integer id) {
+        return AjaxResult.success().data(Constants.DATA,this.adminGroupService.queryVoById(id));
     }
 
     /**

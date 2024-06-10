@@ -74,9 +74,11 @@ public interface Constants {
 
 
     /**
-     * 令牌
+     * 返回数据名
      */
     String DATA = "row";
+    String GROUP = "group";
+    String LIST = "list";
 
     /**
      * 顶级部门id

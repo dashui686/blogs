@@ -44,4 +44,7 @@
         where
             aga.uid = #{id}
     </select>
+    <select id="queryAllList" resultType="com.dashui.blogs.vo.AdminGroupVo">
+
+    </select>
 </mapper>

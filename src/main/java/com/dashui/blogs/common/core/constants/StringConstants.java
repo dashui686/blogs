@@ -11,4 +11,6 @@ package com.dashui.blogs.common.core.constants;
 public interface StringConstants {
 
     String EMPTY = "";
+
+    String SEPARATOR = ",";
 }

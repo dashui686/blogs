@@ -1,7 +1,10 @@
 package com.dashui.blogs.mapper.admin;
 
+import com.dashui.blogs.bo.AdminGroupBo;
 import com.dashui.blogs.domain.AdminGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dashui.blogs.freamwork.core.mybatisplus.mapper.BaseMapperPlus;
+import com.dashui.blogs.vo.AdminGroupVo;
 
 import java.util.List;
 
@@ -11,7 +14,7 @@ import java.util.List;
 * @createDate 2024-05-21 15:27:44
 * @Entity com.dashui.blogs.domain.AdminGroup
 */
-public interface AdminGroupMapper extends BaseMapper<AdminGroup> {
+public interface AdminGroupMapper extends BaseMapperPlus<AdminGroup, AdminGroupVo> {
 
     /**
      * 根据管理员ID获取所属分组id
@@ -26,6 +29,14 @@ public interface AdminGroupMapper extends BaseMapper<AdminGroup> {
      * @return 集合
      */
     List<String> getAdminGroupNamesByAdminId(Long id);
+
+
+    /**
+     * 查询所有分组
+     * @param adminGroupBo
+     * @return
+     */
+    List<AdminGroupVo> queryAllList(AdminGroupBo adminGroupBo);
 }
 
 

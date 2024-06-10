@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.dashui.blogs.domain.AdminRule;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +33,7 @@ public class AdminRuleRoute implements Serializable {
     /**
      * 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
      */
-    private Object type;
+    private String type;
 
     /**
      * 标题
@@ -57,7 +58,7 @@ public class AdminRuleRoute implements Serializable {
     /**
      * 菜单类型:tab=选项卡,link=链接,iframe=Iframe
      */
-    private Object menuType;
+    private String menuType;
 
     /**
      * Url
@@ -77,7 +78,7 @@ public class AdminRuleRoute implements Serializable {
     /**
      * 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
      */
-    private Object extend;
+    private String extend;
 
     private List<AdminRuleRoute> children;
 

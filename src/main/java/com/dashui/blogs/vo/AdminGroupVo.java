@@ -1,18 +1,23 @@
 package com.dashui.blogs.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.dashui.blogs.common.utils.StringUtils;
+import com.dashui.blogs.domain.AdminGroup;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMapping;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 管理分组表
  * @TableName admin_group
  */
 @Data
+
 public class AdminGroupVo implements Serializable {
     /**
      * ID
@@ -37,12 +42,17 @@ public class AdminGroupVo implements Serializable {
     /**
      * 状态:0=禁用,1=启用
      */
-    private Object status;
+    private String status;
 
     /**
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 更新人
+     */
+    private Long updateBy;
 
     /**
      * 创建时间
@@ -54,20 +64,8 @@ public class AdminGroupVo implements Serializable {
      */
     private Long createBy;
 
-    /**
-     * 更新人
-     */
-    private Long updateBy;
+    private List<AdminGroupVo> children;
 
-    /**
-     * 是否删除
-     */
-    private Object delFlag;
-
-    /**
-     * 备注
-     */
-    private String remark;
 
     private static final long serialVersionUID = 1L;
 

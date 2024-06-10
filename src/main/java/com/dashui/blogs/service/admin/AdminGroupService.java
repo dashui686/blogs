@@ -1,11 +1,11 @@
 package com.dashui.blogs.service.admin;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dashui.blogs.bo.AdminGroupBo;
 import com.dashui.blogs.common.core.page.PageQuery;
-import com.dashui.blogs.common.core.service.GroupService;
+import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.domain.AdminGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dashui.blogs.vo.AdminGroupInfoVo;
 import com.dashui.blogs.vo.AdminGroupVo;
 
 /**
@@ -15,5 +15,7 @@ import com.dashui.blogs.vo.AdminGroupVo;
 */
 public interface AdminGroupService extends IService<AdminGroup> {
 
-    Page<AdminGroupVo> queryPage(AdminGroupBo adminGroupBo, PageQuery pageQuery);
+    AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery);
+
+    AdminGroupInfoVo queryVoById(Integer id);
 }

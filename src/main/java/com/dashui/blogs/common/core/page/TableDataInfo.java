@@ -26,7 +26,7 @@ public class TableDataInfo<T> extends AjaxResult implements Serializable {
 
 
     /** 列表 */
-    public static final String LIST_TAG = "rows";
+    public static final String LIST_TAG = "list";
     /** 返回信息 */
     public static final String MSG_TAG = "remark";
     /** 数量 */

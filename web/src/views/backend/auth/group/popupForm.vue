@@ -170,6 +170,8 @@ defineExpose({
 watch(
     () => baTable.form.items!.rules,
     () => {
+        if (baTable.form.items!.rules instanceof Array) {
+        }
         if (baTable.form.items!.rules && baTable.form.items!.rules.length) {
             if (baTable.form.items!.rules.includes('*')) {
                 let arr: number[] = []

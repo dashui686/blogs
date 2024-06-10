@@ -6,6 +6,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.dashui.blogs.bo.AdminRuleBo;
+import com.dashui.blogs.vo.AdminRuleRoute;
+import com.dashui.blogs.vo.AdminRuleVo;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
 import lombok.Data;
 
 /**
@@ -14,6 +20,10 @@ import lombok.Data;
  */
 @TableName(value ="admin_rule")
 @Data
+@AutoMappers({
+        @AutoMapper(target = AdminRuleRoute.class),
+        @AutoMapper(target = AdminRuleVo.class)
+})
 public class AdminRule implements Serializable {
     /**
      * ID
@@ -31,7 +41,7 @@ public class AdminRule implements Serializable {
      * 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
      */
     @TableField(value = "type")
-    private Object type;
+    private String type;
 
     /**
      * 标题
@@ -61,7 +71,7 @@ public class AdminRule implements Serializable {
      * 菜单类型:tab=选项卡,link=链接,iframe=Iframe
      */
     @TableField(value = "menu_type")
-    private Object menuType;
+    private String menuType;
 
     /**
      * Url
@@ -85,7 +95,7 @@ public class AdminRule implements Serializable {
      * 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
      */
     @TableField(value = "extend")
-    private Object extend;
+    private String extend;
 
     /**
      * 备注
@@ -103,7 +113,7 @@ public class AdminRule implements Serializable {
      * 状态:0=禁用,1=启用
      */
     @TableField(value = "status")
-    private Object status;
+    private String status;
 
     /**
      * 更新时间
@@ -133,7 +143,7 @@ public class AdminRule implements Serializable {
      * 是否删除
      */
     @TableField(value = "del_flag")
-    private Object delFlag;
+    private String delFlag;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

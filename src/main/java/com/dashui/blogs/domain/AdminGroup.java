@@ -6,6 +6,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+
+import com.dashui.blogs.freamwork.core.mapstructplus.StringAsList;
+import com.dashui.blogs.vo.AdminGroupInfoVo;
+import com.dashui.blogs.vo.AdminGroupVo;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMappers;
+import io.github.linpeilie.annotations.AutoMapping;
 import lombok.Data;
 
 /**
@@ -14,6 +22,10 @@ import lombok.Data;
  */
 @TableName(value ="admin_group")
 @Data
+@AutoMappers({
+        @AutoMapper(target = AdminGroupInfoVo.class,uses = StringAsList.class),
+        @AutoMapper(target = AdminGroupVo.class)
+})
 public class AdminGroup implements Serializable {
     /**
      * ID
@@ -37,13 +49,15 @@ public class AdminGroup implements Serializable {
      * 权限规则ID
      */
     @TableField(value = "rules")
+    // @AutoMapping(targetClass = AdminGroupDto.class, target = "rules", expression = "java(java.lang.String.join(\",\", source.getEducationList()))")
+    @AutoMapping(targetClass = AdminGroupInfoVo.class, target = "rules", qualifiedByName = "stringToListString")
     private String rules;
 
     /**
      * 状态:0=禁用,1=启用
      */
     @TableField(value = "status")
-    private Object status;
+    private String status;
 
     /**
      * 更新时间
@@ -73,7 +87,7 @@ public class AdminGroup implements Serializable {
      * 是否删除
      */
     @TableField(value = "del_flag")
-    private Object delFlag;
+    private String delFlag;
 
     /**
      * 备注
