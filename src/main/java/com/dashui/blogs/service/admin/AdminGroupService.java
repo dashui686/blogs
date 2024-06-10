@@ -18,4 +18,6 @@ public interface AdminGroupService extends IService<AdminGroup> {
     AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery);
 
     AdminGroupInfoVo queryVoById(Integer id);
+
+    boolean saveEdit(AdminGroupInfoVo adminGroupInfoVo);
 }

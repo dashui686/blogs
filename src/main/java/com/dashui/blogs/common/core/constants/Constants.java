@@ -79,6 +79,7 @@ public interface Constants {
     String DATA = "row";
     String GROUP = "group";
     String LIST = "list";
+    String OPTIONS = "options";
 
     /**
      * 顶级部门id

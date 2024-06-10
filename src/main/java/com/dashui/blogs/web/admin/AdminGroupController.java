@@ -11,6 +11,7 @@ import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.common.core.web.BaseController;
 import com.dashui.blogs.domain.AdminGroup;
 import com.dashui.blogs.service.admin.AdminGroupService;
+import com.dashui.blogs.vo.AdminGroupInfoVo;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,23 +61,23 @@ public class AdminGroupController extends BaseController {
     /**
      * 新增数据
      *
-     * @param adminGroup 实体对象
+     * @param adminGroupInfoVo 实体对象
      * @return 新增结果
      */
-    @PostMapping
-    public AjaxResult insert(@RequestBody AdminGroup adminGroup) {
-        return success(this.adminGroupService.save(adminGroup));
+    @PostMapping("add")
+    public AjaxResult insert(@RequestBody AdminGroupInfoVo adminGroupInfoVo) {
+        return success(this.adminGroupService.saveEdit(adminGroupInfoVo));
     }
 
     /**
      * 修改数据
      *
-     * @param adminGroup 实体对象
+     * @param adminGroupInfoVo 实体对象
      * @return 修改结果
      */
-    @PutMapping
-    public AjaxResult update(@RequestBody AdminGroup adminGroup) {
-        return success(this.adminGroupService.updateById(adminGroup));
+    @PutMapping("edit")
+    public AjaxResult update(@RequestBody AdminGroupInfoVo adminGroupInfoVo) {
+        return success(this.adminGroupService.saveEdit(adminGroupInfoVo));
     }
 
     /**
@@ -85,8 +86,8 @@ public class AdminGroupController extends BaseController {
      * @param idList 主键结合
      * @return 删除结果
      */
-    @DeleteMapping
-    public AjaxResult delete(@RequestParam("idList") List<Long> idList) {
+    @DeleteMapping("del")
+    public AjaxResult delete(@RequestParam("ids[]") List<Long> idList) {
         return success(this.adminGroupService.removeByIds(idList));
     }
 }

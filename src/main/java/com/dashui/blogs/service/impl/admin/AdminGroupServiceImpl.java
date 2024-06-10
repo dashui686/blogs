@@ -1,7 +1,9 @@
 package com.dashui.blogs.service.impl.admin;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dashui.blogs.bo.AdminGroupBo;
@@ -17,6 +19,7 @@ import com.dashui.blogs.service.admin.AdminGroupService;
 import com.dashui.blogs.mapper.admin.AdminGroupMapper;
 import com.dashui.blogs.vo.AdminGroupInfoVo;
 import com.dashui.blogs.vo.AdminGroupVo;
+import io.github.linpeilie.Converter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +44,7 @@ public class AdminGroupServiceImpl extends ServiceImpl<AdminGroupMapper, AdminGr
     private final AdminGroupMapper adminGroupMapper;
 
     private final AdminRuleMapper adminRuleMapper;
+    private final Converter converter;
 
     /**
      * 根据管理员ID获取所属分组id
@@ -65,10 +69,17 @@ public class AdminGroupServiceImpl extends ServiceImpl<AdminGroupMapper, AdminGr
 
     @Override
     public AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
-        List<AdminGroupVo> adminGroupVos = adminGroupMapper.selectVoList(this.buildQueryWrapper(adminGroupBo), AdminGroupVo.class);
         AjaxResult success = AjaxResult.success();
-        success.data(LIST_TAG, buildOptions(adminGroupVos, 0));
-        success.data(Constants.GROUP, adminGroupVos);
+
+        List<AdminGroupVo> adminGroupVos = adminGroupMapper.selectVoList(this.buildQueryWrapper(adminGroupBo), AdminGroupVo.class);
+        if(adminGroupBo.isTree()){
+            success.data(Constants.OPTIONS, adminGroupVos);
+        }else{
+            success.data(LIST_TAG, buildOptions(adminGroupVos, 0));
+            success.data(Constants.GROUP, adminGroupVos.stream().filter(adminGroupVo -> adminGroupVo.getPid() == 0).map(AdminGroupVo::getId).collect(Collectors.toList()));
+        }
+
+
         return success;
     }
 
@@ -77,8 +88,14 @@ public class AdminGroupServiceImpl extends ServiceImpl<AdminGroupMapper, AdminGr
         return adminGroupMapper.selectVoById(id, AdminGroupInfoVo.class);
     }
 
+    @Override
+    public boolean saveEdit(AdminGroupInfoVo adminGroupInfoVo) {
+        AdminGroup convert = converter.convert(adminGroupInfoVo, AdminGroup.class);
+        return this.saveOrUpdate(convert);
+    }
+
     private Wrapper<AdminGroup> buildQueryWrapper(AdminGroupBo adminGroupBo) {
-        return new QueryWrapper<AdminGroup>();
+        return new LambdaQueryWrapper<AdminGroup>().in(ObjectUtil.isNotNull(adminGroupBo.getInitValue()) && adminGroupBo.getInitValue().length > 0, AdminGroup::getId, CollUtil.toList(adminGroupBo.getInitValue()));
     }
 
     private List<AdminGroupVo> buildOptions(List<AdminGroupVo> adminGroupVos,Integer pid){

@@ -46,4 +46,9 @@ public class AdminGroupBo implements Serializable {
      */
     private String quickSearch;
 
+
+    public void setIsTree(boolean isTree) {
+        this.isTree = isTree;
+    }
+
 }
