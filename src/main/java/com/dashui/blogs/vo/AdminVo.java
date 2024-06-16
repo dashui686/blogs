@@ -99,6 +99,11 @@ public class AdminVo {
     private LocalDateTime createTime;
 
     /**
+     * 创建时间
+     */
+    private LocalDateTime updateTime;
+
+    /**
      * 分组ID
      */
     private List<Long> groupArr;

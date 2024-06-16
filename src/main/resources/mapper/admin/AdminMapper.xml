@@ -55,7 +55,7 @@
         ${ew.getCustomSqlSegment}
     </select>
 
-    <select id="getOne" resultType="com.dashui.blogs.vo.AdminVo">
+    <select id="getOne" resultMap="voResultMap">
         <include refid="voSelect" />
         ${ew.getCustomSqlSegment}
         limit 1

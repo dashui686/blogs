@@ -133,10 +133,9 @@ mybatis-plus:
       # 主键类型
       # AUTO 自增 NONE 空 INPUT 用户输入 ASSIGN_ID 雪花 ASSIGN_UUID 唯一 UUID
       idType: ASSIGN_ID
-      # 逻辑已删除值(框架表均使用此值 禁止随意修改)
-      logicDeleteValue: 2
-      # 逻辑未删除值
-      logicNotDeleteValue: 0
+      logic-delete-field: del_flag # 全局逻辑删除字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
       insertStrategy: NOT_NULL
       updateStrategy: NOT_NULL
       whereStrategy: NOT_NULL

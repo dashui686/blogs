@@ -42,10 +42,10 @@ public class AdminRuleServiceImpl extends ServiceImpl<AdminRuleMapper, AdminRule
     public List<AdminRuleRoute> getRouter(){
         String routeId = adminRuleMapper.getRouteByLoginId(StpUtil.getLoginIdAsLong());
         List<AdminRule> adminRules = this.list(new LambdaQueryWrapper<AdminRule>().in(!Constants.ADMIN_RULE.equals(routeId),AdminRule::getId,StringUtils.split(routeId, ",")));
-        return buildMenuRoute(adminRules,0);
+        return buildMenuRoute(adminRules,0L);
     }
 
-    public List<AdminRuleRoute> buildMenuRoute(List<AdminRule> rule,Integer parentId){
+    public List<AdminRuleRoute> buildMenuRoute(List<AdminRule> rule,Long parentId){
 
         List<AdminRule> parentRoute = rule.stream().filter(e -> {
             return e.getPid().equals(parentId);

@@ -62,6 +62,7 @@ const baTable = new baTableClass(
                 width: 160,
             },
             { label: t('Create time'), prop: 'createTime', align: 'center', render: 'datetime', sortable: 'custom', operator: 'RANGE', width: 160 },
+            { label: t('Update time'), prop: 'updateTime', align: 'center', render: 'datetime', sortable: 'custom', operator: 'RANGE', width: 160 },
             {
                 label: t('State'),
                 prop: 'status',

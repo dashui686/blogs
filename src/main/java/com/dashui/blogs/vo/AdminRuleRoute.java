@@ -23,12 +23,12 @@ public class AdminRuleRoute implements Serializable {
     /**
      * ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 上级菜单
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮

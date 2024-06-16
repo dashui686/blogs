@@ -54,6 +54,8 @@ public class AdminController {
     @GetMapping("/index")
     public AjaxResult index(){
         SiteConfig siteConfig = ConfigUtils.getSiteConfig();
+
+        // 获取登录用户信息
         return AjaxResult.success(new HashMap<String,Object>(){{
             LoginAdminVo loginVo = new LoginAdminVo(getLoginAdmin());
             loginVo.setToken("Bearer "+ StpUtil.getTokenValue());

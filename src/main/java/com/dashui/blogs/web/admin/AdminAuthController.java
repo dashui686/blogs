@@ -14,6 +14,8 @@ import com.dashui.blogs.vo.AdminVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.dashui.blogs.common.core.constants.WebConstants.ADMIN_WEB_KEY;
 
 /**
@@ -55,7 +57,7 @@ public class AdminAuthController extends BaseController {
         if(ObjectUtil.isNull(id)){
             throw new ServiceException("请输入用户ID");
         }
-        return AjaxResult.success().data(Constants.DATA,this.adminService.queryVoById(id));
+        return AjaxResult.row(this.adminService.queryVoById(id));
     }
 
     /**
@@ -64,9 +66,9 @@ public class AdminAuthController extends BaseController {
      * @param admin 实体
      * @return 新增结果
      */
-    @PostMapping
-    public AjaxResult add(Admin admin) {
-        return AjaxResult.success((this.adminService.save(admin)));
+    @PostMapping("add")
+    public AjaxResult add(@RequestBody AdminVo admin) {
+        return AjaxResult.success(this.adminService.saveEdit(admin));
     }
 
     /**
@@ -75,19 +77,19 @@ public class AdminAuthController extends BaseController {
      * @param admin 实体
      * @return 编辑结果
      */
-    @PutMapping
-    public AjaxResult edit(Admin admin) {
-        return AjaxResult.success((this.adminService.updateById(admin)));
+    @PostMapping("edit")
+    public AjaxResult edit(@RequestBody AdminVo admin) {
+        return AjaxResult.success((this.adminService.saveEdit(admin)));
     }
 
     /**
      * 删除数据
      *
-     * @param id 主键
+     * @param idList 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public AjaxResult deleteById(Long id) {
-        return AjaxResult.success((this.adminService.removeById(id)));
+    @DeleteMapping("del")
+    public AjaxResult deleteById(@RequestParam("ids[]") List<Long> idList) {
+        return AjaxResult.success((this.adminService.removeByIds(idList)));
     }
 }

@@ -39,15 +39,15 @@
 
     <select id="getRouteByLoginId" resultType="string" parameterType="long">
         select
-            rules
+            if(locate(group_concat(rules),'*') > 0,group_concat(rules),'*') as rules
         from
             admin a
-        left join admin_group_access aga on
-            a.id = aga.uid
-        left join admin_group ag on
-            aga.group_id = ag.id
+                left join admin_group_access aga on
+                a.id = aga.uid
+                left join admin_group ag on
+                aga.group_id = ag.id
         where
-            a.id = #{userId}
+            a.id = 1
     </select>
 
     <select id="getTitleCount" resultType="java.util.HashMap">

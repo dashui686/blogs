@@ -74,14 +74,6 @@ public interface Constants {
 
 
     /**
-     * 返回数据名
-     */
-    String DATA = "row";
-    String GROUP = "group";
-    String LIST = "list";
-    String OPTIONS = "options";
-
-    /**
      * 顶级部门id
      */
     Long TOP_PARENT_ID = 0L;

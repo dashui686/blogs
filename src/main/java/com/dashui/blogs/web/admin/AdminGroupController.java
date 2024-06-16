@@ -55,7 +55,7 @@ public class AdminGroupController extends BaseController {
      */
     @GetMapping("edit")
     public AjaxResult selectOne(Integer id) {
-        return AjaxResult.success().data(Constants.DATA,this.adminGroupService.queryVoById(id));
+        return AjaxResult.row(this.adminGroupService.queryVoById(id));
     }
 
     /**
@@ -75,7 +75,7 @@ public class AdminGroupController extends BaseController {
      * @param adminGroupInfoVo 实体对象
      * @return 修改结果
      */
-    @PutMapping("edit")
+    @PostMapping("edit")
     public AjaxResult update(@RequestBody AdminGroupInfoVo adminGroupInfoVo) {
         return success(this.adminGroupService.saveEdit(adminGroupInfoVo));
     }

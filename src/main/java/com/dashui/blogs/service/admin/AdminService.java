@@ -17,4 +17,6 @@ public interface AdminService extends IService<Admin> {
     TableDataInfo<AdminVo> queryPage(AdminBo adminBo, PageQuery pageQuery);
 
     AdminVo queryVoById(Long id);
+
+    boolean saveEdit(AdminVo admin);
 }

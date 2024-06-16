@@ -33,6 +33,14 @@ public class AjaxResult extends HashMap<String, Object> implements Serializable
     public static final String TIME_TAG = "time";
 
     /**
+     * 返回数据名
+     */
+    public static final String ROW_TAG = "row";
+    public static final String GROUP_TAG = "group";
+    public static final String LIST_TAG = "list";
+    public static final String OPTIONS_TAG = "options";
+
+    /**
      * 初始化一个新创建的 AjaxResult 对象，使其表示一个空消息。
      */
     public AjaxResult()
@@ -79,6 +87,36 @@ public class AjaxResult extends HashMap<String, Object> implements Serializable
     public static AjaxResult success()
     {
         return AjaxResult.success("操作成功");
+    }
+
+    /**
+     * 构建row
+     *
+     * @return 成功消息
+     */
+    public static AjaxResult options(Object data)
+    {
+        return AjaxResult.success().data(OPTIONS_TAG, data);
+    }
+
+    /**
+     * 构建row
+     *
+     * @return 成功消息
+     */
+    public static AjaxResult group(Object data,Object list)
+    {
+        return AjaxResult.success().data(GROUP_TAG, data).data(LIST_TAG, list);
+    }
+
+    /**
+     * 构建row
+     *
+     * @return 成功消息
+     */
+    public static AjaxResult row(Object data)
+    {
+        return AjaxResult.success().data(ROW_TAG, data);
     }
 
     /**

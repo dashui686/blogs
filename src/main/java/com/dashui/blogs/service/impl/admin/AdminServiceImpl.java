@@ -11,14 +11,24 @@ import com.dashui.blogs.common.core.constants.UserConstants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.page.TableDataInfo;
 import com.dashui.blogs.domain.Admin;
+import com.dashui.blogs.domain.AdminGroup;
+import com.dashui.blogs.domain.AdminGroupAccess;
+import com.dashui.blogs.service.AdminGroupAccessService;
 import com.dashui.blogs.service.admin.AdminGroupService;
 import com.dashui.blogs.service.admin.AdminService;
 import com.dashui.blogs.mapper.admin.AdminMapper;
 import com.dashui.blogs.vo.AdminVo;
+import io.github.linpeilie.Converter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.beans.Transient;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
 * @author Administrator
@@ -31,7 +41,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
     implements AdminService{
 
     private final AdminMapper adminMapper;
-    private final AdminGroupService adminGroupService;
+    private final AdminGroupAccessService adminGroupAccessService;
+    private final Converter converter;
 
     @Override
     public TableDataInfo<AdminVo> queryPage(AdminBo adminBo, PageQuery pageQuery) {
@@ -42,6 +53,22 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
     @Override
     public AdminVo queryVoById(Long id) {
         return adminMapper.getOne(new LambdaQueryWrapper<Admin>().eq(Admin::getId, id));
+    }
+
+    @Override
+    @Transactional
+    public boolean saveEdit(AdminVo admin) {
+        Admin convert = converter.convert(admin, Admin.class);
+        boolean b = this.saveOrUpdate(convert);
+        // 添加完成后的操作
+        if(b){
+            adminGroupAccessService.remove(new LambdaQueryWrapper<AdminGroupAccess>().eq(AdminGroupAccess::getUid,admin.getId()));
+            List<AdminGroupAccess> collected = admin.getGroupArr().stream().map(e -> {
+                return new AdminGroupAccess(convert.getId(), e);
+            }).collect(Collectors.toList());
+            adminGroupAccessService.saveBatch(collected);
+        }
+        return b;
     }
 
 

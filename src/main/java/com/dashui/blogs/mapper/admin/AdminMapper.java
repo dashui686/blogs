@@ -1,6 +1,7 @@
 package com.dashui.blogs.mapper.admin;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -34,6 +35,7 @@ public interface AdminMapper extends BaseMapperPlus<Admin, AdminVo> {
      * @return 数据集合信息
      */
     AdminVo getOne(@Param(Constants.WRAPPER) Wrapper<Admin> queryWrapper);
+
 }
 
 

@@ -69,18 +69,12 @@ public class AdminGroupServiceImpl extends ServiceImpl<AdminGroupMapper, AdminGr
 
     @Override
     public AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
-        AjaxResult success = AjaxResult.success();
-
         List<AdminGroupVo> adminGroupVos = adminGroupMapper.selectVoList(this.buildQueryWrapper(adminGroupBo), AdminGroupVo.class);
         if(adminGroupBo.isTree()){
-            success.data(Constants.OPTIONS, adminGroupVos);
+            return AjaxResult.options(adminGroupVos);
         }else{
-            success.data(LIST_TAG, buildOptions(adminGroupVos, 0));
-            success.data(Constants.GROUP, adminGroupVos.stream().filter(adminGroupVo -> adminGroupVo.getPid() == 0).map(AdminGroupVo::getId).collect(Collectors.toList()));
+            return AjaxResult.group(adminGroupVos.stream().filter(adminGroupVo -> adminGroupVo.getPid() == 0).map(AdminGroupVo::getId).collect(Collectors.toList()),buildOptions(adminGroupVos, 0));
         }
-
-
-        return success;
     }
 
     @Override
