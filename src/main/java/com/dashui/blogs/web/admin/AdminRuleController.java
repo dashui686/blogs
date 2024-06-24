@@ -9,7 +9,9 @@ import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.page.TableDataInfo;
 import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.BaseController;
 import com.dashui.blogs.domain.AdminRule;
+import com.dashui.blogs.dto.AdminRuleDto;
 import com.dashui.blogs.service.admin.AdminRuleService;
 import com.dashui.blogs.vo.AdminRuleVo;
 import jakarta.annotation.Resource;
@@ -28,7 +30,7 @@ import static com.dashui.blogs.common.core.constants.WebConstants.ADMIN_WEB_KEY;
  */
 @RestController
 @RequestMapping(ADMIN_WEB_KEY+"/auth.Rule")
-public class AdminRuleController {
+public class AdminRuleController extends BaseController {
     /**
      * 服务对象
      */
@@ -54,32 +56,33 @@ public class AdminRuleController {
      * @return 单条数据
      */
     @GetMapping("edit")
-    public AjaxResult selectOne(@PathVariable Serializable id) {
+    public AjaxResult selectOne(@RequestParam Serializable id) {
         // return AjaxResult.success().data(Constants.DATA,this.adminRuleService.queryVoById(id));
 
-        return AjaxResult.success(this.adminRuleService.getById(id));
+        return AjaxResult.row(this.adminRuleService.getVoById(id));
     }
 
     /**
      * 新增数据
      *
-     * @param adminRule 实体对象
+     * @param adminRuleDto 实体对象
      * @return 新增结果
      */
-    @PostMapping
-    public AjaxResult insert(@RequestBody AdminRule adminRule) {
-        return AjaxResult.success(this.adminRuleService.save(adminRule));
+    @PostMapping("add")
+    public AjaxResult insert(@RequestBody AdminRuleDto adminRuleDto) {
+        boolean save = this.adminRuleService.add(adminRuleDto);
+        return toAjax(true);
     }
 
     /**
      * 修改数据
      *
-     * @param adminRule 实体对象
+     * @param adminRuleDto 实体对象
      * @return 修改结果
      */
-    @PutMapping
-    public AjaxResult update(@RequestBody AdminRule adminRule) {
-        return AjaxResult.success(this.adminRuleService.updateById(adminRule));
+    @PostMapping("edit")
+    public AjaxResult update(@RequestBody AdminRuleDto adminRuleDto) {
+        return toAjax(this.adminRuleService.saveEdit(adminRuleDto));
     }
 
     /**
@@ -88,8 +91,8 @@ public class AdminRuleController {
      * @param idList 主键结合
      * @return 删除结果
      */
-    @DeleteMapping
-    public AjaxResult delete(@RequestParam("idList") List<Long> idList) {
+    @DeleteMapping("del")
+    public AjaxResult delete(@RequestParam("ids[]") List<Long> idList) {
         return AjaxResult.success(this.adminRuleService.removeByIds(idList));
     }
 }

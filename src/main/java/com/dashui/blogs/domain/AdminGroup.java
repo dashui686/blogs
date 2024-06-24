@@ -84,6 +84,7 @@ public class AdminGroup implements Serializable {
     /**
      * 是否删除
      */
+    @TableLogic
     @TableField(value = "del_flag")
     private String delFlag;
 

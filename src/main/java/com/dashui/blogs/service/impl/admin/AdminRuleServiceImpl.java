@@ -14,6 +14,7 @@ import com.dashui.blogs.common.core.page.TableDataInfo;
 import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.common.utils.StringUtils;
 import com.dashui.blogs.domain.AdminRule;
+import com.dashui.blogs.dto.AdminRuleDto;
 import com.dashui.blogs.service.admin.AdminRuleService;
 import com.dashui.blogs.mapper.admin.AdminRuleMapper;
 import com.dashui.blogs.vo.AdminRuleRoute;
@@ -21,6 +22,8 @@ import com.dashui.blogs.vo.AdminRuleVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import io.github.linpeilie.Converter;
+
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +76,22 @@ public class AdminRuleServiceImpl extends ServiceImpl<AdminRuleMapper, AdminRule
     public TableDataInfo<AdminRuleVo> selectPageVo(AdminRuleBo adminRuleBo, PageQuery pageQuery) {
         IPage<AdminRuleVo> adminRuleVoIPage = adminRuleMapper.selectVoPage(pageQuery.build(), buildQueryWrapper(adminRuleBo));
         return TableDataInfo.build(buildMenuVo(adminRuleVoIPage.getRecords(),0));
+    }
+
+    @Override
+    public AdminRuleVo getVoById(Serializable id) {
+        return adminRuleMapper.selectVoById(id,AdminRuleVo.class);
+    }
+
+    @Override
+    public boolean add(AdminRuleDto adminRuleDto) {
+        return save(converter.convert(adminRuleDto, AdminRule.class));
+    }
+
+    @Override
+    public boolean saveEdit(AdminRuleDto adminRuleDto) {
+        return saveOrUpdate(converter.convert(adminRuleDto, AdminRule.class));
+
     }
 
     public List<AdminRuleVo> buildMenuVo(List<AdminRuleVo> rule,Integer parentId){
