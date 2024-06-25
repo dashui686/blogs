@@ -12,7 +12,7 @@ public class FastAutoGeneratorTest {
 
     public static void main(String[] args) {
         // 使用 FastAutoGenerator 快速配置代码生成器
-        FastAutoGenerator.create("jdbc:mysql://lidashui.top:3806/buildadmin?serverTimezone=GMT%2B8", "root", "123456")
+        FastAutoGenerator.create("jdbc:mysql://lidashui.top:3030/buildadmin?serverTimezone=GMT%2B8", "root", "*")
 
                 // 全局配置
                 .globalConfig(builder -> {
