@@ -18,12 +18,14 @@
         <pagehelper.version>2.0.0</pagehelper.version>
         <fastJson2.version>2.0.25</fastJson2.version>
         <satoken.version>1.37.0</satoken.version>
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <pagehelper.version>1.4.7</pagehelper.version>
         <servlet-pi.version>6.0.0</servlet-pi.version>
         <jakarta-validation.version>3.0.2</jakarta-validation.version>
         <mapstruct-plus.version>1.4.0</mapstruct-plus.version>
         <lombok.version>1.18.30</lombok.version>
+        <velocity-engine.version>2.3</velocity-engine.version>
+        <springdoc-openapi.version>2.5.0</springdoc-openapi.version>
     </properties>
 
     <profiles>
@@ -192,6 +194,19 @@
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>${redisson.version}</version>
+        </dependency>
+
+        <!--Velocity模板生成引擎-->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>${velocity-engine.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
         </dependency>
 
         <dependency>
