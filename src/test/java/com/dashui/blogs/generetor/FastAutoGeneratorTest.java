@@ -1,9 +1,12 @@
 package com.dashui.blogs.generetor;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.IFill;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
+import com.baomidou.mybatisplus.generator.fill.Column;
 
 public class FastAutoGeneratorTest {
 
@@ -54,16 +57,10 @@ public class FastAutoGeneratorTest {
                 // 策略配置
                 .strategyConfig(builder -> {
                     builder
-                            //
+                            // 前缀
                             .addTablePrefix("ba_")
                             .addInclude("ba_area") // 设置需要生成的表名
-                            .entityBuilder()
-                            .enableLombok() // 启用 Lombok
-                            .enableTableFieldAnnotation() // 启用字段注解
-                            .controllerBuilder()
-                            .enableRestStyle(); // 启用 REST 风格
-
-                    builder.entityBuilder().naming(NamingStrategy.no_change);
+                    ;
 
                     // 模板配置
                     builder
@@ -77,9 +74,16 @@ public class FastAutoGeneratorTest {
                             .enableLombok()
                              // 链式模式
                             .enableChainModel()
-                            .enableFileOverride()
                             .enableTableFieldAnnotation()
+                            .enableActiveRecord()
+                            .versionColumnName("version")
+                            .versionPropertyName("version")
+                            .logicDeleteColumnName("del_flag")
+                            .logicDeletePropertyName("del_flag")
+                            .addTableFills(new Column("create_time", FieldFill.INSERT),new Column("create_by", FieldFill.INSERT),new Column("update_time", FieldFill.INSERT_UPDATE),new Column("update_by", FieldFill.INSERT_UPDATE))
+                            .enableFileOverride()
                             .controllerBuilder()
+                            .enableRestStyle()
                             .template("templates/controller.java")
                             .enableFileOverride()
                             .mapperBuilder()
@@ -92,7 +96,10 @@ public class FastAutoGeneratorTest {
                             .enableFileOverride()
                     ;
                 })
-                .templateEngine(new VelocityTemplateEngine()) // 使用 Freemarker 模板引擎
+                .templateEngine(new VelocityTemplateEngine()) // 使用 Velocity 模板引擎
                 .execute(); // 执行生成
+    }
+    {
+
     }
 }
