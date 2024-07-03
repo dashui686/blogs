@@ -13,19 +13,20 @@ import java.util.List;
 @Configuration
 public class GlobalConfig extends WebMvcConfigurationSupport {
 
-    @Override
-    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        super.configureMessageConverters(converters);
-        converters.add(mappingJackson2HttpMessageConverter());
-    }
-    /**
-     * 自定义mappingJackson2HttpMessageConverter
-     * 目前实现：空值忽略，空字段可返回
-     */
-    private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return new MappingJackson2HttpMessageConverter(objectMapper);
-    }
+    // 导致一系列序列化问题
+    // @Override
+    // protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    //     super.configureMessageConverters(converters);
+    //     converters.add(mappingJackson2HttpMessageConverter());
+    // }
+    // /**
+    //  * 自定义mappingJackson2HttpMessageConverter
+    //  * 目前实现：空值忽略，空字段可返回
+    //  */
+    // private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+    //     ObjectMapper objectMapper = new ObjectMapper();
+    //     objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    //     objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    //     return new MappingJackson2HttpMessageConverter(objectMapper);
+    // }
 }

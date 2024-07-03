@@ -2,6 +2,7 @@ package com.dashui.blogs.web.admin;
 
 import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.common.core.web.BaseController;
+import com.dashui.blogs.service.admin.AdminCrudService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +20,16 @@ import static com.dashui.blogs.common.core.constants.WebConstants.ADMIN_WEB_KEY;
 @RequestMapping(ADMIN_WEB_KEY+"/crud.Crud")
 public class AdminCrudController extends BaseController {
 
+    private final AdminCrudService adminCrudService;
 
-    private final DataSource dataSource;
+    @GetMapping("databaseList")
+    public AjaxResult databaseList() throws SQLException {
+        adminCrudService.databaseList();
+        return toAjax(1);
+    }
 
     @GetMapping("getFileData")
     public AjaxResult getFileData() throws SQLException {
-        Connection connection = dataSource.getConnection();
         return toAjax(1);
     }
 

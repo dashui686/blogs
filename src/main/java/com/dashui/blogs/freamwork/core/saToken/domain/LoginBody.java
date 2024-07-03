@@ -1,5 +1,6 @@
 package com.dashui.blogs.freamwork.core.saToken.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
  */
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginBody implements Serializable {
 
     @Serial
@@ -35,6 +37,15 @@ public class LoginBody implements Serializable {
      * 租户ID
      */
     private String tenantId;
+    /**
+     * 验证码ID
+     */
+    private String captchaId;
+
+    /**
+     * 验证码信息
+     */
+    private String captchaInfo;
 
     /**
      * 用户名
@@ -55,5 +66,7 @@ public class LoginBody implements Serializable {
      * 唯一标识
      */
     private String uuid;
+
+    private boolean keep;
 
 }

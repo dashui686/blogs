@@ -1,9 +1,12 @@
 package com.dashui.blogs.freamwork.config;
 
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.filter.SaServletFilter;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import com.dashui.blogs.common.utils.ServletUtils;
 import com.dashui.blogs.common.utils.SpringUtils;
 import com.dashui.blogs.common.utils.StringUtils;
@@ -12,6 +15,7 @@ import com.dashui.blogs.freamwork.core.saToken.properties.SecurityProperties;
 import com.dashui.blogs.freamwork.core.saToken.util.LoginHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,9 +34,17 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
+
+        // 注册 Sa-Token 拦截器，校验规则为 StpUtil.checkLogin() 登录校验。
         registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
                 .addPathPatterns("/**")
                 .excludePathPatterns(securityProperties.getExcludes());
+
+        // registry.addInterceptor(new SaInterceptor(handle -> {
+        //             StpUtil.checkLogin();
+        //         }))
+        //         .addPathPatterns("/**")
+        //         .excludePathPatterns(securityProperties.getExcludes());
 
         // 注册路由拦截器，自定义认证规则
         //		registry.addInterceptor(new SaRouteInterceptor((req, res, handler)->{
