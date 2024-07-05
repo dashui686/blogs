@@ -199,6 +199,7 @@ security:
     # 默认
     - /index/**
     - /admin/login
+    - /static/**
 
 --- # websocket
 websocket:
