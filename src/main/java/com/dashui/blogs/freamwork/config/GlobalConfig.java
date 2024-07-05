@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import java.util.List;
 
-@Configuration
+// @Configuration  继承 WebMvcConfigurationSupport 后 所有 WebMvcConfiguration 接口失效
 public class GlobalConfig extends WebMvcConfigurationSupport {
 
     // 导致一系列序列化问题
