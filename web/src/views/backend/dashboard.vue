@@ -155,14 +155,14 @@ import coffeeSvg from '/@/assets/dashboard/coffee.svg'
 import { CountUp } from 'countup.js'
 import * as echarts from 'echarts'
 import { useNavTabs } from '/@/stores/navTabs'
-import { useTemplateRefsList } from '@vueuse/core'
+import { useTemplateRefsList } from '/@vueuse/core'
 import { index } from '/@/api/backend/dashboard'
 import { useI18n } from 'vue-i18n'
 import { Local } from '/@/utils/storage'
 import { useAdminInfo } from '/@/stores/adminInfo'
 import { WORKING_TIME } from '/@/stores/constant/cacheKey'
 import { fullUrl, getGreet } from '/@/utils/common'
-import { useEventListener } from '@vueuse/core'
+import { useEventListener } from '/@vueuse/core'
 let workTimer: number
 
 defineOptions({

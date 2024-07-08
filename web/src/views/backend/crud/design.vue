@@ -600,7 +600,7 @@ import type { FieldItem, TableDesignChange, TableDesignChangeType } from '/@/vie
 import { cloneDeep, range, isEmpty } from 'lodash-es'
 import Sortable from 'sortablejs'
 import type { SortableEvent } from 'sortablejs'
-import { useTemplateRefsList } from '@vueuse/core'
+import { useTemplateRefsList } from '/@vueuse/core'
 import { changeStep, state as crudState, getTableAttr, fieldItem, designTypes, tableFieldsKey } from '/@/views/backend/crud/index'
 import { ElNotification, ElMessageBox, ElMessage } from 'element-plus'
 import type { FormItemRule, FormInstance, TimelineItemProps, MessageHandler } from 'element-plus'
