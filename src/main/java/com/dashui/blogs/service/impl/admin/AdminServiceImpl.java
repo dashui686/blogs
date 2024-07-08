@@ -11,10 +11,8 @@ import com.dashui.blogs.common.core.constants.UserConstants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.page.TableDataInfo;
 import com.dashui.blogs.domain.Admin;
-import com.dashui.blogs.domain.AdminGroup;
 import com.dashui.blogs.domain.AdminGroupAccess;
-import com.dashui.blogs.service.AdminGroupAccessService;
-import com.dashui.blogs.service.admin.AdminGroupService;
+import com.dashui.blogs.service.admin.AdminGroupAccessService;
 import com.dashui.blogs.service.admin.AdminService;
 import com.dashui.blogs.mapper.admin.AdminMapper;
 import com.dashui.blogs.vo.AdminVo;
@@ -23,12 +21,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
 * @author Administrator

@@ -8,6 +8,7 @@ import java.util.List;
 public class CrudTableBo {
 
     private String uuid;
+    private String table;
 
     private Long page;
 

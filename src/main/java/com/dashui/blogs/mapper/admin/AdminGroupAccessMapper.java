@@ -1,4 +1,4 @@
-package com.dashui.blogs.mapper;
+package com.dashui.blogs.mapper.admin;
 
 import com.dashui.blogs.domain.AdminGroupAccess;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

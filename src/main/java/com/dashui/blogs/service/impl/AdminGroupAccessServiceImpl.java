@@ -2,8 +2,8 @@ package com.dashui.blogs.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dashui.blogs.domain.AdminGroupAccess;
-import com.dashui.blogs.service.AdminGroupAccessService;
-import com.dashui.blogs.mapper.AdminGroupAccessMapper;
+import com.dashui.blogs.service.admin.AdminGroupAccessService;
+import com.dashui.blogs.mapper.admin.AdminGroupAccessMapper;
 import org.springframework.stereotype.Service;
 
 /**

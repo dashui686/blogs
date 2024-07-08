@@ -26,6 +26,8 @@ spring:
   jackson:
     # 日期格式化
     date-format: yyyy-MM-dd HH:mm:ss
+    # 不返回null值
+    default-property-inclusion: NON_EMPTY
     serialization:
       # 格式化输出
       indent_output: false

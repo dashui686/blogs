@@ -14,4 +14,7 @@
         <!-- </foreach> -->
 
     </select>
+    <select id="checkCrudLog" resultType="java.lang.Object">
+        select id from crud_log where table_name = #{table}
+    </select>
 </mapper>

@@ -1,7 +1,14 @@
 package com.dashui.blogs.service.admin;
 
-import java.util.HashMap;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.dashui.blogs.bo.CrudTableBo;
+import com.dashui.blogs.domain.AdminCrud;
 
-public interface AdminCrudService {
-    HashMap<String,Object> databaseList();
+import java.util.HashMap;
+import java.util.Map;
+
+public interface AdminCrudService extends IService<AdminCrud> {
+    Map<String, HashMap<String, String>> databaseList();
+
+    AdminCrud checkCrudLog(CrudTableBo crudTableBo);
 }

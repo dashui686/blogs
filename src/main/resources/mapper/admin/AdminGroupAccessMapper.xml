@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dashui.blogs.mapper.AdminGroupAccessMapper">
+<mapper namespace="com.dashui.blogs.mapper.admin.AdminGroupAccessMapper">
 
     <resultMap id="BaseResultMap" type="com.dashui.blogs.domain.AdminGroupAccess">
             <result property="uid" column="uid" jdbcType="BIGINT"/>

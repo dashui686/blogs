@@ -1,4 +1,4 @@
-package com.dashui.blogs.service;
+package com.dashui.blogs.service.admin;
 
 import com.dashui.blogs.domain.AdminGroupAccess;
 import com.baomidou.mybatisplus.extension.service.IService;

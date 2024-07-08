@@ -1,5 +1,6 @@
 package com.dashui.blogs.web.admin;
 
+import com.dashui.blogs.bo.CrudTableBo;
 import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.common.core.web.BaseController;
 import com.dashui.blogs.service.admin.AdminCrudService;
@@ -24,8 +25,7 @@ public class AdminCrudController extends BaseController {
 
     @GetMapping("databaseList")
     public AjaxResult databaseList() throws SQLException {
-        adminCrudService.databaseList();
-        return toAjax(1);
+        return success(adminCrudService.databaseList());
     }
 
     @GetMapping("getFileData")
@@ -35,7 +35,13 @@ public class AdminCrudController extends BaseController {
 
 
     @GetMapping("checkCrudLog")
-    public AjaxResult checkCrudLog(){
-        return toAjax(1);
+    public AjaxResult checkCrudLog(CrudTableBo crudTableBo){
+        return success(adminCrudService.checkCrudLog(crudTableBo));
+    }
+
+
+    @GetMapping("parseFieldData")
+    public AjaxResult parseFieldData(){
+        return success(1);
     }
 }
