@@ -1,5 +1,6 @@
 package com.dashui.blogs.common.core.exception;
 
+import com.dashui.blogs.common.core.exception.domain.Context;
 import com.dashui.blogs.common.utils.MessageUtils;
 import com.dashui.blogs.common.utils.StringUtils;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,16 @@ public class BaseException extends RuntimeException {
      * 错误消息
      */
     private String defaultMessage;
+
+    /**
+     * 异常链
+     */
+    private Context context;
+
+
+    public BaseException(String module, String code, Object[] args, String defaultMessage) {
+           this(module, code, args, defaultMessage, null);
+    }
 
     public BaseException(String module, String code, Object[] args) {
         this(module, code, args, null);

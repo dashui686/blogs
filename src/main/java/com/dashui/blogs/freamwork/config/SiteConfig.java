@@ -1,5 +1,6 @@
 package com.dashui.blogs.freamwork.config;
 
+import com.dashui.blogs.domain.Upload;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,9 @@ public class  SiteConfig implements Serializable {
     // 站点名称
     private String siteName;
     // 上传配置
+    // private Upload upload;
     private String upload;
+
     // 版本号
     private String version;
     // 版本号

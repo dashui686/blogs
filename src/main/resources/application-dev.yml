@@ -86,7 +86,14 @@ spring:
           max-active: 8
           # #连接池最大阻塞等待时间（使用负值表示没有限制）
           max-wait: -1ms
-
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5 #类型
+    prefix: classpath:/templates/ #模板存放的位置
+    suffix: .html #模板的后缀
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
 
 redisson:
   # redis key前缀
@@ -228,3 +235,20 @@ user:
     lockTime: 30
 
 
+
+site:
+  siteName: 博客站
+  version: v1.0.0
+  record-number: 123213
+  apiUrl: https://lidashui.top
+  cdnUrl: https://www.lidashui.top
+  upload:
+    mode: cloud
+    maxSize: 10485760
+    mineType: jpg,png,bmp,jpeg,gif,webp,zip,rar,xls,xlsx,doc,docx,wav,mp4,mp3,txt
+    saveName: /storage/{topic}/{year}{mon}{day}/{filesha1}{.suffix}
+
+
+wx:
+  appid: wxeefec7504980ff82
+  secret: a36d4ad2f00033196efc27dc8c8166c3
