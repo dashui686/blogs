@@ -69,7 +69,7 @@ const baTable = new baTableClass(
             },
             {
                 label: t('user.user.Last login'),
-                prop: 'lastLoginTime',
+                prop: 'last_login_time',
                 align: 'center',
                 render: 'datetime',
                 sortable: 'custom',

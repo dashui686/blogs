@@ -23,11 +23,11 @@
                     </el-button>
                 </el-button-group>
                 <el-button-group class="ml10">
-                    <el-button @click="navigateTo('https://wonderful-code.gitee.io/senior/module/start.html')" v-blur type="success">
+                    <el-button @click="navigateTo('https://doc.buildadmin.com/senior/module/start.html')" v-blur type="success">
                         <Icon name="fa fa-cloud-upload" color="#ffffff" size="14" />
                         <span class="table-header-operate-text">{{ t('module.Publishing module') }}</span>
                     </el-button>
-                    <el-button @click="navigateTo('https://wonderful-code.gitee.io/guide/other/appendix/getPoints.html')" v-blur type="success">
+                    <el-button @click="navigateTo('https://doc.buildadmin.com/guide/other/appendix/getPoints.html')" v-blur type="success">
                         <Icon name="fa fa-rocket" color="#ffffff" size="14" />
                         <span class="table-header-operate-text">{{ t('module.Get points') }}</span>
                     </el-button>
@@ -42,7 +42,7 @@
                 <el-input
                     v-model="state.table.params.quickSearch"
                     class="xs-hidden"
-                    @input="debounce(onSearchInput, 500)()"
+                    @input="onSearchInput"
                     :placeholder="t('module.Search is actually very simple')"
                 />
             </div>
@@ -51,10 +51,10 @@
 </template>
 
 <script setup lang="ts">
-import { state } from '../store'
-import { loadData, onRefreshTableData } from '../index'
+import { debounce } from 'lodash-es'
 import { useI18n } from 'vue-i18n'
-import { debounce } from '/@/utils/common'
+import { loadData, onRefreshTableData } from '../index'
+import { state } from '../store'
 import { getUserInfo } from '/@/api/backend/module'
 import { useBaAccount } from '/@/stores/baAccount'
 
@@ -80,10 +80,10 @@ const onShowBaAccount = () => {
         })
 }
 
-const onSearchInput = () => {
+const onSearchInput = debounce(() => {
     state.table.modulesEbak[state.table.params.activeTab] = undefined
     loadData()
-}
+}, 500)
 
 const navigateTo = (url: string) => {
     window.open(url, '_blank')

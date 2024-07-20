@@ -18,9 +18,6 @@
                         >
                             {{ $t('Member Center') }}
                         </el-button>
-                        <el-button @click="$router.push(adminBaseRoutePath)" class="container-button" color="#ffffff" size="large">
-                            {{ $t('Backend Manage') }}
-                        </el-button>
                     </div>
                     <div class="main-right">
                         <img :src="indexCover" alt="" />
@@ -39,7 +36,6 @@ import { useMemberCenter } from '/@/stores/memberCenter'
 import Header from '/@/layouts/frontend/components/header.vue'
 import Footer from '/@/layouts/frontend/components/footer.vue'
 import { memberCenterBaseRoutePath } from '/@/router/static/memberCenterBase'
-import { adminBaseRoutePath } from '/@/router/static/adminBase'
 
 const siteConfig = useSiteConfig()
 const memberCenter = useMemberCenter()
@@ -135,6 +131,11 @@ const memberCenter = useMemberCenter()
 @media screen and (max-width: 375px) {
     .main-right img {
         width: 300px !important;
+    }
+}
+@media screen and (max-height: 650px) {
+    .main-right img {
+        display: none;
     }
 }
 @at-root html.dark {

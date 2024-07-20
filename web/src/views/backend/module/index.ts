@@ -8,6 +8,8 @@ import { moduleInstallState, type moduleState } from './types'
 import { uuid } from '/@/utils/random'
 import { fullUrl } from '/@/utils/common'
 import type { UserInfo } from '/@/stores/interface'
+import { closeHotUpdate } from '/@/utils/vite'
+import router from '/@/router/index'
 import { i18n } from '/@/lang/index'
 
 export const loadData = () => {
@@ -247,7 +249,6 @@ export const onInstall = (uid: string, id: number) => {
 }
 
 export const execInstall = (uid: string, id: number, extend: anyObj = {}) => {
-    state.common.disableHmr = true
     postInstallModule(uid, id, extend)
         .then(() => {
             state.common.dialogTitle = i18n.global.t('module.Installation complete')
@@ -289,13 +290,13 @@ export const execInstall = (uid: string, id: number, extend: anyObj = {}) => {
                 ElNotification({
                     type: 'error',
                     message: res.msg,
+                    zIndex: 9999,
                 })
                 state.dialog.common = false
             }
         })
         .finally(() => {
             state.loading.common = false
-            state.common.disableHmr = true
             onRefreshTableData()
         })
 }
@@ -313,12 +314,15 @@ const terminalTaskExecComplete = (res: number, type: string) => {
         terminal.toggle(true)
         state.common.dependInstallState = 'fail'
     }
-    onRefreshTableData()
+
+    if (router.currentRoute.value.name === 'moduleStore/moduleStore') {
+        onRefreshTableData()
+        closeHotUpdate('modules')
+    }
 }
 
 export const onDisable = (confirmConflict = false) => {
     state.loading.common = true
-    state.common.disableHmr = true
 
     // 拼装依赖处理方案
     if (confirmConflict) {
@@ -341,6 +345,7 @@ export const onDisable = (confirmConflict = false) => {
             ElNotification({
                 type: 'success',
                 message: i18n.global.t('module.The operation succeeds Please clear the system cache and refresh the browser ~'),
+                zIndex: 9999,
             })
             state.dialog.common = false
             onRefreshTableData()
@@ -376,12 +381,12 @@ export const onDisable = (confirmConflict = false) => {
                 ElNotification({
                     type: 'error',
                     message: res.msg,
+                    zIndex: 9999,
                 })
             }
         })
         .finally(() => {
             state.loading.common = false
-            state.common.disableHmr = true
         })
 }
 
@@ -403,6 +408,7 @@ export const onEnable = (uid: string) => {
             ElNotification({
                 type: 'error',
                 message: res.msg,
+                zIndex: 9999,
             })
         })
 }

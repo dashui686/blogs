@@ -67,7 +67,7 @@ const baTable = new baTableClass(
     {
         defaultItems: {
             type: 'route',
-            menuType: 'tab',
+            menu_type: 'tab',
             extend: 'none',
             no_login_valid: '0',
             keepalive: 0,
@@ -82,7 +82,7 @@ const baTable = new baTableClass(
         },
         onSubmit: () => {
             if (baTable.form.items!.type == 'route') {
-                baTable.form.items!.menuType = 'tab'
+                baTable.form.items!.menu_type = 'tab'
             } else if (['menu', 'menu_dir', 'nav_user_menu'].includes(baTable.form.items!.type)) {
                 baTable.form.items!.no_login_valid = '0'
             }

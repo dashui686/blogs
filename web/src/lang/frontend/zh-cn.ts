@@ -8,7 +8,6 @@ export default {
     Language: '语言',
     Copyright: '版权所有',
     'Member Center': '会员中心',
-    'Backend Manage': '后台管理',
     'Logout login': '注销登录',
     'Member center disabled': '会员中心已禁用，请联系网站管理员开启。',
 }

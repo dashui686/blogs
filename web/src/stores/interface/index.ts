@@ -50,9 +50,9 @@ export interface AdminInfo {
     username: string
     nickname: string
     avatar: string
-    lastLoginTime: string
+    last_login_time: string
     token: string
-    refreshToken: string
+    refresh_token: string
     super: boolean
 }
 
@@ -67,12 +67,12 @@ export interface UserInfo {
     money: number
     score: number
     avatar: string
-    lastLoginTime: string
+    last_login_time: string
     last_login_ip: string
     join_time: string
     motto: string
     token: string
-    refreshToken: string
+    refresh_token: string
 }
 
 export interface TaskItem {

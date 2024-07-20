@@ -6,6 +6,7 @@
 import { reactive } from 'vue'
 import { useConfig } from '/@/stores/config'
 import { useNavTabs } from '/@/stores/navTabs'
+import { useTerminal } from '/@/stores/terminal'
 import { useSiteConfig } from '/@/stores/siteConfig'
 import { useAdminInfo } from '/@/stores/adminInfo'
 import { useRoute } from 'vue-router'
@@ -28,6 +29,7 @@ defineOptions({
     components: { Default, Classic, Streamline, Double },
 })
 
+const terminal = useTerminal()
 const navTabs = useNavTabs()
 const config = useConfig()
 const route = useRoute()
@@ -56,9 +58,8 @@ const init = () => {
      */
     index().then((res) => {
         siteConfig.dataFill(res.data.siteConfig)
-        // terminal.changePort(res.data.terminal.installServicePort)
-        // terminal.changePackageManager(res.data.terminal.npmPackageManager)
-
+        terminal.changePort(res.data.terminal.installServicePort)
+        terminal.changePackageManager(res.data.terminal.npmPackageManager)
         siteConfig.setInitialize(true)
 
         if (!isEmpty(res.data.adminInfo)) {

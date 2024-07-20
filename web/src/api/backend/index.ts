@@ -1,7 +1,7 @@
 import createAxios from '/@/utils/axios'
 import { useAdminInfo } from '/@/stores/adminInfo'
 
-export const url = '/admin/'
+export const url = '/admin/Index/'
 
 export function index() {
     return createAxios({

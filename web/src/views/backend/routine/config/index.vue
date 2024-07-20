@@ -5,6 +5,7 @@
                 <el-form
                     v-if="!state.loading"
                     ref="formRef"
+                    @submit.prevent=""
                     @keyup.enter="onSubmit()"
                     :model="state.form"
                     :rules="state.rules"
@@ -21,8 +22,8 @@
                                         :type="item.type"
                                         v-model.number="state.form[item.name]"
                                         :attr="{ prop: item.name, ...item.extend }"
-                                        :input-attr="{ placeholder: item.tip, ...item.input_extend }"
-                                        :data="{ tip: item.tip }"
+                                        :input-attr="{ ...item.input_extend }"
+                                        :tip="item.tip"
                                         :key="'number-' + item.id"
                                     />
                                     <!-- 富文本在dialog内全屏编辑器时必须拥有很高的z-index，此处选择单独为editor设定较小的z-index -->
@@ -35,13 +36,12 @@
                                         v-model="state.form[item.name]"
                                         :attr="{ prop: item.name, ...item.extend }"
                                         :input-attr="{
-                                            placeholder: item.tip,
                                             style: {
                                                 zIndex: 99,
                                             },
                                             ...item.input_extend,
                                         }"
-                                        :data="{ tip: item.tip }"
+                                        :tip="item.tip"
                                         :key="'editor-' + item.id"
                                     />
                                     <FormItem
@@ -52,8 +52,8 @@
                                         @keyup.ctrl.enter="onSubmit()"
                                         v-model="state.form[item.name]"
                                         :attr="{ prop: item.name, ...item.extend }"
-                                        :input-attr="{ placeholder: item.tip, rows: 3, ...item.input_extend }"
-                                        :data="{ tip: item.tip }"
+                                        :input-attr="{ rows: 3, ...item.input_extend }"
+                                        :tip="item.tip"
                                         :key="'textarea-' + item.id"
                                     />
                                     <FormItem
@@ -62,8 +62,8 @@
                                         :type="item.type"
                                         v-model="state.form[item.name]"
                                         :attr="{ prop: item.name, ...item.extend }"
-                                        :input-attr="{ placeholder: item.tip, ...item.input_extend }"
-                                        :data="{ tip: item.tip, content: item.content ? item.content : {} }"
+                                        :input-attr="{ content: item.content ? item.content : {}, ...item.input_extend }"
+                                        :tip="item.tip"
                                         :key="'other-' + item.id"
                                     />
                                     <div class="config-form-item-name">${{ item.name }}</div>
@@ -97,7 +97,7 @@
             <el-col :xs="24" :sm="8">
                 <el-card :header="t('routine.config.Quick configuration entry')">
                     <el-button v-for="item in state.quickEntrance" class="config_quick_entrance">
-                        <div @click="routePush(item['value'])">{{ item['key'] }}</div>
+                        <div @click="routePush({ name: item['value'] })">{{ item['key'] }}</div>
                     </el-button>
                 </el-card>
             </el-col>
@@ -108,11 +108,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onActivated, onDeactivated, onUnmounted } from 'vue'
 import FormItem from '/@/components/formItem/index.vue'
 import { index, postData, del, postSendTestMail } from '/@/api/backend/routine/config'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import type { FormInstance, FormItemRule } from 'element-plus'
+import { adminBaseRoutePath } from '/@/router/static/adminBase'
 import AddFrom from './add.vue'
 import { routePush } from '/@/utils/router'
 import { buildValidatorData, type buildValidatorParams } from '/@/utils/validate'
@@ -120,6 +121,7 @@ import { useSiteConfig } from '/@/stores/siteConfig'
 import type { SiteConfig } from '/@/stores/interface'
 import { useI18n } from 'vue-i18n'
 import { uuid } from '/@/utils/random'
+import { closeHotUpdate, openHotUpdate } from '/@/utils/vite'
 
 defineOptions({
     name: 'routine/config',
@@ -225,6 +227,11 @@ const onSubmit = () => {
                         ;(siteConfig.$state[key as keyof SiteConfig] as any) = formData[key]
                     }
                 }
+
+                if (formData.backend_entrance && formData.backend_entrance != adminBaseRoutePath) {
+                    window.open(window.location.href.replace(adminBaseRoutePath, formData.backend_entrance))
+                    window.close()
+                }
             })
         }
     })
@@ -270,6 +277,16 @@ const onTestSendMail = () => {
 
 onMounted(() => {
     getIndex()
+    closeHotUpdate('config')
+})
+onActivated(() => {
+    closeHotUpdate('config')
+})
+onDeactivated(() => {
+    openHotUpdate('config')
+})
+onUnmounted(() => {
+    openHotUpdate('config')
 })
 </script>
 

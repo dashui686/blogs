@@ -4,7 +4,7 @@ import { ElLoading, ElNotification, type LoadingOptions } from 'element-plus'
 import { refreshToken } from '/@/api/common'
 import { i18n } from '/@/lang/index'
 import router from '/@/router/index'
-import { adminBaseRoutePath } from '/@/router/static/adminBase'
+import adminBaseRoute from '/@/router/static/adminBase'
 import { memberCenterBaseRoutePath } from '/@/router/static/memberCenterBase'
 import { useAdminInfo } from '/@/stores/adminInfo'
 import { useConfig } from '/@/stores/config'
@@ -47,8 +47,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
 
     const Axios = axios.create({
         baseURL: getUrl(),
-        // timeout: 1000 * 10,
-        timeout: 0,
+        timeout: 1000 * 10,
         headers: {
             'think-lang': config.lang.defaultLang,
             server: true,
@@ -56,6 +55,12 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
         responseType: 'json',
     })
 
+    // 自定义后台入口
+    if (adminBaseRoute.path != '/admin' && isAdminApp() && /^\/admin\//.test(axiosConfig.url!)) {
+        axiosConfig.url = axiosConfig.url!.replace(/^\/admin\//, adminBaseRoute.path + '.php/')
+    }
+
+    // 合并默认请求选项
     options = Object.assign(
         {
             CancelDuplicateRequest: true, // 是否开启取消重复请求, 默认为 true
@@ -85,7 +90,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
             // 自动携带token
             if (config.headers) {
                 const token = adminInfo.getToken()
-                if (token) (config.headers as anyObj).Authorization = token
+                if (token) (config.headers as anyObj).batoken = token
                 const userToken = options.anotherToken || userInfo.getToken()
                 if (userToken) (config.headers as anyObj)['ba-user-token'] = userToken
             }
@@ -104,15 +109,15 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
             options.loading && closeLoading(options) // 关闭loading
 
             if (response.config.responseType == 'json') {
-                if (response.data && response.data.code !== 200) {
-                    if (response.data.code == 401) {
+                if (response.data && response.data.code !== 1) {
+                    if (response.data.code == 409) {
                         if (!window.tokenRefreshing) {
                             window.tokenRefreshing = true
                             return refreshToken()
                                 .then((res) => {
                                     if (res.data.type == 'admin-refresh') {
                                         adminInfo.setToken(res.data.token, 'auth')
-                                        response.headers.Authorization = `${res.data.token}`
+                                        response.headers.batoken = `${res.data.token}`
                                         window.requests.forEach((cb) => cb(res.data.token, 'admin-refresh'))
                                     } else if (res.data.type == 'user-refresh') {
                                         userInfo.setToken(res.data.token, 'auth')
@@ -129,7 +134,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                                             router.push({ name: 'adminLogin' })
                                             return Promise.reject(err)
                                         } else {
-                                            response.headers.Authorization = ''
+                                            response.headers.batoken = ''
                                             window.requests.forEach((cb) => cb('', 'admin-refresh'))
                                             window.requests = []
                                             return Axios(response.config)
@@ -155,7 +160,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                                 // 用函数形式将 resolve 存入，等待刷新后再执行
                                 window.requests.push((token: string, type: string) => {
                                     if (type == 'admin-refresh') {
-                                        response.headers.Authorization = `${token}`
+                                        response.headers.batoken = `${token}`
                                     } else {
                                         response.headers['ba-user-token'] = `${token}`
                                     }
@@ -168,6 +173,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                         ElNotification({
                             type: 'error',
                             message: response.data.msg,
+                            zIndex: 9999,
                         })
                     }
                     // 自动跳转到路由name或path
@@ -176,7 +182,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                     }
                     if (response.data.code == 303) {
                         const isAdminAppFlag = isAdminApp()
-                        let routerPath = isAdminAppFlag ? adminBaseRoutePath : memberCenterBaseRoutePath
+                        let routerPath = isAdminAppFlag ? adminBaseRoute.path : memberCenterBaseRoutePath
 
                         // 需要登录，清理 token，转到登录页
                         if (response.data.data.type == 'need login') {
@@ -195,6 +201,7 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                     ElNotification({
                         message: response.data.msg ? response.data.msg : i18n.global.t('axios.Operation successful'),
                         type: 'success',
+                        zIndex: 9999,
                     })
                 }
             }
@@ -274,6 +281,7 @@ function httpErrorStatusHandle(error: any) {
     ElNotification({
         type: 'error',
         message,
+        zIndex: 9999,
     })
 }
 
@@ -324,7 +332,7 @@ function getPendingKey(config: AxiosRequestConfig) {
     return [
         url,
         method,
-        headers && (headers as anyObj).Authorization ? (headers as anyObj).Authorization : '',
+        headers && (headers as anyObj).batoken ? (headers as anyObj).batoken : '',
         headers && (headers as anyObj)['ba-user-token'] ? (headers as anyObj)['ba-user-token'] : '',
         JSON.stringify(params),
         JSON.stringify(data),

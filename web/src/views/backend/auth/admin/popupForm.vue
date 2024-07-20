@@ -16,7 +16,7 @@
             <div
                 class="ba-operate-form"
                 :class="'ba-' + baTable.form.operate + '-form'"
-                :style="config.layout.shrink ? '':'width: calc(100% - ' + baTable.form.labelWidth! / 2 + 'px)'"
+                :style="config.layout.shrink ? '' : 'width: calc(100% - ' + baTable.form.labelWidth! / 2 + 'px)'"
             >
                 <el-form
                     ref="formRef"
@@ -43,15 +43,15 @@
                     />
                     <FormItem
                         :label="t('auth.admin.grouping')"
-                        v-model="baTable.form.items!.groupArr"
-                        prop="groupArr"
+                        v-model="baTable.form.items!.group_arr"
+                        prop="group_arr"
                         type="remoteSelect"
-                        :key="('group-' + baTable.form.items!.id)"
+                        :key="'group-' + baTable.form.items!.id"
                         :input-attr="{
                             multiple: true,
                             params: { isTree: true, absoluteAuth: adminInfo.id == baTable.form.items!.id ? 0 : 1 },
                             field: 'name',
-                            'remote-url': '/admin/auth.Group/index',
+                            remoteUrl: '/admin/auth.Group/index',
                             placeholder: t('Click select'),
                         }"
                     />
@@ -94,7 +94,10 @@
                         :label="t('State')"
                         v-model="baTable.form.items!.status"
                         type="radio"
-                        :data="{ content: { '0': t('Disable'), '1': t('Enable') }, childrenAttr: { border: true } }"
+                        :input-attr="{
+                            border: true,
+                            content: { '0': t('Disable'), '1': t('Enable') },
+                        }"
                     />
                 </el-form>
             </div>
@@ -130,7 +133,7 @@ const { t } = useI18n()
 const rules: Partial<Record<string, FormItemRule[]>> = reactive({
     username: [buildValidatorData({ name: 'required', title: t('auth.admin.username') }), buildValidatorData({ name: 'account' })],
     nickname: [buildValidatorData({ name: 'required', title: t('auth.admin.nickname') })],
-    groupArr: [buildValidatorData({ name: 'required', message: t('Please select field', { field: t('auth.admin.grouping') }) })],
+    group_arr: [buildValidatorData({ name: 'required', message: t('Please select field', { field: t('auth.admin.grouping') }) })],
     email: [buildValidatorData({ name: 'email', message: t('Please enter the correct field', { field: t('auth.admin.mailbox') }) })],
     mobile: [buildValidatorData({ name: 'mobile', message: t('Please enter the correct field', { field: t('auth.admin.mobile') }) })],
     password: [

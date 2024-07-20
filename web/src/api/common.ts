@@ -19,7 +19,9 @@ export const adminUploadUrl = '/admin/ajax/upload'
 export const adminBuildSuffixSvgUrl = '/admin/ajax/buildSuffixSvg'
 export const adminAreaUrl = '/admin/ajax/area'
 export const getTablePkUrl = '/admin/ajax/getTablePk'
+export const getTableListUrl = '/admin/ajax/getTableList'
 export const getTableFieldListUrl = '/admin/ajax/getTableFieldList'
+export const getDatabaseConnectionListUrl = '/admin/ajax/getDatabaseConnectionList'
 export const terminalUrl = '/admin/ajax/terminal'
 export const changeTerminalConfigUrl = '/admin/ajax/changeTerminalConfig'
 export const clearCacheUrl = '/admin/ajax/clearCache'
@@ -57,6 +59,7 @@ export function fileUpload(fd: FormData, params: anyObj = {}, forceLocal = false
             ElNotification({
                 type: 'error',
                 message: errorMsg,
+                zIndex: 9999,
             })
             reject(errorMsg)
         })
@@ -86,7 +89,7 @@ export function buildSuffixSvgUrl(suffix: string, background = '') {
     return (
         getUrl() +
         (isAdminApp() ? adminBuildSuffixSvgUrl : apiBuildSuffixSvgUrl) +
-        '?Authorization=' +
+        '?batoken=' +
         adminInfo.getToken() +
         '&suffix=' +
         suffix +
@@ -178,17 +181,7 @@ export function postClearCache(type: string) {
 export function buildTerminalUrl(commandKey: string, uuid: string, extend: string) {
     const adminInfo = useAdminInfo()
     return (
-        getUrl() +
-        terminalUrl +
-        '?command=' +
-        commandKey +
-        '&uuid=' +
-        uuid +
-        '&extend=' +
-        extend +
-        '&Authorization=' +
-        adminInfo.getToken() +
-        '&server=1'
+        getUrl() + terminalUrl + '?command=' + commandKey + '&uuid=' + uuid + '&extend=' + extend + '&batoken=' + adminInfo.getToken() + '&server=1'
     )
 }
 
@@ -253,12 +246,13 @@ export function checkClickCaptcha(id: string, info: string, unset: boolean) {
     )
 }
 
-export function getTablePk(table: string) {
+export function getTablePk(table: string, connection = '') {
     return createAxios({
         url: getTablePkUrl,
         method: 'get',
         params: {
             table: table,
+            connection: connection,
         },
     })
 }
@@ -268,13 +262,14 @@ export function getTablePk(table: string) {
  * @param table 数据表名
  * @param clean 只要干净的字段注释（只要字段标题）
  */
-export function getTableFieldList(table: string, clean = true) {
+export function getTableFieldList(table: string, clean = true, connection = '') {
     return createAxios({
         url: getTableFieldListUrl,
         method: 'get',
         params: {
             table: table,
             clean: clean ? 1 : 0,
+            connection: connection,
         },
     })
 }

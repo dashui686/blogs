@@ -1,5 +1,5 @@
 <template>
-    <el-menu :default-active="state.activeMenu" @select="onSelect">
+    <el-menu ref="layoutMenuRef" :default-active="state.activeMenu" @select="onSelect">
         <el-menu-item @click="router.push({ name: '/' })" v-blur index="index">
             <Icon v-if="props.showIcon" name="fa fa-home" color="var(--el-text-color-primary)" />
             <template #title>{{ $t('Home') }}</template>
@@ -80,6 +80,7 @@ import toggleDark from '/@/utils/useDark'
 import DarkSwitch from '/@/layouts/common/components/darkSwitch.vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
+import { layoutMenuRef } from '/@/stores/refs'
 
 const route = useRoute()
 const router = useRouter()
@@ -161,7 +162,7 @@ const isExternalLink = (menus: RouteRecordRaw[], index: string): boolean => {
     for (const key in menus) {
         const columnIndex = `column-${menus[key].meta?.id}`
         if (columnIndex == index) {
-            return menus[key].meta?.menuType == 'link'
+            return menus[key].meta?.menu_type == 'link'
         }
         if (menus[key].children?.length) {
             return isExternalLink(menus[key].children!, index)

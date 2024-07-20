@@ -63,7 +63,7 @@
                                 :label="t('crud.crud.sort order')"
                                 v-model="state.table.defaultSortType"
                                 type="select"
-                                :data="{
+                                :input-attr="{
                                     content: { desc: t('crud.crud.sort order desc'), asc: t('crud.crud.sort order asc') },
                                 }"
                             />
@@ -92,10 +92,8 @@
                             :label="t('crud.crud.The relative path to the generated code')"
                             v-model="state.table.generateRelativePath"
                             type="string"
-                            :attr="{
-                                labelWidth: 140,
-                                blockHelp: t('crud.crud.For quick combination code generation location, please fill in the relative path'),
-                            }"
+                            :label-width="140"
+                            :block-help="t('crud.crud.For quick combination code generation location, please fill in the relative path')"
                             :input-attr="{
                                 onChange: onTableChange,
                             }"
@@ -104,9 +102,7 @@
                             :label="t('crud.crud.Generated Controller Location')"
                             v-model="state.table.controllerFile"
                             type="string"
-                            :attr="{
-                                labelWidth: 140,
-                            }"
+                            :label-width="140"
                         />
                         <el-form-item :label="t('crud.crud.Generated Data Model Location')" :label-width="140">
                             <el-input v-model="state.table.modelFile" type="string">
@@ -116,8 +112,8 @@
                                         v-model="state.table.isCommonModel"
                                         :label="t('crud.crud.Common model')"
                                         size="small"
-                                        :true-label="1"
-                                        :false-label="0"
+                                        :true-value="1"
+                                        :false-value="0"
                                     />
                                 </template>
                             </el-input>
@@ -126,16 +122,19 @@
                             :label="t('crud.crud.Generated Validator Location')"
                             v-model="state.table.validateFile"
                             type="string"
-                            :attr="{
-                                labelWidth: 140,
-                            }"
+                            :label-width="140"
                         />
+                        <FormItem :label="t('crud.crud.WEB end view directory')" v-model="state.table.webViewsDir" type="string" :label-width="140" />
                         <FormItem
-                            :label="t('crud.crud.WEB end view directory')"
-                            v-model="state.table.webViewsDir"
-                            type="string"
-                            :attr="{
-                                labelWidth: 140,
+                            :label="t('Database connection')"
+                            v-model="state.table.databaseConnection"
+                            type="remoteSelect"
+                            :label-width="140"
+                            :block-help="t('Database connection help')"
+                            :input-attr="{
+                                pk: 'key',
+                                field: 'key',
+                                remoteUrl: getDatabaseConnectionListUrl,
                             }"
                         />
                     </div>
@@ -272,7 +271,7 @@
                                 type="string"
                                 :model-value="state.fields[state.activateField].name"
                                 :input-attr="{
-                                    onInput: ($event: string) => onFieldNameChange($event, state.activateField)
+                                    onInput: ($event: string) => onFieldNameChange($event, state.activateField),
                                 }"
                             />
                             <template v-if="state.fields[state.activateField].dataType">
@@ -370,10 +369,10 @@
                                         :type="item.type"
                                         v-model="state.fields[state.activateField].table[idx].value"
                                         :placeholder="state.fields[state.activateField].table[idx].placeholder ?? ''"
-                                        :data="{
+                                        :input-attr="{
                                             content: state.fields[state.activateField].table[idx].options ?? {},
+                                            ...(state.fields[state.activateField].table[idx].attr ?? {}),
                                         }"
-                                        :input-attr="state.fields[state.activateField].table[idx].attr ?? {}"
                                     />
                                 </template>
                             </template>
@@ -385,10 +384,10 @@
                                         :type="item.type"
                                         v-model="state.fields[state.activateField].form[idx].value"
                                         :placeholder="state.fields[state.activateField].form[idx].placeholder ?? ''"
-                                        :data="{
+                                        :input-attr="{
                                             content: state.fields[state.activateField].form[idx].options ?? {},
+                                            ...(state.fields[state.activateField].form[idx].attr ?? {}),
                                         }"
-                                        :input-attr="state.fields[state.activateField].form[idx].attr ?? {}"
                                     />
                                 </template>
                             </template>
@@ -418,15 +417,31 @@
                         v-if="state.remoteSelectPre.index != -1 && state.fields[state.remoteSelectPre.index]"
                     >
                         <FormItem
-                            prop="table"
-                            type="select"
                             :label="t('crud.crud.Associated Data Table')"
                             v-model="state.remoteSelectPre.form.table"
-                            :key="JSON.stringify(state.remoteSelectPre.dbList)"
-                            :data="{
-                                content: state.remoteSelectPre.dbList,
+                            type="remoteSelect"
+                            :key="state.table.databaseConnection"
+                            :input-attr="{
+                                pk: 'table',
+                                field: 'comment',
+                                params: {
+                                    connection: state.table.databaseConnection,
+                                    samePrefix: 1,
+                                    excludeTable: [
+                                        'area',
+                                        'token',
+                                        'captcha',
+                                        'admin_group_access',
+                                        'config',
+                                        'admin_log',
+                                        'user_money_log',
+                                        'user_score_log',
+                                    ],
+                                },
+                                remoteUrl: getTableListUrl,
+                                onChange: onJoinTableChange,
                             }"
-                            :input-attr="{ onChange: onJoinTableChange }"
+                            prop="table"
                         />
                         <div v-loading="state.loading.remoteSelect">
                             <FormItem
@@ -436,7 +451,7 @@
                                 v-model="state.remoteSelectPre.form.pk"
                                 :placeholder="t('crud.crud.Please select the value field of the select component')"
                                 :key="'select-value' + JSON.stringify(state.remoteSelectPre.fieldList)"
-                                :data="{
+                                :input-attr="{
                                     content: state.remoteSelectPre.fieldList,
                                 }"
                             />
@@ -447,7 +462,7 @@
                                 v-model="state.remoteSelectPre.form.label"
                                 :placeholder="t('crud.crud.Please select the label field of the select component')"
                                 :key="'select-label' + JSON.stringify(state.remoteSelectPre.fieldList)"
-                                :data="{
+                                :input-attr="{
                                     content: state.remoteSelectPre.fieldList,
                                 }"
                             />
@@ -459,7 +474,7 @@
                                 v-model="state.remoteSelectPre.form.joinField"
                                 :placeholder="t('crud.crud.Please select the fields displayed in the table')"
                                 :key="'join-field' + JSON.stringify(state.remoteSelectPre.fieldList)"
-                                :data="{
+                                :input-attr="{
                                     content: state.remoteSelectPre.fieldList,
                                 }"
                             />
@@ -470,14 +485,14 @@
                                 v-model="state.remoteSelectPre.form.controllerFile"
                                 :placeholder="t('crud.crud.Please select the controller of the data table')"
                                 :key="'controller-file' + JSON.stringify(state.remoteSelectPre.controllerFileList)"
-                                :data="{
+                                :input-attr="{
                                     content: state.remoteSelectPre.controllerFileList,
                                 }"
-                                :attr="{
-                                    blockHelp: t(
+                                :block-help="
+                                    t(
                                         'crud.crud.The remote pull-down will request the corresponding controller to obtain data, so it is recommended that you create the CRUD of the associated table'
-                                    ),
-                                }"
+                                    )
+                                "
                             />
                             <FormItem
                                 type="select"
@@ -485,15 +500,25 @@
                                 v-model="state.remoteSelectPre.form.modelFile"
                                 :placeholder="t('crud.crud.Please select the data model location of the data table')"
                                 :key="'model-file' + JSON.stringify(state.remoteSelectPre.modelFileList)"
-                                :data="{
+                                :input-attr="{
                                     content: state.remoteSelectPre.modelFileList,
                                 }"
-                                :attr="{
-                                    blockHelp: t(
+                                :block-help="
+                                    t(
                                         'crud.crud.If it is left blank, the model of the associated table will be generated automatically If the table already has a model, it is recommended to select it to avoid repeated generation'
-                                    ),
-                                }"
+                                    )
+                                "
                             />
+                            <el-form-item
+                                v-if="state.table.databaseConnection && state.remoteSelectPre.form.modelFile"
+                                :label="t('Database connection')"
+                            >
+                                <el-text size="large" type="danger">{{ state.table.databaseConnection }}</el-text>
+                                <div class="block-help">
+                                    <div>{{ t('crud.crud.Check model class', { connection: state.table.databaseConnection }) }}</div>
+                                    <div>{{ t('crud.crud.There is no connection attribute in model class') }}</div>
+                                </div>
+                            </el-form-item>
                             <el-form-item :label="t('Reminder')">
                                 <div class="block-help">
                                     {{ t('crud.crud.Design remote select tips') }}
@@ -575,10 +600,11 @@
                     class="rebuild-form-item"
                     v-model="state.table.rebuild"
                     type="radio"
-                    :data="{ content: { No: t('crud.crud.No'), Yes: t('crud.crud.Yes') }, childrenAttr: { border: true } }"
-                    :attr="{
-                        blockHelp: t('crud.crud.tableReBuildBlockHelp'),
+                    :input-attr="{
+                        border: true,
+                        content: { No: t('crud.crud.No'), Yes: t('crud.crud.Yes') },
                     }"
+                    :block-help="t('crud.crud.tableReBuildBlockHelp')"
                 />
             </el-scrollbar>
             <template #footer>
@@ -600,19 +626,18 @@ import type { FieldItem, TableDesignChange, TableDesignChangeType } from '/@/vie
 import { cloneDeep, range, isEmpty } from 'lodash-es'
 import Sortable from 'sortablejs'
 import type { SortableEvent } from 'sortablejs'
-import { useTemplateRefsList } from '/@vueuse/core'
+import { useTemplateRefsList } from '@vueuse/core'
 import { changeStep, state as crudState, getTableAttr, fieldItem, designTypes, tableFieldsKey } from '/@/views/backend/crud/index'
 import { ElNotification, ElMessageBox, ElMessage } from 'element-plus'
 import type { FormItemRule, FormInstance, TimelineItemProps, MessageHandler } from 'element-plus'
-import { getDatabaseList, getFileData, generateCheck, generate, parseFieldData, postLogStart } from '/@/api/backend/crud'
-import { getTableFieldList } from '/@/api/common'
+import { getFileData, generateCheck, generate, parseFieldData, postLogStart } from '/@/api/backend/crud'
+import { getTableFieldList, getTableListUrl, getDatabaseConnectionListUrl } from '/@/api/common'
 import { buildValidatorData, regularVarName } from '/@/utils/validate'
 import { getArrayKey } from '/@/utils/common'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { reloadServer } from '/@/utils/vite'
 
 const { t } = useI18n()
-const router = useRouter()
 const designWindowRef = ref()
 const formRef = ref<FormInstance>()
 const tabsRefs = useTemplateRefsList<HTMLElement>()
@@ -637,6 +662,7 @@ const state: {
         controllerFile: string
         validateFile: string
         webViewsDir: string
+        databaseConnection: string
         designChange: TableDesignChange[]
         rebuild: string
     }
@@ -646,7 +672,6 @@ const state: {
     remoteSelectPre: {
         show: boolean
         index: number
-        dbList: anyObj
         fieldList: anyObj
         modelFileList: anyObj
         controllerFileList: anyObj
@@ -694,6 +719,7 @@ const state: {
         controllerFile: '',
         validateFile: '',
         webViewsDir: '',
+        databaseConnection: '',
         designChange: [],
         rebuild: 'No',
     },
@@ -703,7 +729,6 @@ const state: {
     remoteSelectPre: {
         show: false,
         index: -1,
-        dbList: [],
         fieldList: [],
         modelFileList: [],
         controllerFileList: [],
@@ -886,34 +911,30 @@ const showRemoteSelectPre = (index: number, hideDelField = false) => {
     state.remoteSelectPre.loading = true
     state.remoteSelectPre.index = index
     state.remoteSelectPre.hideDelField = hideDelField
-    getDatabaseList()
-        .then((res) => {
-            state.remoteSelectPre.dbList = res.data.dbs
-            if (state.fields[index] && state.fields[index].form['remote-table'].value) {
-                state.remoteSelectPre.form.table = state.fields[index].form['remote-table'].value
-                state.remoteSelectPre.form.pk = state.fields[index].form['remote-pk'].value
-                state.remoteSelectPre.form.label = state.fields[index].form['remote-field'].value
-                state.remoteSelectPre.form.controllerFile = state.fields[index].form['remote-controller'].value
-                state.remoteSelectPre.form.modelFile = state.fields[index].form['remote-model'].value
-                state.remoteSelectPre.form.joinField = state.fields[index].form['relation-fields'].value.split(',')
-                getTableFieldList(state.fields[index].form['remote-table'].value).then((res) => {
-                    const fieldSelect: anyObj = {}
-                    for (const key in res.data.fieldList) {
-                        fieldSelect[key] = (key ? key + ' - ' : '') + res.data.fieldList[key]
-                    }
-                    state.remoteSelectPre.fieldList = fieldSelect
-                })
-                if (isEmpty(state.remoteSelectPre.modelFileList) || isEmpty(state.remoteSelectPre.controllerFileList)) {
-                    getFileData(state.fields[index].form['remote-table'].value).then((res) => {
-                        state.remoteSelectPre.modelFileList = res.data.modelFileList
-                        state.remoteSelectPre.controllerFileList = res.data.controllerFileList
-                    })
-                }
+
+    if (state.fields[index] && state.fields[index].form['remote-table'].value) {
+        state.remoteSelectPre.form.table = state.fields[index].form['remote-table'].value
+        state.remoteSelectPre.form.pk = state.fields[index].form['remote-pk'].value
+        state.remoteSelectPre.form.label = state.fields[index].form['remote-field'].value
+        state.remoteSelectPre.form.controllerFile = state.fields[index].form['remote-controller'].value
+        state.remoteSelectPre.form.modelFile = state.fields[index].form['remote-model'].value
+        state.remoteSelectPre.form.joinField = state.fields[index].form['relation-fields'].value.split(',')
+        getTableFieldList(state.fields[index].form['remote-table'].value, true, state.table.databaseConnection).then((res) => {
+            const fieldSelect: anyObj = {}
+            for (const key in res.data.fieldList) {
+                fieldSelect[key] = (key ? key + ' - ' : '') + res.data.fieldList[key]
             }
+            state.remoteSelectPre.fieldList = fieldSelect
         })
-        .finally(() => {
-            state.remoteSelectPre.loading = false
-        })
+        if (isEmpty(state.remoteSelectPre.modelFileList) || isEmpty(state.remoteSelectPre.controllerFileList)) {
+            getFileData(state.fields[index].form['remote-table'].value).then((res) => {
+                state.remoteSelectPre.modelFileList = res.data.modelFileList
+                state.remoteSelectPre.controllerFileList = res.data.controllerFileList
+            })
+        }
+    }
+
+    state.remoteSelectPre.loading = false
 }
 
 const onEditField = (index: number, field: FieldItem) => {
@@ -942,7 +963,15 @@ const startGenerate = () => {
     })
         .then(() => {
             setTimeout(() => {
-                router.go(0)
+                // 要求 Vite 服务端重启
+                if (import.meta.hot) {
+                    reloadServer('crud')
+                } else {
+                    ElNotification({
+                        type: 'error',
+                        message: t('crud.crud.Vite hot warning'),
+                    })
+                }
             }, 1000)
         })
         .finally(() => {
@@ -981,6 +1010,7 @@ const onGenerate = () => {
     state.loading.generate = true
     generateCheck({
         table: state.table.name,
+        connection: state.table.databaseConnection,
         controllerFile: state.table.controllerFile,
     })
         .then(() => {
@@ -1093,6 +1123,7 @@ const loadData = () => {
                     state.table.rebuild = 'Yes'
                 }
                 state.table.isCommonModel = parseInt(res.data.table.isCommonModel)
+                state.table.databaseConnection = res.data.table.databaseConnection ? res.data.table.databaseConnection : ''
                 const fields = res.data.fields
                 for (const key in fields) {
                     const field = handleFieldAttr(cloneDeep(fields[key]))
@@ -1106,7 +1137,12 @@ const loadData = () => {
     }
 
     // 从数据表或sql开始
-    parseFieldData(crudState.type, crudState.startData.db, crudState.startData.sql)
+    parseFieldData({
+        type: crudState.type,
+        table: crudState.startData.table,
+        sql: crudState.startData.sql,
+        connection: crudState.startData.databaseConnection,
+    })
         .then((res) => {
             let fields = []
             for (const key in res.data.columns) {
@@ -1128,12 +1164,13 @@ const loadData = () => {
             }
             state.fields = fields
             state.table.comment = res.data.comment
+            state.table.databaseConnection = crudState.startData.databaseConnection
             if (res.data.empty) {
                 state.table.rebuild = 'Yes'
             }
-            if (crudState.type == 'db' && crudState.startData.db) {
-                state.table.name = crudState.startData.db
-                onTableChange(crudState.startData.db)
+            if (crudState.type == 'db' && crudState.startData.table) {
+                state.table.name = crudState.startData.table
+                onTableChange(crudState.startData.table)
             }
         })
         .finally(() => {
@@ -1289,12 +1326,14 @@ const onChangeCommonModel = () => {
     onTableChange(state.table.generateRelativePath)
 }
 
-const onJoinTableChange = (val: string) => {
-    if (!val) return
-    resetRemoteSelectForm()
-    state.remoteSelectPre.form.table = val
+const onJoinTableChange = () => {
+    if (!state.remoteSelectPre.form.table) return
+
+    // 重置远程下拉信息表单
+    resetRemoteSelectForm(['table'])
+
     state.loading.remoteSelect = true
-    getTableFieldList(val)
+    getTableFieldList(state.remoteSelectPre.form.table, true, state.table.databaseConnection)
         .then((res) => {
             state.remoteSelectPre.form.pk = res.data.pk
 
@@ -1317,7 +1356,7 @@ const onJoinTableChange = (val: string) => {
             state.loading.remoteSelect = false
         })
 
-    getFileData(val).then((res) => {
+    getFileData(state.remoteSelectPre.form.table).then((res) => {
         state.remoteSelectPre.modelFileList = res.data.modelFileList
         state.remoteSelectPre.controllerFileList = res.data.controllerFileList
 
@@ -1372,8 +1411,9 @@ const onCancelRemoteSelect = () => {
     }
 }
 
-const resetRemoteSelectForm = () => {
+const resetRemoteSelectForm = (excludes: string[] = []) => {
     for (const key in state.remoteSelectPre.form) {
+        if (excludes.includes(key)) continue
         if (key == 'joinField') {
             state.remoteSelectPre.form[key] = []
         } else {
@@ -1563,7 +1603,7 @@ const getTableDesignTimelineType = (type: TableDesignChangeType): TimelineItemPr
 }
 .field-item {
     display: inline-block;
-    padding: 4px 18px;
+    padding: 3px 16px;
     border: 1px dashed var(--el-border-color);
     border-radius: var(--el-border-radius-base);
     margin: 6px;

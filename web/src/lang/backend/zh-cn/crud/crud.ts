@@ -69,6 +69,8 @@ export default {
     'Generated Data Model Location': '生成的数据模型位置',
     'Generated Validator Location': '生成的验证器位置',
     'WEB end view directory': 'WEB端视图目录',
+    'Check model class': "请检查以上数据模型类中是否已经配置 protected $connection = '{connection}';",
+    'There is no connection attribute in model class': '未配置请手动配置。',
     'Common model': '公共模型',
     'Advanced Configuration': '高级配置',
     'Common Fields': '常用字段',
@@ -146,4 +148,5 @@ export default {
     'Field name duplication': '字段名称 {field} 重复！',
     'Design remote select tips':
         '将自动根据表名生成本字段的名称；确认生成时，字段名 user_id 生成的关联方法名为 user，字段名 developer_done_id 生成的关联方法名为 developerDone，请注意远程下拉字段的名称前缀不要重复',
+    'Vite hot warning': '未找到 Vite 热更新服务，请在开发环境生成代码，或点击右上角的WEB终端重新发布',
 }

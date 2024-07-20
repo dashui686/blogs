@@ -34,7 +34,7 @@
                         {{ t('module.Dependency installation fail 1') }}
                         <span class="span-a" @click="showTerminal">{{ t('module.Dependency installation fail 2') }}</span>
                         {{ t('module.Dependency installation fail 3') }}
-                        <el-link target="_blank" type="primary" href="https://wonderful-code.gitee.io/guide/install/manualOperation.html">
+                        <el-link target="_blank" type="primary" href="https://doc.buildadmin.com/guide/install/manualOperation.html">
                             {{ t('module.Dependency installation fail 4') }}
                         </el-link>
                     </div>
@@ -59,8 +59,8 @@
         </div>
         <div class="install-tis-box">
             <div class="install-tis">
-                {{ t('module.please') }}{{ state.common.moduleState == moduleInstallState.DISABLE ? '' : t('module.After installation 1') }}
-                {{ t('module.Manually clean up the system and browser cache, and refresh the page') }}
+                {{ t('module.please') }}{{ state.common.moduleState == moduleInstallState.DISABLE ? '' : t('module.After installation 1')
+                }}{{ t('module.Manually clean up the system and browser cache') }}
             </div>
         </div>
         <div class="install-tis-box">
@@ -72,7 +72,10 @@
                     "
                     v-model="form.rebuild"
                     type="radio"
-                    :data="{ content: { 0: t('module.no'), 1: t('module.yes') }, childrenAttr: { border: true } }"
+                    :input-attr="{
+                        border: true,
+                        content: { 0: t('module.no'), 1: t('module.yes') },
+                    }"
                 />
             </div>
         </div>
@@ -101,6 +104,7 @@ import { taskStatus } from '/@/components/terminal/constant'
 import { ElMessageBox } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import { dependentInstallComplete } from '/@/api/backend/module'
+import { reloadServer } from '/@/utils/vite'
 
 const { t } = useI18n()
 const terminal = useTerminal()
@@ -119,8 +123,13 @@ const onSubmitInstallDone = () => {
         terminal.addTaskPM('web-build', false, '', (res: number) => {
             if (res == taskStatus.Success) {
                 terminal.toggle(false)
+                if (state.common.moduleState != moduleInstallState.DISABLE) {
+                    reloadServer('modules')
+                }
             }
         })
+    } else if (state.common.moduleState != moduleInstallState.DISABLE) {
+        reloadServer('modules')
     }
 }
 

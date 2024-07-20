@@ -24,9 +24,11 @@ import PopupForm from './popupForm.vue'
 import Table from '/@/components/table/index.vue'
 import TableHeader from '/@/components/table/header/index.vue'
 import { defaultOptButtons } from '/@/components/table'
+import { getUserRules } from '/@/api/backend/user/group'
 import { baTableApi } from '/@/api/common'
 import { useI18n } from 'vue-i18n'
 import { cloneDeep } from 'lodash-es'
+import { uuid } from '/@/utils/random'
 
 defineOptions({
     name: 'user/group',
@@ -115,8 +117,41 @@ const baTable = new baTableClass(
             }
             return false
         },
+    },
+    {
+        // 切换表单后
+        toggleForm({ operate }) {
+            if (operate == 'Add') {
+                menuRuleTreeUpdate()
+            }
+        },
+        // 编辑请求完成后
+        requestEdit() {
+            menuRuleTreeUpdate()
+        },
     }
 )
+
+const menuRuleTreeUpdate = () => {
+    getUserRules().then((res) => {
+        baTable.form.extend!.menuRules = res.data.list
+
+        if (baTable.form.items!.rules && baTable.form.items!.rules.length) {
+            if (baTable.form.items!.rules.includes('*')) {
+                let arr: number[] = []
+                for (const key in baTable.form.extend!.menuRules) {
+                    arr.push(baTable.form.extend!.menuRules[key].id)
+                }
+                baTable.form.extend!.defaultCheckedKeys = arr
+            } else {
+                baTable.form.extend!.defaultCheckedKeys = baTable.form.items!.rules
+            }
+        } else {
+            baTable.form.extend!.defaultCheckedKeys = []
+        }
+        baTable.form.extend!.treeKey = uuid()
+    })
+}
 
 provide('baTable', baTable)
 

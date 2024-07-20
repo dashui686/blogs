@@ -27,17 +27,19 @@ export const state: {
     step: 'Start' | 'Design'
     type: string
     startData: {
-        db: string
         sql: string
+        table: string
         logId: string
+        databaseConnection: string
     }
 } = reactive({
     step: 'Start',
     type: '',
     startData: {
-        db: '',
         sql: '',
+        table: '',
         logId: '',
+        databaseConnection: '',
     },
 })
 
@@ -110,17 +112,6 @@ export const fieldItem: {
             unsigned: true,
         },
         {
-            title: i18n.global.t('crud.state.Weight (drag and drop sorting)'),
-            name: 'weigh',
-            comment: i18n.global.t('Weigh'),
-            designType: 'weigh',
-            table: {},
-            form: {},
-            ...fieldData.number,
-            default: '0',
-            null: true,
-        },
-        {
             title: i18n.global.t('State'),
             name: 'status',
             comment: i18n.global.t('crud.state.Status:0=Disabled,1=Enabled'),
@@ -138,6 +129,17 @@ export const fieldItem: {
             table: {},
             form: {},
             ...fieldData.textarea,
+        },
+        {
+            title: i18n.global.t('crud.state.Weight (drag and drop sorting)'),
+            name: 'weigh',
+            comment: i18n.global.t('Weigh'),
+            designType: 'weigh',
+            table: {},
+            form: {},
+            ...fieldData.number,
+            default: '0',
+            null: true,
         },
         {
             title: i18n.global.t('Update time'),

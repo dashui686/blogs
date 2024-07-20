@@ -16,7 +16,7 @@
             <div
                 class="ba-operate-form"
                 :class="'ba-' + baTable.form.operate + '-form'"
-                :style="config.layout.shrink ? '':'width: calc(100% - ' + baTable.form.labelWidth! / 2 + 'px)'"
+                :style="config.layout.shrink ? '' : 'width: calc(100% - ' + baTable.form.labelWidth! / 2 + 'px)'"
             >
                 <el-form
                     ref="formRef"
@@ -45,11 +45,12 @@
                         type="remoteSelect"
                         :label="t('user.user.grouping')"
                         v-model="baTable.form.items!.group_id"
+                        prop="group_id"
                         :placeholder="t('user.user.grouping')"
                         :input-attr="{
                             params: { isTree: true, search: [{ field: 'status', val: '1', operator: 'eq' }] },
                             field: 'name',
-                            'remote-url': '/admin/user.Group/index',
+                            remoteUrl: '/admin/user.Group/index',
                         }"
                     />
                     <FormItem :label="t('user.user.head portrait')" type="image" v-model="baTable.form.items!.avatar" />
@@ -71,9 +72,9 @@
                         :label="t('user.user.Gender')"
                         v-model="baTable.form.items!.gender"
                         type="radio"
-                        :data="{
+                        :input-attr="{
+                            border: true,
                             content: { 0: t('Unknown'), 1: t('user.user.male'), 2: t('user.user.female') },
-                            childrenAttr: { border: true },
                         }"
                     />
                     <el-form-item :label="t('user.user.birthday')">
@@ -123,7 +124,10 @@
                         :label="t('State')"
                         v-model="baTable.form.items!.status"
                         type="radio"
-                        :data="{ content: { disable: t('Disable'), enable: t('Enable') }, childrenAttr: { border: true } }"
+                        :input-attr="{
+                            border: true,
+                            content: { disable: t('Disable'), enable: t('Enable') },
+                        }"
                     />
                 </el-form>
             </div>
@@ -159,6 +163,7 @@ const { t } = useI18n()
 const rules: Partial<Record<string, FormItemRule[]>> = reactive({
     username: [buildValidatorData({ name: 'required', title: t('user.user.User name') }), buildValidatorData({ name: 'account' })],
     nickname: [buildValidatorData({ name: 'required', title: t('user.user.nickname') })],
+    group_id: [buildValidatorData({ name: 'required', message: t('Please select field', { field: t('user.user.grouping') }) })],
     email: [buildValidatorData({ name: 'email', title: t('user.user.email') })],
     mobile: [buildValidatorData({ name: 'mobile' })],
     password: [

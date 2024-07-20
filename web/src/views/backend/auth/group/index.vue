@@ -26,10 +26,12 @@ import Table from '/@/components/table/index.vue'
 import TableHeader from '/@/components/table/header/index.vue'
 import PopupForm from './popupForm.vue'
 import { defaultOptButtons } from '/@/components/table'
+import { getAdminRules } from '/@/api/backend/auth/group'
 import { useI18n } from 'vue-i18n'
 import { cloneDeep } from 'lodash-es'
 import { getArrayKey } from '/@/utils/common'
 import { useAdminInfo } from '/@/stores/adminInfo'
+import { uuid } from '/@/utils/random'
 
 defineOptions({
     name: 'auth/group',
@@ -57,8 +59,8 @@ const baTable: baTableClass = new baTableClass(
                 custom: { '0': 'danger', '1': 'success' },
                 replaceValue: { '0': t('Disable'), '1': t('Enable') },
             },
-            { label: t('Update time'), prop: 'updateTime', align: 'center', width: '160', render: 'datetime' },
-            { label: t('Create time'), prop: 'createTime', align: 'center', width: '160', render: 'datetime' },
+            { label: t('Update time'), prop: 'update_time', align: 'center', width: '160', render: 'datetime' },
+            { label: t('Create time'), prop: 'create_time', align: 'center', width: '160', render: 'datetime' },
             { label: t('Operate'), align: 'center', width: '130', render: 'buttons', buttons: defaultOptButtons(['edit', 'delete']) },
         ],
     },
@@ -117,12 +119,12 @@ const baTable: baTableClass = new baTableClass(
         },
         // 双击编辑前
         onTableDblclick: ({ row }) => {
-            return baTable.table.extend!['adminGroup'].indexOf(row.id) === -1
+            return baTable.table.extend!.adminGroup.indexOf(row.id) === -1
         },
     },
     {
         getIndex: ({ res }) => {
-            baTable.table.extend!['adminGroup'] = res.data.group
+            baTable.table.extend!.adminGroup = res.data.group
             let buttonsKey = getArrayKey(baTable.table.column, 'render', 'buttons')
             baTable.table.column[buttonsKey].buttons!.forEach((value: OptButton) => {
                 value.display = (row) => {
@@ -130,8 +132,39 @@ const baTable: baTableClass = new baTableClass(
                 }
             })
         },
+        // 切换表单后
+        toggleForm({ operate }) {
+            if (operate == 'Add') {
+                menuRuleTreeUpdate()
+            }
+        },
+        // 编辑请求完成后
+        requestEdit() {
+            menuRuleTreeUpdate()
+        },
     }
 )
+
+const menuRuleTreeUpdate = () => {
+    getAdminRules().then((res) => {
+        baTable.form.extend!.menuRules = res.data.list
+
+        if (baTable.form.items!.rules && baTable.form.items!.rules.length) {
+            if (baTable.form.items!.rules.includes('*')) {
+                let arr: number[] = []
+                for (const key in baTable.form.extend!.menuRules) {
+                    arr.push(baTable.form.extend!.menuRules[key].id)
+                }
+                baTable.form.extend!.defaultCheckedKeys = arr
+            } else {
+                baTable.form.extend!.defaultCheckedKeys = baTable.form.items!.rules
+            }
+        } else {
+            baTable.form.extend!.defaultCheckedKeys = []
+        }
+        baTable.form.extend!.treeKey = uuid()
+    })
+}
 
 provide('baTable', baTable)
 

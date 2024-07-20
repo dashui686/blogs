@@ -86,6 +86,7 @@ import router from '/@/router'
 import clickCaptcha from '/@/components/clickCaptcha'
 import toggleDark from '/@/utils/useDark'
 import { fullUrl } from '/@/utils/common'
+import { adminBaseRoutePath } from '/@/router/static/adminBase'
 let timer: number
 
 const config = useConfig()
@@ -105,7 +106,6 @@ const form = reactive({
     keep: false,
     captchaId: uuid(),
     captchaInfo: '',
-    grantType: 'password',
 })
 
 const { t } = useI18n()
@@ -161,8 +161,8 @@ const onSubmit = (captchaInfo = '') => {
     form.captchaInfo = captchaInfo
     login('post', form)
         .then((res) => {
-            adminInfo.dataFill(res.data.adminInfo)
-            router.push({ path: res.data.routePath })
+            adminInfo.dataFill(res.data.userInfo)
+            router.push({ path: adminBaseRoutePath })
         })
         .finally(() => {
             state.submitLoading = false
