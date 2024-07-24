@@ -76,9 +76,9 @@ public class PageQuery implements Serializable {
      *
      * 支持的用法如下:
      * {isAsc:"asc",orderByColumn:"id"} order by id asc
-     * {isAsc:"asc",orderByColumn:"id,createTime"} order by id asc,create_time asc
-     * {isAsc:"desc",orderByColumn:"id,createTime"} order by id desc,create_time desc
-     * {isAsc:"asc,desc",orderByColumn:"id,createTime"} order by id asc,create_time desc
+     * {isAsc:"asc",orderByColumn:"id,create_time"} order by id asc,create_time asc
+     * {isAsc:"desc",orderByColumn:"id,create_time"} order by id desc,create_time desc
+     * {isAsc:"asc,desc",orderByColumn:"id,create_time"} order by id asc,create_time desc
      */
     private List<OrderItem> buildOrderItem() {
         if (StringUtils.isBlank(orderByColumn) || StringUtils.isBlank(isAsc)) {

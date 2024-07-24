@@ -14,10 +14,10 @@
             <result property="praise" column="praise" jdbcType="INTEGER"/>
             <result property="browse" column="browse" jdbcType="INTEGER"/>
             <result property="disable" column="disable" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
-            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="create_by" column="create_by" jdbcType="VARCHAR"/>
+            <result property="update_by" column="update_by" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">

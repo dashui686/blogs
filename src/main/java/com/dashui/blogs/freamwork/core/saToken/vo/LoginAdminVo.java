@@ -33,7 +33,7 @@ public class LoginAdminVo implements Serializable {
     /**
      * 刷新令牌
      */
-    private String refreshToken;
+    private String refresh_token;
 
     /**
      * 管理员ID
@@ -60,7 +60,7 @@ public class LoginAdminVo implements Serializable {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime lastLoginTime;
+    private LocalDateTime last_login_time;
 
     /**
      * 是否是超级管理员
@@ -72,7 +72,7 @@ public class LoginAdminVo implements Serializable {
         this.setUsername(adminVo.getUsername());
         this.setNickname(adminVo.getNickname());
         this.setAvatar(adminVo.getAvatar());
-        this.setLastLoginTime(adminVo.getLastLoginTime());
+        this.setLast_login_time(adminVo.getLastLoginTime());
         this.setSuper(UserConstants.SUPER_ADMIN_ID.equals(adminVo.getId()));
     }
 
@@ -81,7 +81,7 @@ public class LoginAdminVo implements Serializable {
         this.setUsername(loginAdmin.getUsername());
         this.setNickname(loginAdmin.getNickname());
         this.setAvatar(loginAdmin.getAvatar());
-        this.setLastLoginTime(loginAdmin.getLoginTime());
+        this.setLast_login_time(loginAdmin.getLoginTime());
         this.setSuper(UserConstants.SUPER_ADMIN_ID.equals(loginAdmin.getId()));
     }
 }

@@ -52,6 +52,7 @@ public class IndexController extends BaseController {
             put("site",siteConfig);
             // 用户信息
             put("userInfo", Collections.emptyList());
+            put("menus", Collections.emptyList());
         }});
     }
 

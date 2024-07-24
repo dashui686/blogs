@@ -13,6 +13,6 @@ class {%className%} extends Model
     protected $name = '{%name%}';
 
     // 自动写入时间戳字段
-    protected $autoWriteTimestamp = {%autoWriteTimestamp%};{%createTime%}{%updateTime%}
+    protected $autoWriteTimestamp = {%autoWriteTimestamp%};{%create_time%}{%update_time%}
 {%append%}{%fieldType%}{%beforeInsert%}{%afterInsert%}{%methods%}
 }

@@ -53,7 +53,7 @@ export interface AdminInfo {
     last_login_time: string
     token: string
     refresh_token: string
-    super: boolean
+    isSuper: boolean
 }
 
 export interface UserInfo {
@@ -79,7 +79,7 @@ export interface TaskItem {
     // 任务唯一标识
     uuid: string
     // 创建时间
-    createTime: string
+    create_time: string
     // 状态
     status: number
     // 命令

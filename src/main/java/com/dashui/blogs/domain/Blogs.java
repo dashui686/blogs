@@ -74,26 +74,26 @@ public class Blogs implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(value = "create_time",fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     /**
      * 更新时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(value = "update_time",fill = FieldFill.UPDATE)
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     /**
      * 创建人
      */
     @TableField(value = "create_by",fill = FieldFill.INSERT)
-    private String createBy;
+    private String create_by;
 
     /**
      * 更新人
      */
     @TableField(value = "update_by",fill = FieldFill.UPDATE)
-    private String updateBy;
+    private String update_by;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -119,10 +119,10 @@ public class Blogs implements Serializable {
             && (this.getPraise() == null ? other.getPraise() == null : this.getPraise().equals(other.getPraise()))
             && (this.getBrowse() == null ? other.getBrowse() == null : this.getBrowse().equals(other.getBrowse()))
             && (this.getDisable() == null ? other.getDisable() == null : this.getDisable().equals(other.getDisable()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()));
+            && (this.getCreate_time() == null ? other.getCreate_time() == null : this.getCreate_time().equals(other.getCreate_time()))
+            && (this.getUpdate_time() == null ? other.getUpdate_time() == null : this.getUpdate_time().equals(other.getUpdate_time()))
+            && (this.getCreate_by() == null ? other.getCreate_by() == null : this.getCreate_by().equals(other.getCreate_by()))
+            && (this.getUpdate_by() == null ? other.getUpdate_by() == null : this.getUpdate_by().equals(other.getUpdate_by()));
     }
 
     @Override
@@ -138,10 +138,10 @@ public class Blogs implements Serializable {
         result = prime * result + ((getPraise() == null) ? 0 : getPraise().hashCode());
         result = prime * result + ((getBrowse() == null) ? 0 : getBrowse().hashCode());
         result = prime * result + ((getDisable() == null) ? 0 : getDisable().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
-        result = prime * result + ((getUpdateBy() == null) ? 0 : getUpdateBy().hashCode());
+        result = prime * result + ((getCreate_time() == null) ? 0 : getCreate_time().hashCode());
+        result = prime * result + ((getUpdate_time() == null) ? 0 : getUpdate_time().hashCode());
+        result = prime * result + ((getCreate_by() == null) ? 0 : getCreate_by().hashCode());
+        result = prime * result + ((getUpdate_by() == null) ? 0 : getUpdate_by().hashCode());
         return result;
     }
 
@@ -160,10 +160,10 @@ public class Blogs implements Serializable {
         sb.append(", praise=").append(praise);
         sb.append(", browse=").append(browse);
         sb.append(", disable=").append(disable);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", createBy=").append(createBy);
-        sb.append(", updateBy=").append(updateBy);
+        sb.append(", create_time=").append(create_time);
+        sb.append(", update_time=").append(update_time);
+        sb.append(", create_by=").append(create_by);
+        sb.append(", update_by=").append(update_by);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

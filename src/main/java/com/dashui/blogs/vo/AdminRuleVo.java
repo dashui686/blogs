@@ -59,7 +59,7 @@ public class AdminRuleVo implements Serializable {
     /**
      * 菜单类型:tab=选项卡,link=链接,iframe=Iframe
      */
-    private String menuType;
+    private String menu_type;
 
     /**
      * Url
@@ -99,27 +99,27 @@ public class AdminRuleVo implements Serializable {
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     /**
      * 创建人
      */
-    private Long createBy;
+    private Long create_by;
 
     /**
      * 更新人
      */
-    private Long updateBy;
+    private Long update_by;
 
     /**
      * 是否删除
      */
-    private String delFlag;
+    private String del_flag;
 
 
     private List<AdminRuleVo> children;

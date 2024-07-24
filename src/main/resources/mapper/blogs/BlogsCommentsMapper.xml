@@ -12,8 +12,8 @@
             <result property="blogsId" column="blogs_id" jdbcType="INTEGER"/>
             <result property="top" column="top" jdbcType="INTEGER"/>
             <result property="sort" column="sort" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="operator" column="operator" jdbcType="VARCHAR"/>
             <result property="ip" column="ip" jdbcType="VARCHAR"/>
     </resultMap>

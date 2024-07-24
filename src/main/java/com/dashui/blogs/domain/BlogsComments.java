@@ -63,13 +63,13 @@ public class BlogsComments implements Serializable {
      * 创建时间
      */
     @TableField(value = "create_time")
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     /**
      * 更新时间
      */
     @TableField(value = "update_time")
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     /**
      * 评论人(默认为匿名用户)
@@ -109,8 +109,8 @@ public class BlogsComments implements Serializable {
             && (this.getBlogsId() == null ? other.getBlogsId() == null : this.getBlogsId().equals(other.getBlogsId()))
             && (this.getTop() == null ? other.getTop() == null : this.getTop().equals(other.getTop()))
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getCreate_time() == null ? other.getCreate_time() == null : this.getCreate_time().equals(other.getCreate_time()))
+            && (this.getUpdate_time() == null ? other.getUpdate_time() == null : this.getUpdate_time().equals(other.getUpdate_time()))
             && (this.getOperator() == null ? other.getOperator() == null : this.getOperator().equals(other.getOperator()))
             && (this.getIp() == null ? other.getIp() == null : this.getIp().equals(other.getIp()));
     }
@@ -126,8 +126,8 @@ public class BlogsComments implements Serializable {
         result = prime * result + ((getBlogsId() == null) ? 0 : getBlogsId().hashCode());
         result = prime * result + ((getTop() == null) ? 0 : getTop().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getCreate_time() == null) ? 0 : getCreate_time().hashCode());
+        result = prime * result + ((getUpdate_time() == null) ? 0 : getUpdate_time().hashCode());
         result = prime * result + ((getOperator() == null) ? 0 : getOperator().hashCode());
         result = prime * result + ((getIp() == null) ? 0 : getIp().hashCode());
         return result;
@@ -146,8 +146,8 @@ public class BlogsComments implements Serializable {
         sb.append(", blogsId=").append(blogsId);
         sb.append(", top=").append(top);
         sb.append(", sort=").append(sort);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
+        sb.append(", create_time=").append(create_time);
+        sb.append(", update_time=").append(update_time);
         sb.append(", operator=").append(operator);
         sb.append(", ip=").append(ip);
         sb.append(", serialVersionUID=").append(serialVersionUID);

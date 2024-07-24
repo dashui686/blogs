@@ -9,7 +9,7 @@
                 :class="'task-status-' + item.status"
                 :type="getTaskStatus(item.status)['statusType']"
                 center
-                :timestamp="item.createTime"
+                :timestamp="item.create_time"
                 placement="top"
             >
                 <el-card>

@@ -96,12 +96,12 @@ public class AdminVo {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     /**
      * 创建时间
      */
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     /**
      * 分组ID

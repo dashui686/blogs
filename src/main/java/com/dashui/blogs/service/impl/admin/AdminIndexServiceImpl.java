@@ -21,7 +21,7 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class AdminIndexServiceImpl implements AdminIndexService {
 
-    public static final String ADMIN_INFO = "adminInfo";
+    public static final String USER_INFO = "userInfo";
     public static final String MENU = "menu";
     public static final String SITE_CONFIG = "siteConfig";
 
@@ -34,7 +34,7 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     public HashMap<String, Object> index() {
 
         return new HashMap<>(){{
-            put(ADMIN_INFO,siteConfig);
+            put(USER_INFO,siteConfig);
             put(MENU,siteConfig);
             put(SITE_CONFIG,siteConfig);
         }};

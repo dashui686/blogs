@@ -153,12 +153,12 @@ public class CrudHelper {
     /**
      * 添加时间字段
      */
-    protected static String createTimeField = "create_time";
+    protected static String create_timeField = "create_time";
 
     /**
      * 更新时间字段
      */
-    protected static String updateTimeField = "update_time";
+    protected static String update_timeField = "update_time";
 
     /**
      * 属性的类型对照表

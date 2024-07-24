@@ -30,7 +30,7 @@ export const clearCacheUrl = '/admin/ajax/clearCache'
 export const captchaUrl = '/api/common/captcha'
 export const clickCaptchaUrl = '/api/common/clickCaptcha'
 export const checkClickCaptchaUrl = '/api/common/checkClickCaptcha'
-export const refreshTokenUrl = '/api/common/refreshToken'
+export const refreshTokenUrl = 'common/refreshToken'
 
 // api模块(前台)
 export const apiUploadUrl = '/api/ajax/upload'

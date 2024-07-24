@@ -1147,7 +1147,7 @@ const loadData = () => {
             let fields = []
             for (const key in res.data.columns) {
                 const field = handleFieldAttr(res.data.columns[key])
-                if (!['id', 'update_time', 'create_time', 'updatetime', 'createtime'].includes(field.name)) {
+                if (!['id', 'update_time', 'create_time', 'update_time', 'create_time'].includes(field.name)) {
                     state.table.formFields.push(field.name)
                 }
                 if (!['textarea', 'file', 'files', 'editor', 'password', 'array'].includes(field.designType)) {

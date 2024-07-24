@@ -15,8 +15,8 @@ const staticRoutes: Array<RouteRecordRaw> = [
         // 首页
         path: '/',
         name: '/',
-        // component: () => import('/@/views/frontend/index.vue'),
-        component: () => import('../views/frontend/home/Home.vue'),
+        component: () => import('/@/views/frontend/index.vue'),
+        // component: () => import('../views/frontend/home/Home.vue'),
         meta: {
             title: pageTitle('home'),
         },

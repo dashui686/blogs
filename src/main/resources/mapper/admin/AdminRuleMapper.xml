@@ -12,7 +12,7 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="path" column="path" jdbcType="VARCHAR"/>
             <result property="icon" column="icon" jdbcType="VARCHAR"/>
-            <result property="menuType" column="menu_type" jdbcType="OTHER"/>
+            <result property="menu_type" column="menu_type" jdbcType="OTHER"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="component" column="component" jdbcType="VARCHAR"/>
             <result property="keepalive" column="keepalive" jdbcType="TINYINT"/>
@@ -20,11 +20,11 @@
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
             <result property="weigh" column="weigh" jdbcType="INTEGER"/>
             <result property="status" column="status" jdbcType="OTHER"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="createBy" column="create_by" jdbcType="BIGINT"/>
-            <result property="updateBy" column="update_by" jdbcType="BIGINT"/>
-            <result property="delFlag" column="del_flag" jdbcType="OTHER"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="create_by" column="create_by" jdbcType="BIGINT"/>
+            <result property="update_by" column="update_by" jdbcType="BIGINT"/>
+            <result property="del_flag" column="del_flag" jdbcType="OTHER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

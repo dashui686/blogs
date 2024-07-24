@@ -219,13 +219,13 @@ class Helper
      * 添加时间字段
      * @var string
      */
-    protected static string $createTimeField = 'create_time';
+    protected static string $create_timeField = 'create_time';
 
     /**
      * 更新时间字段
      * @var string
      */
-    protected static string $updateTimeField = 'update_time';
+    protected static string $update_timeField = 'update_time';
 
     /**
      * 属性的类型对照表
@@ -856,7 +856,7 @@ class Helper
             return 'pk';
         } elseif ($column['COLUMN_NAME'] == 'weigh') {
             return 'weigh';
-        } elseif (in_array($column['COLUMN_NAME'], ['createtime', 'updatetime', 'create_time', 'update_time'])) {
+        } elseif (in_array($column['COLUMN_NAME'], ['create_time', 'update_time', 'create_time', 'update_time'])) {
             return 'timestamp';
         }
         foreach (self::$inputTypeRule as $item) {
@@ -998,10 +998,10 @@ class Helper
         }
 
         $modelData['pk']                 = $tablePk == 'id' ? '' : "\n" . self::tab() . "// 表主键\n" . self::tab() . 'protected $pk = ' . "'$tablePk';\n";
-        $modelData['autoWriteTimestamp'] = array_key_exists(self::$createTimeField, $fieldsMap) || array_key_exists(self::$updateTimeField, $fieldsMap) ? 'true' : 'false';
+        $modelData['autoWriteTimestamp'] = array_key_exists(self::$create_timeField, $fieldsMap) || array_key_exists(self::$update_timeField, $fieldsMap) ? 'true' : 'false';
         if ($modelData['autoWriteTimestamp'] == 'true') {
-            $modelData['createTime'] = array_key_exists(self::$createTimeField, $fieldsMap) ? '' : "\n" . self::tab() . "protected \$createTime = false;";
-            $modelData['updateTime'] = array_key_exists(self::$updateTimeField, $fieldsMap) ? '' : "\n" . self::tab() . "protected \$updateTime = false;";
+            $modelData['create_time'] = array_key_exists(self::$create_timeField, $fieldsMap) ? '' : "\n" . self::tab() . "protected \$create_time = false;";
+            $modelData['update_time'] = array_key_exists(self::$update_timeField, $fieldsMap) ? '' : "\n" . self::tab() . "protected \$update_time = false;";
         }
         $modelMethodList        = isset($modelData['relationMethodList']) ? array_merge($modelData['methods'], $modelData['relationMethodList']) : $modelData['methods'];
         $modelData['methods']   = $modelMethodList ? "\n" . implode("\n", $modelMethodList) : '';

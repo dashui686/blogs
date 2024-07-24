@@ -7,7 +7,7 @@ import { useUserInfo } from '/@/stores/userInfo'
 import router from '/@/router/index'
 import { isEmpty } from 'lodash-es'
 
-export const indexUrl = '/api/index/'
+export const indexUrl = '/index/'
 
 /**
  * 前台初始化请求，获取站点配置信息，动态路由信息等

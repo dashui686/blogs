@@ -46,22 +46,22 @@ public class AdminGroupInfoVo implements Serializable {
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     /**
      * 更新人
      */
-    private Long updateBy;
+    private Long update_by;
 
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     /**
      * 创建人
      */
-    private Long createBy;
+    private Long create_by;
 
     private List<AdminGroupInfoVo> children;
 

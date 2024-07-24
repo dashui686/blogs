@@ -73,7 +73,7 @@ public class SysLoginService {
     //     } else {
     //         // 更新用户信息
     //         bo.setId(list.get(0).getId());
-    //         sysSocialService.updateByBo(bo);
+    //         sysSocialService.update_byBo(bo);
     //     }
     // }
 
@@ -147,8 +147,8 @@ public class SysLoginService {
     //     sysUser.setUserId(userId);
     //     sysUser.setLoginIp(ip);
     //     sysUser.setLoginDate(DateUtils.getNowDate());
-    //     sysUser.setUpdateBy(userId);
-    //     DataPermissionHelper.ignore(() -> userMapper.updateById(sysUser));
+    //     sysUser.setupdate_by(userId);
+    //     DataPermissionHelper.ignore(() -> userMapper.update_byId(sysUser));
     // }
 
     /**

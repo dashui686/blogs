@@ -15,16 +15,16 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         log.info("开始插入填充...");
-        this.strictInsertFill(metaObject, "createBy", Long.class, StpUtil.getLoginIdAsLong());
-        this.strictInsertFill(metaObject, "updateBy", Long.class, StpUtil.getLoginIdAsLong());
-        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "create_by", Long.class, StpUtil.getLoginIdAsLong());
+        this.strictInsertFill(metaObject, "update_by", Long.class, StpUtil.getLoginIdAsLong());
+        this.strictInsertFill(metaObject, "update_time", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "create_time", LocalDateTime.class, LocalDateTime.now());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("开始更新填充...");
-        this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(metaObject, "updateBy", Long.class, StpUtil.getLoginIdAsLong());
+        this.strictUpdateFill(metaObject, "update_time", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "update_by", Long.class, StpUtil.getLoginIdAsLong());
     }
 }

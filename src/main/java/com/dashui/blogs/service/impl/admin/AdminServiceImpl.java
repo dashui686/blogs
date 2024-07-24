@@ -71,7 +71,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
 
         Map<String, Object> params = admin.getParams();
         LambdaQueryWrapper<Admin> adminLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        adminLambdaQueryWrapper.eq(Admin::getDelFlag,UserConstants.NORMAL)
+        adminLambdaQueryWrapper.eq(Admin::getDel_flag,UserConstants.NORMAL)
 
                 .eq(ObjectUtil.isNotNull(admin.getId()),Admin::getId,admin.getId())
                 .like(StringUtils.isNotBlank(admin.getUsername()),Admin::getUsername,admin.getUsername())

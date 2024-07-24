@@ -61,32 +61,32 @@ public class AdminGroup implements Serializable {
      * 更新时间
      */
     @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     /**
      * 创建时间
      */
     @TableField(value = "create_time",fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     /**
      * 创建人
      */
     @TableField(value = "create_by",fill = FieldFill.INSERT)
-    private Long createBy;
+    private Long create_by;
 
     /**
      * 更新人
      */
     @TableField(value = "update_by",fill = FieldFill.INSERT_UPDATE)
-    private Long updateBy;
+    private Long update_by;
 
     /**
      * 是否删除
      */
     @TableLogic
     @TableField(value = "del_flag")
-    private String delFlag;
+    private String del_flag;
 
     /**
      * 备注
@@ -114,11 +114,11 @@ public class AdminGroup implements Serializable {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getRules() == null ? other.getRules() == null : this.getRules().equals(other.getRules()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getUpdateBy() == null ? other.getUpdateBy() == null : this.getUpdateBy().equals(other.getUpdateBy()))
-            && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()))
+            && (this.getUpdate_time() == null ? other.getUpdate_time() == null : this.getUpdate_time().equals(other.getUpdate_time()))
+            && (this.getCreate_time() == null ? other.getCreate_time() == null : this.getCreate_time().equals(other.getCreate_time()))
+            && (this.getCreate_by() == null ? other.getCreate_by() == null : this.getCreate_by().equals(other.getCreate_by()))
+            && (this.getUpdate_by() == null ? other.getUpdate_by() == null : this.getUpdate_by().equals(other.getUpdate_by()))
+            && (this.getDel_flag() == null ? other.getDel_flag() == null : this.getDel_flag().equals(other.getDel_flag()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
@@ -131,11 +131,11 @@ public class AdminGroup implements Serializable {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getRules() == null) ? 0 : getRules().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
-        result = prime * result + ((getUpdateBy() == null) ? 0 : getUpdateBy().hashCode());
-        result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
+        result = prime * result + ((getUpdate_time() == null) ? 0 : getUpdate_time().hashCode());
+        result = prime * result + ((getCreate_time() == null) ? 0 : getCreate_time().hashCode());
+        result = prime * result + ((getCreate_by() == null) ? 0 : getCreate_by().hashCode());
+        result = prime * result + ((getUpdate_by() == null) ? 0 : getUpdate_by().hashCode());
+        result = prime * result + ((getDel_flag() == null) ? 0 : getDel_flag().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         return result;
     }
@@ -151,11 +151,11 @@ public class AdminGroup implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", rules=").append(rules);
         sb.append(", status=").append(status);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", createBy=").append(createBy);
-        sb.append(", updateBy=").append(updateBy);
-        sb.append(", delFlag=").append(delFlag);
+        sb.append(", update_time=").append(update_time);
+        sb.append(", create_time=").append(create_time);
+        sb.append(", create_by=").append(create_by);
+        sb.append(", update_by=").append(update_by);
+        sb.append(", del_flag=").append(del_flag);
         sb.append(", remark=").append(remark);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

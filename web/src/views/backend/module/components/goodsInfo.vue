@@ -29,11 +29,11 @@
                         </div>
                         <div class="basic-item">
                             <div class="basic-item-title">{{ t('module.Last updated') }}</div>
-                            <div class="basic-item-content">{{ state.goodsInfo.updatetime ? timeFormat(state.goodsInfo.updatetime) : '-' }}</div>
+                            <div class="basic-item-content">{{ state.goodsInfo.update_time ? timeFormat(state.goodsInfo.update_time) : '-' }}</div>
                         </div>
                         <div class="basic-item">
                             <div class="basic-item-title">{{ t('module.Published on') }}</div>
-                            <div class="basic-item-content">{{ state.goodsInfo.createtime ? timeFormat(state.goodsInfo.createtime) : '-' }}</div>
+                            <div class="basic-item-content">{{ state.goodsInfo.create_time ? timeFormat(state.goodsInfo.create_time) : '-' }}</div>
                         </div>
                         <div v-if="!installButtonState.stateSwitch.includes(state.goodsInfo.state)" class="basic-item">
                             <div class="basic-item-title">{{ t('module.amount of downloads') }}</div>
@@ -230,7 +230,7 @@
                             <el-timeline-item
                                 v-for="(version, idx) in state.goodsInfo.version_log"
                                 :key="idx"
-                                :timestamp="timeFormat(version.createtime)"
+                                :timestamp="timeFormat(version.create_time)"
                                 placement="top"
                                 :color="idx == 0 ? 'var(--el-color-success)' : ''"
                             >

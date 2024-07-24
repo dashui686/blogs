@@ -110,7 +110,7 @@ export const useTerminal = defineStore(
             if (!state.show) toggleDot(true)
             state.taskList = state.taskList.concat({
                 uuid: uuid(),
-                createTime: timeFormat(),
+                create_time: timeFormat(),
                 status: taskStatus.Waiting,
                 command: command,
                 message: [],

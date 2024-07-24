@@ -21,19 +21,6 @@ public class LoginBody implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 客户端id
-     */
-    // 可以防止token冒用
-    // @NotBlank(message = "{auth.clientid.not.blank}")
-    // private String clientId;
-
-    /**
-     * 授权类型
-     */
-    @NotBlank(message = "{auth.grant.type.not.blank}")
-    private String grantType;
-
-    /**
      * 租户ID
      */
     private String tenantId;

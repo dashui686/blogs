@@ -54,7 +54,7 @@ public class AdminRuleDto {
     /**
      * 菜单类型:tab=选项卡,link=链接,iframe=Iframe
      */
-    private String menuType;
+    private String menu_type;
 
     /**
      * Url

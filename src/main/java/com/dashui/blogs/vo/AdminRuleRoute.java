@@ -58,7 +58,7 @@ public class AdminRuleRoute implements Serializable {
     /**
      * 菜单类型:tab=选项卡,link=链接,iframe=Iframe
      */
-    private String menuType;
+    private String menu_type;
 
     /**
      * Url
@@ -93,7 +93,7 @@ public class AdminRuleRoute implements Serializable {
         this.name = adminRule.getName();
         this.path = adminRule.getPath();
         this.icon = adminRule.getIcon();
-        this.menuType = adminRule.getMenuType();
+        this.menu_type = adminRule.getMenu_type();
         this.url = adminRule.getUrl();
         this.component = adminRule.getComponent();
         this.keepalive = adminRule.getKeepalive();
@@ -119,7 +119,7 @@ public class AdminRuleRoute implements Serializable {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPath() == null ? other.getPath() == null : this.getPath().equals(other.getPath()))
             && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
-            && (this.getMenuType() == null ? other.getMenuType() == null : this.getMenuType().equals(other.getMenuType()))
+            && (this.getMenu_type() == null ? other.getMenu_type() == null : this.getMenu_type().equals(other.getMenu_type()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getComponent() == null ? other.getComponent() == null : this.getComponent().equals(other.getComponent()))
             && (this.getKeepalive() == null ? other.getKeepalive() == null : this.getKeepalive().equals(other.getKeepalive()))
@@ -137,7 +137,7 @@ public class AdminRuleRoute implements Serializable {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPath() == null) ? 0 : getPath().hashCode());
         result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
-        result = prime * result + ((getMenuType() == null) ? 0 : getMenuType().hashCode());
+        result = prime * result + ((getMenu_type() == null) ? 0 : getMenu_type().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getComponent() == null) ? 0 : getComponent().hashCode());
         result = prime * result + ((getKeepalive() == null) ? 0 : getKeepalive().hashCode());
@@ -158,7 +158,7 @@ public class AdminRuleRoute implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", path=").append(path);
         sb.append(", icon=").append(icon);
-        sb.append(", menuType=").append(menuType);
+        sb.append(", menu_type=").append(menu_type);
         sb.append(", url=").append(url);
         sb.append(", component=").append(component);
         sb.append(", keepalive=").append(keepalive);

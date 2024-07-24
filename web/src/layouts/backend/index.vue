@@ -58,8 +58,8 @@ const init = () => {
      */
     index().then((res) => {
         siteConfig.dataFill(res.data.siteConfig)
-        terminal.changePort(res.data.terminal.installServicePort)
-        terminal.changePackageManager(res.data.terminal.npmPackageManager)
+        // terminal.changePort(res.data.terminal.installServicePort)
+        // terminal.changePackageManager(res.data.terminal.npmPackageManager)
         siteConfig.setInitialize(true)
 
         if (!isEmpty(res.data.adminInfo)) {

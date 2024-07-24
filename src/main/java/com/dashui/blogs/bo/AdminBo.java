@@ -91,7 +91,7 @@ public class AdminBo extends BaseEntity {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     /**
      * 部门对象

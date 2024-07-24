@@ -56,7 +56,7 @@ public class AdminCrud implements Serializable {
      * 创建时间
      */
     @TableField(value = "create_time")
-    private Long createTime;
+    private Long create_time;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -79,7 +79,7 @@ public class AdminCrud implements Serializable {
             && (this.getFields() == null ? other.getFields() == null : this.getFields().equals(other.getFields()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getConnection() == null ? other.getConnection() == null : this.getConnection().equals(other.getConnection()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+            && (this.getCreate_time() == null ? other.getCreate_time() == null : this.getCreate_time().equals(other.getCreate_time()));
     }
 
     @Override
@@ -92,7 +92,7 @@ public class AdminCrud implements Serializable {
         result = prime * result + ((getFields() == null) ? 0 : getFields().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getConnection() == null) ? 0 : getConnection().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getCreate_time() == null) ? 0 : getCreate_time().hashCode());
         return result;
     }
 
@@ -108,7 +108,7 @@ public class AdminCrud implements Serializable {
         sb.append(", fields=").append(fields);
         sb.append(", status=").append(status);
         sb.append(", connection=").append(connection);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", create_time=").append(create_time);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
