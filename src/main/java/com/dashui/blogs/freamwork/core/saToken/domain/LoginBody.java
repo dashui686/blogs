@@ -3,6 +3,7 @@ package com.dashui.blogs.freamwork.core.saToken.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 
 @Data
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginBody implements Serializable {
 
@@ -56,4 +58,9 @@ public class LoginBody implements Serializable {
 
     private boolean keep;
 
+
+    public LoginBody(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

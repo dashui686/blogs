@@ -1,5 +1,6 @@
 package com.dashui.blogs.freamwork.core.saToken.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -27,6 +28,12 @@ public class LoginAdmin {
      * 管理员名称
      */
     private String nickname;
+
+    /**
+     * 管理员名称
+     */
+    @JsonIgnore
+    private String password;
 
     /**
      * 管理员头像

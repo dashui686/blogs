@@ -1,11 +1,16 @@
 package com.dashui.blogs.web;
 
+import cn.dev33.satoken.secure.BCrypt;
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import com.dashui.blogs.common.core.web.AjaxResult;
 import com.dashui.blogs.common.utils.ConfigUtils;
+import com.dashui.blogs.dto.RefreshToken;
 import com.dashui.blogs.freamwork.config.SiteConfig;
+import com.dashui.blogs.freamwork.core.saToken.domain.LoginAdmin;
 import com.dashui.blogs.freamwork.core.saToken.domain.LoginBody;
 import com.dashui.blogs.freamwork.core.saToken.enums.LoginHandlerType;
+import com.dashui.blogs.freamwork.core.saToken.enums.LoginType;
 import com.dashui.blogs.freamwork.core.saToken.service.IAuthStrategy;
 import com.dashui.blogs.freamwork.core.saToken.util.LoginHelper;
 import com.dashui.blogs.freamwork.core.saToken.vo.LoginAdminVo;
@@ -38,4 +43,27 @@ import static com.dashui.blogs.service.impl.admin.AdminIndexServiceImpl.USER_INF
 @RequestMapping(COMMON_WEB_KEY)
 public class CommonController {
 
+
+    private final IAuthStrategy authStrategy;
+
+    /**
+     * 重新获取登录认证
+     * @param refreshToken
+     * @return
+     */
+    @PostMapping("refreshToken")
+    public AjaxResult refreshToken(@RequestBody RefreshToken refreshToken) {
+        // 获取登录时效
+        long tokenTimeout = StpUtil.getTokenTimeout();
+        // 判断是否过期
+        if(tokenTimeout == 0){
+            // 过期重新登录
+            SaSession session = StpUtil.getSession();
+            LoginAdmin admin = (LoginAdmin) session.get("admin");
+            LoginAdminVo login = authStrategy.login(new LoginBody(admin.getUsername(),admin.getPassword()));
+            return AjaxResult.success().data("token",StpUtil.getTokenValue());
+        }
+        // 没有过期则返回当前token
+        return AjaxResult.success().data("token",StpUtil.getTokenValue());
+    }
 }

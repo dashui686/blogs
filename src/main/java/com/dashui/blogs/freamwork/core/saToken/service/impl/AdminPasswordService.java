@@ -61,7 +61,8 @@ public class AdminPasswordService implements IAuthStrategy {
         AdminVo adminVo = loadUserByUsername(username);
         loginService.checkLogin(LoginType.PASSWORD, username, () -> !BCrypt.checkpw(password,adminVo.getPassword()));
         // 此处可根据登录用户的数据不同 自行创建 loginUser
-        LoginAdmin loginAdmin = loginService.buildLoginUser(adminVo);
+        LoginAdmin loginAdmin = loginService.buildLoginUser(adminVo,password);
+
         SaLoginModel model = new SaLoginModel();
         // 自定义分配 不同用户体系 不同 token 授权时间 不设置默认走全局 yml 配置
         // 例如: 后台用户30分钟过期 app用户1天过期

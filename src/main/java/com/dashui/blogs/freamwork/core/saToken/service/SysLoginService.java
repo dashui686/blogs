@@ -120,13 +120,14 @@ public class SysLoginService {
     /**
      * 构建管理员登录
      */
-    public LoginAdmin buildLoginUser(AdminVo adminVo) {
+    public LoginAdmin buildLoginUser(AdminVo adminVo,String password) {
         LoginAdmin loginAdmin = new LoginAdmin();
         loginAdmin.setId(adminVo.getId());
         loginAdmin.setUsername(adminVo.getUsername());
         loginAdmin.setNickname(adminVo.getNickname());
         loginAdmin.setAvatar(adminVo.getAvatar());
         loginAdmin.setLoginTime(LocalDateTime.now());
+        loginAdmin.setPassword(password);
         // loginUser.setUserType(user.getUserType());
         // loginUser.setGroupId();
         // loginUser.setMenuPermission(permissionService.getMenuPermission(user.getUserId()));
@@ -134,6 +135,8 @@ public class SysLoginService {
         // loginUser.setDeptName(ObjectUtil.isNull(user.getDept()) ? "" : user.getDept().getDeptName());
         // List<RoleDTO> roles = BeanUtil.copyToList(user.getRoles(), RoleDTO.class);
         // loginUser.setRoles(roles);
+
+        StpUtil.getSession().set("admin", loginAdmin);
         return loginAdmin;
     }
 

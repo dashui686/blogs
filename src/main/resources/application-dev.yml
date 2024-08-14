@@ -11,8 +11,8 @@ spring:
   messages:
     # 国际化资源文件路径
     basename: i18n/messages
-#  profiles:
-#    active: @profiles.active@
+  #  profiles:
+  #    active: @profiles.active@
   # 文件上传
   servlet:
     multipart:
@@ -38,7 +38,7 @@ spring:
       fail_on_unknown_properties: false
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver # 8.0
-#    driverClassName: com.mysql.jdbc.Driver # 5.7
+    #    driverClassName: com.mysql.jdbc.Driver # 5.7
     url: jdbc:mysql://localhost:3306/dashui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: 123456
@@ -62,7 +62,7 @@ spring:
     # redis 配置
   data:
     redis:
-        # 地址
+      # 地址
       host: localhost
       #    host: 39.103.172.135
       # 端口，默认为6379
@@ -70,9 +70,9 @@ spring:
       #    port: 6389
       # 数据库索引
       database: 0
-      # 密码
-#      password:
-        # 连接超时时间
+        # 密码
+        #      password:
+      # 连接超时时间
       timeout: 10s
       # 是否开启ssl
       ssl.enabled: false
@@ -105,7 +105,7 @@ redisson:
   # 单节点配置
   singleServerConfig:
     # 客户端名称
-#    clientName: ${ruoyi.name}
+    #    clientName: ${ruoyi.name}
     # 最小空闲连接数
     connectionMinimumIdleSize: 8
     # 连接池大小
@@ -131,10 +131,10 @@ mybatis-plus:
     # 更详细的日志输出 会有性能损耗 org.apache.ibatis.logging.stdout.StdOutImpl
     # 关闭日志记录 (可单纯使用 p6spy 分析) org.apache.ibatis.logging.nologging.NoLoggingImpl
     # 默认日志输出 org.apache.ibatis.logging.slf4j.Slf4jImpl
-#    logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+    #    logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
     logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 默认 enmu 转换
-#    default-enum-type-handler: xx.xx.xx.MyEnumTypeHandler
+  #    default-enum-type-handler: xx.xx.xx.MyEnumTypeHandler
   global-config:
     # 是否打印 Logo banner
     banner: true
@@ -156,8 +156,8 @@ sa-token:
   token-name: Batoken
   # token有效期，单位s 默认30天, -1代表永不过期 604800 (30天)
   timeout: 604800
-  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
-  active-timeout: 1440
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒  包含自动续签 每次调用获取用户ID 或者 间接调用用户ID
+  #  active-timeout: 1440
   # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
   is-concurrent: true
   # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
@@ -183,7 +183,7 @@ sa-token:
 # 日志配置
 logging:
   level:
-#    com.dashui: @logging.level@
+    #    com.dashui: @logging.level@
     com.dashui: info
     org.springframework: warn
     tech.powerjob.worker.background: warn

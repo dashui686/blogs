@@ -1,4 +1,4 @@
-package com.dashui.blogs.freamwork.web;
+package com.dashui.blogs.freamwork.web.exception;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.hutool.http.HttpStatus;
