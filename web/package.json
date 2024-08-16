@@ -16,7 +16,6 @@
         "@kangc/v-md-editor": "^2.3.18",
         "@vueuse/core": "10.10.0",
         "axios": "1.7.2",
-        "countup.js": "2.8.0",
         "echarts": "5.5.0",
         "element-plus": "2.7.4",
         "esno": "4.7.0",
