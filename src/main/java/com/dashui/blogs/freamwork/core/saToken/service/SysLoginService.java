@@ -136,7 +136,6 @@ public class SysLoginService {
         // List<RoleDTO> roles = BeanUtil.copyToList(user.getRoles(), RoleDTO.class);
         // loginUser.setRoles(roles);
 
-        StpUtil.getSession().set("admin", loginAdmin);
         return loginAdmin;
     }
 

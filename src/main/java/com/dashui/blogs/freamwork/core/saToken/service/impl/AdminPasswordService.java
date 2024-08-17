@@ -73,6 +73,7 @@ public class AdminPasswordService implements IAuthStrategy {
         LoginHelper.login(loginAdmin, model);
 
         LoginAdminVo loginVo = new LoginAdminVo(adminVo);
+        StpUtil.getSession().set("admin", loginAdmin);
         loginVo.setToken("Bearer "+StpUtil.getTokenValue());
         // loginVo.setExpireIn(StpUtil.getTokenTimeout());
         // loginVo.setClientId(client.getClientId());

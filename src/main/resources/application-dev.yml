@@ -157,7 +157,7 @@ sa-token:
   # token有效期，单位s 默认30天, -1代表永不过期 604800 (30天)
   timeout: 604800
   # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒  包含自动续签 每次调用获取用户ID 或者 间接调用用户ID
-  #  active-timeout: 1440
+  active-timeout: 10
   # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
   is-concurrent: true
   # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
@@ -243,7 +243,7 @@ site:
   version: v1.0.0
   record-number: 123213
   apiUrl: https://lidashui.top
-  cdnUrl: https://www.lidashui.top
+  cdnUrl: http://oss.lidashui.top/blogs
   upload:
     mode: cloud
     maxSize: 10485760

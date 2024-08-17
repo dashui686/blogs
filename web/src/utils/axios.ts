@@ -110,7 +110,8 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
 
             if (response.config.responseType == 'json') {
                 if (response.data && response.data.code !== 200) {
-                    if (response.data.code == 401) {
+                    debugger
+                    if (response.data.code == 403) {
                         if (!window.tokenRefreshing) {
                             window.tokenRefreshing = true
                             return refreshToken()
@@ -180,19 +181,19 @@ function createAxios<Data = any, T = ApiPromise<Data>>(axiosConfig: AxiosRequest
                     if (response.data.code == 302) {
                         router.push({ path: response.data.data.routePath ?? '', name: response.data.data.routeName ?? '' })
                     }
-                    if (response.data.code == 303) {
+                    if (response.data.code == 401) {
                         const isAdminAppFlag = isAdminApp()
                         let routerPath = isAdminAppFlag ? adminBaseRoute.path : memberCenterBaseRoutePath
 
                         // 需要登录，清理 token，转到登录页
-                        if (response.data.data.type == 'need login') {
-                            if (isAdminAppFlag) {
-                                adminInfo.removeToken()
-                            } else {
-                                userInfo.removeToken()
-                            }
-                            routerPath += '/login'
+                        // if (response.data.data.type == '请登录') {
+                        if (isAdminAppFlag) {
+                            adminInfo.removeToken()
+                        } else {
+                            userInfo.removeToken()
                         }
+                        routerPath += '/login'
+                        // }
                         router.push({ path: routerPath })
                     }
                     // code不等于1, 页面then内的具体逻辑就不执行了
