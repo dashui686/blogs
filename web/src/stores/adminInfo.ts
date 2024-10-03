@@ -12,8 +12,7 @@ export const useAdminInfo = defineStore('adminInfo', {
             last_login_time: '',
             token: '',
             refresh_token: '',
-            // 是否是superAdmin，用于判定是否显示终端按钮等，不做任何权限判断
-            isSuper: false,
+            super: false,
         }
     },
     actions: {
@@ -32,7 +31,7 @@ export const useAdminInfo = defineStore('adminInfo', {
             return type === 'auth' ? this.token : this.refresh_token
         },
         setSuper(val: boolean) {
-            this.isSuper = val
+            this.super = val
         },
     },
     persist: {

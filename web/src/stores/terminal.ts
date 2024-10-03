@@ -1,35 +1,28 @@
-import { nextTick, reactive } from 'vue'
-import { defineStore } from 'pinia'
-import { STORE_TERMINAL } from '/@/stores/constant/cacheKey'
-import type { Terminal } from '/@/stores/interface/index'
-import { buildTerminalUrl } from '/@/api/common'
-import { uuid } from '/@/utils/random'
-import { timeFormat } from '/@/utils/common'
-import { taskStatus } from '/@/components/terminal/constant'
 import { ElNotification } from 'element-plus'
+import { defineStore } from 'pinia'
+import { nextTick, reactive } from 'vue'
+import { buildTerminalUrl } from '/@/api/common'
 import { i18n } from '/@/lang/index'
+import { STORE_TERMINAL } from '/@/stores/constant/cacheKey'
+import { taskStatus } from '/@/stores/constant/terminalTaskStatus'
+import type { Terminal } from '/@/stores/interface/index'
+import { timeFormat } from '/@/utils/common'
+import { uuid } from '/@/utils/random'
 import { closeHotUpdate, openHotUpdate } from '/@/utils/vite'
 
 export const useTerminal = defineStore(
     'terminal',
     () => {
         const state: Terminal = reactive({
-            // 显示终端窗口
             show: false,
-            // 在后台终端按钮上显示一个红点
             showDot: false,
-            // 任务列表
             taskList: [],
-            // 包管理器
             packageManager: 'pnpm',
-            // 显示包管理器切换窗口
-            showPackageManagerDialog: false,
-            // 显示终端设置窗口
             showConfig: false,
-            // 开始任务时自动清理已完成任务
             automaticCleanupTask: '1',
-            // 安装服务端口
-            port: '8000',
+            phpDevelopmentServer: false,
+            npmRegistry: 'unknown',
+            composerRegistry: 'unknown',
         })
 
         function init() {
@@ -56,17 +49,16 @@ export const useTerminal = defineStore(
             state.showConfig = val
         }
 
-        function togglePackageManagerDialog(val = !state.showPackageManagerDialog) {
-            toggle(!val)
-            state.showPackageManagerDialog = val
+        function changeRegistry(val: string, type: 'npm' | 'composer') {
+            state[type == 'npm' ? 'npmRegistry' : 'composerRegistry'] = val
         }
 
         function changePackageManager(val: string) {
             state.packageManager = val
         }
 
-        function changePort(port: string) {
-            state.port = port
+        function changePHPDevelopmentServer(val: boolean) {
+            state.phpDevelopmentServer = val
         }
 
         function changeAutomaticCleanupTask(val: '0' | '1') {
@@ -110,7 +102,7 @@ export const useTerminal = defineStore(
             if (!state.show) toggleDot(true)
             state.taskList = state.taskList.concat({
                 uuid: uuid(),
-                create_time: timeFormat(),
+                createTime: timeFormat(),
                 status: taskStatus.Waiting,
                 command: command,
                 message: [],
@@ -283,17 +275,17 @@ export const useTerminal = defineStore(
             startTask,
             retryTask,
             clearSuccessTask,
-            togglePackageManagerDialog,
             toggleConfigDialog,
+            changeRegistry,
             changePackageManager,
-            changePort,
+            changePHPDevelopmentServer,
             changeAutomaticCleanupTask,
         }
     },
     {
         persist: {
             key: STORE_TERMINAL,
-            paths: ['state.showDot', 'state.taskList', 'state.automaticCleanupTask'],
+            pick: ['state.showDot', 'state.taskList', 'state.automaticCleanupTask', 'state.npmRegistry', 'state.composerRegistry'],
         },
     }
 )
