@@ -79,24 +79,38 @@
                 />
             </div>
         </div>
-        <div class="install-tis-box max-install-box" v-if="hotUpdateState.dirtyFile">
+        <div class="install-tis-box" v-if="hotUpdateState.dirtyFile && state.common.moduleState != moduleInstallState.DISABLE">
             <div class="install-form">
-                <FormItem
-                    :label="
-                        (state.common.moduleState == moduleInstallState.DISABLE ? '' : t('module.After installation 2')) +
-                        t('module.Restart Vite hot server')
-                    "
-                    v-model="form.reloadHotServer"
-                    type="radio"
-                    :input-attr="{
-                        border: true,
-                        content: {
-                            0: t('vite.Later') + t('module.Manual restart'),
-                            1: t('module.Restart Now'),
-                        },
-                    }"
-                    :tip="t('module.Restart Vite hot server tips')"
-                />
+                <el-form-item :label="t('module.After installation 2') + t('module.Restart Vite hot server')">
+                    <BaInput
+                        v-model="form.reloadHotServer"
+                        type="radio"
+                        :attr="{
+                            border: true,
+                            content: {
+                                0: t('vite.Later') + t('module.Manual restart'),
+                                1: t('module.Restart Now'),
+                            },
+                        }"
+                    />
+                    <el-popover :width="360" placement="top">
+                        <div>
+                            <div class="el-popover__title">{{ t('vite.Reload hot server title') }}</div>
+                            <div class="reload-hot-server-content">
+                                <p>
+                                    <span>{{ t('vite.Reload hot server tips 1') }}</span>
+                                    <span>【{{ t(`vite.Close type ${hotUpdateState.closeType}`) }}】</span>
+                                    <span>{{ t('vite.Reload hot server tips 2') }}</span>
+                                </p>
+                                <p>{{ t('vite.Reload hot server tips 3') }}</p>
+                                <p>{{ t('module.Restart Vite hot server tips') }}</p>
+                            </div>
+                        </div>
+                        <template #reference>
+                            <div class="block-help hot-server-tips">{{ t('module.detailed information') }}？</div>
+                        </template>
+                    </el-popover>
+                </el-form-item>
             </div>
         </div>
         <el-button
@@ -121,6 +135,7 @@ import { onRefreshTableData } from '../index'
 import { state } from '../store'
 import { moduleInstallState } from '../types'
 import { dependentInstallComplete } from '/@/api/backend/module'
+import BaInput from '/@/components/baInput/index.vue'
 import FormItem from '/@/components/formItem/index.vue'
 import { taskStatus } from '/@/stores/constant/terminalTaskStatus'
 import { useTerminal } from '/@/stores/terminal'
@@ -142,17 +157,15 @@ const onSubmitInstallDone = () => {
     if (form.rebuild == 1) {
         terminal.toggle(true)
         terminal.addTaskPM('web-build', false, '', (res: number) => {
-            if (form.reloadHotServer == 1) {
-                reloadServer('modules')
-            }
             if (res == taskStatus.Success) {
                 terminal.toggle(false)
+                if (form.reloadHotServer == 1 && state.common.moduleState != moduleInstallState.DISABLE) {
+                    reloadServer('modules')
+                }
             }
         })
-    } else {
-        if (form.reloadHotServer == 1) {
-            reloadServer('modules')
-        }
+    } else if (form.reloadHotServer == 1 && state.common.moduleState != moduleInstallState.DISABLE) {
+        reloadServer('modules')
     }
 }
 
@@ -235,6 +248,16 @@ const onConfirmDepend = () => {
     margin: 20px auto;
     width: 120px;
 }
+.reload-hot-server-content {
+    font-size: var(--el-font-size-small);
+    p {
+        margin-bottom: 6px;
+    }
+}
+.hot-server-tips {
+    width: auto;
+    cursor: pointer;
+}
 @media screen and (max-width: 1600px) {
     :deep(.install-tis-box) {
         width: 76%;
@@ -250,8 +273,5 @@ const onConfirmDepend = () => {
         width: 96%;
         flex-wrap: wrap;
     }
-}
-.max-install-box {
-    width: 86%;
 }
 </style>
