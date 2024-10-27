@@ -10,6 +10,7 @@ import { useRoute } from 'vue-router'
 import { useConfig } from '/@/stores/config'
 import { setTitleFromRoute } from '/@/utils/common'
 import iconfontInit from '/@/utils/iconfont'
+import { init as viteInit } from '/@/utils/vite'
 // modules import mark, Please do not remove.
 
 const route = useRoute()
@@ -19,6 +20,7 @@ const config = useConfig()
 const { getLocaleMessage } = useI18n()
 const lang = getLocaleMessage(config.lang.defaultLang) as any
 onMounted(() => {
+    viteInit()
     iconfontInit()
 
     // Modules onMounted mark, Please do not remove.

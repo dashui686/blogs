@@ -79,6 +79,26 @@
                 />
             </div>
         </div>
+        <div class="install-tis-box max-install-box" v-if="hotUpdateState.dirtyFile">
+            <div class="install-form">
+                <FormItem
+                    :label="
+                        (state.common.moduleState == moduleInstallState.DISABLE ? '' : t('module.After installation 2')) +
+                        t('module.Restart Vite hot server')
+                    "
+                    v-model="form.reloadHotServer"
+                    type="radio"
+                    :input-attr="{
+                        border: true,
+                        content: {
+                            0: t('vite.Later') + t('module.Manual restart'),
+                            1: t('module.Restart Now'),
+                        },
+                    }"
+                    :tip="t('module.Restart Vite hot server tips')"
+                />
+            </div>
+        </div>
         <el-button
             v-blur
             class="install-done-button"
@@ -94,22 +114,23 @@
 </template>
 
 <script setup lang="ts">
+import { ElMessageBox } from 'element-plus'
 import { reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { onRefreshTableData } from '../index'
 import { state } from '../store'
 import { moduleInstallState } from '../types'
-import { onRefreshTableData } from '../index'
-import { useTerminal } from '/@/stores/terminal'
-import FormItem from '/@/components/formItem/index.vue'
-import { taskStatus } from '/@/components/terminal/constant'
-import { ElMessageBox } from 'element-plus'
-import { useI18n } from 'vue-i18n'
 import { dependentInstallComplete } from '/@/api/backend/module'
-import { reloadServer } from '/@/utils/vite'
+import FormItem from '/@/components/formItem/index.vue'
+import { taskStatus } from '/@/stores/constant/terminalTaskStatus'
+import { useTerminal } from '/@/stores/terminal'
+import { hotUpdateState, reloadServer } from '/@/utils/vite'
 
 const { t } = useI18n()
 const terminal = useTerminal()
 const form = reactive({
     rebuild: 0,
+    reloadHotServer: 0,
 })
 
 const showTerminal = () => {
@@ -121,15 +142,17 @@ const onSubmitInstallDone = () => {
     if (form.rebuild == 1) {
         terminal.toggle(true)
         terminal.addTaskPM('web-build', false, '', (res: number) => {
+            if (form.reloadHotServer == 1) {
+                reloadServer('modules')
+            }
             if (res == taskStatus.Success) {
                 terminal.toggle(false)
-                if (state.common.moduleState != moduleInstallState.DISABLE) {
-                    reloadServer('modules')
-                }
             }
         })
-    } else if (state.common.moduleState != moduleInstallState.DISABLE) {
-        reloadServer('modules')
+    } else {
+        if (form.reloadHotServer == 1) {
+            reloadServer('modules')
+        }
     }
 }
 
@@ -227,5 +250,8 @@ const onConfirmDepend = () => {
         width: 96%;
         flex-wrap: wrap;
     }
+}
+.max-install-box {
+    width: 86%;
 }
 </style>
