@@ -188,6 +188,7 @@ import { postChangeTerminalConfig } from '/@/api/common'
 import FormItem from '/@/components/formItem/index.vue'
 import { taskStatus } from '/@/stores/constant/terminalTaskStatus'
 import { useTerminal } from '/@/stores/terminal'
+import { changeListenDirtyFileSwitch } from '/@/utils/vite'
 
 type SourceType = 'npm' | 'composer'
 
@@ -236,11 +237,11 @@ const getTaskStatus = (status: number) => {
     }
 }
 
-const addTerminalTask = (command: string, pm: boolean, blockOnFailure = true) => {
+const addTerminalTask = (command: string, pm: boolean, blockOnFailure = true, extend = '', callback: Function = () => {}) => {
     if (pm) {
-        terminal.addTaskPM(command, blockOnFailure)
+        terminal.addTaskPM(command, blockOnFailure, extend, callback)
     } else {
-        terminal.addTask(command, blockOnFailure)
+        terminal.addTask(command, blockOnFailure, extend, callback)
     }
 
     // 任务列表滚动条滚动到底部
@@ -257,7 +258,10 @@ const webBuild = () => {
         cancelButtonText: t('Cancel'),
         type: 'warning',
     }).then(() => {
-        addTerminalTask('web-build', true)
+        changeListenDirtyFileSwitch(false)
+        addTerminalTask('web-build', true, true, '', () => {
+            changeListenDirtyFileSwitch(true)
+        })
     })
 }
 
