@@ -8,6 +8,8 @@ interface HotUpdateState {
     closeType: string
     // 是否有脏文件（热更新 switch 为 false，又触发了热更新就会产生脏文件）
     dirtyFile: boolean
+    // 监听是否有脏文件
+    listenDirtyFileSwitch: boolean
 }
 
 /**
@@ -17,6 +19,7 @@ export const hotUpdateState = reactive<HotUpdateState>({
     switch: true,
     closeType: '',
     dirtyFile: false,
+    listenDirtyFileSwitch: true,
 })
 
 /**
@@ -29,10 +32,11 @@ export function init() {
             hotUpdateState.switch = state.switch ?? hotUpdateState.switch
             hotUpdateState.closeType = state.closeType ?? hotUpdateState.closeType
             hotUpdateState.dirtyFile = state.dirtyFile ?? hotUpdateState.dirtyFile
+            hotUpdateState.listenDirtyFileSwitch = state.listenDirtyFileSwitch ?? hotUpdateState.listenDirtyFileSwitch
         })
 
-        // 主动从 Vite 服务器获取当前热更新的相关状态
-        import.meta.hot.send('custom:get-hot-update-state', { type: 'init' })
+        // 保持脏文件监听功能开启（同时可以从服务端同步一次热更新服务的状态数据）
+        changeListenDirtyFileSwitch(true)
     }
 }
 
@@ -78,6 +82,15 @@ export const reloadServer = (type: string) => {
 }
 
 /**
+ * 改变脏文件监听功能的开关
+ */
+export const changeListenDirtyFileSwitch = (status: boolean) => {
+    if (import.meta.hot) {
+        import.meta.hot.send('custom:change-listen-dirty-file-switch', status)
+    }
+}
+
+/**
  * 自定义热更新/热替换处理的 Vite 插件
  */
 export const customHotUpdate = (): Plugin => {
@@ -91,6 +104,7 @@ export const customHotUpdate = (): Plugin => {
         switch: true,
         closeType: '',
         dirtyFile: false,
+        listenDirtyFileSwitch: true,
     }
 
     /**
@@ -121,8 +135,10 @@ export const customHotUpdate = (): Plugin => {
 
                 // 文件添加时通知客户端新增了脏文件（文件删除无需记录为脏文件）
                 server.watcher.on('add', () => {
-                    hotUpdateState.dirtyFile = true
-                    syncHotUpdateState(server)
+                    if (hotUpdateState.listenDirtyFileSwitch) {
+                        hotUpdateState.dirtyFile = true
+                        syncHotUpdateState(server)
+                    }
                 })
             })
 
@@ -152,12 +168,15 @@ export const customHotUpdate = (): Plugin => {
             server.ws.on('custom:get-hot-update-state', () => {
                 syncHotUpdateState(server)
             })
-        },
-        handleHotUpdate({ server }) {
-            if (!hotUpdateState.switch) {
-                // 通知客户端出现了脏文件
-                hotUpdateState.dirtyFile = true
+
+            // 修改监听脏文件的开关
+            server.ws.on('custom:change-listen-dirty-file-switch', (status: boolean) => {
+                hotUpdateState.listenDirtyFileSwitch = status
                 syncHotUpdateState(server)
+            })
+        },
+        handleHotUpdate() {
+            if (!hotUpdateState.switch) {
                 return []
             }
         },
