@@ -86,6 +86,7 @@
                         v-model="form.reloadHotServer"
                         type="radio"
                         :attr="{
+                            class: 'hot-server-input',
                             border: true,
                             content: {
                                 0: t('vite.Later') + t('module.Manual restart'),
@@ -253,6 +254,9 @@ const onConfirmDepend = () => {
     p {
         margin-bottom: 6px;
     }
+}
+.hot-server-input {
+    width: 100%;
 }
 .hot-server-tips {
     width: auto;
