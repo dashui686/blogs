@@ -1,10 +1,11 @@
 import vue from '@vitejs/plugin-vue'
 // 配置@别名
 import { resolve } from 'path'
+import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
-import type { UserConfig, ConfigEnv, ProxyOptions } from 'vite'
-import { isProd, customHotUpdate } from '/@/utils/vite'
 import { svgBuilder } from '/@/components/icon/svg/index'
+import { customHotUpdate, isProd } from '/@/utils/vite'
+
 import eslintPlugin from 'vite-plugin-eslint'
 // 自动导入vue中hook reactive ref等
 import AutoImport from 'unplugin-auto-import/vite'
@@ -18,7 +19,7 @@ const pathResolve = (dir: string): any => {
 
 // https://vitejs.cn/config/
 const viteConfig = ({ mode }: ConfigEnv): UserConfig => {
-    const { VITE_PORT, VITE_OPEN, VITE_BASE_PATH, VITE_OUT_DIR, VITE_PROXY_URL, VITE_BASE_API } = loadEnv(mode, process.cwd())
+    const { VITE_PORT, VITE_OPEN, VITE_BASE_PATH, VITE_OUT_DIR } = loadEnv(mode, process.cwd())
 
     const alias: Record<string, string> = {
         '/@': pathResolve('./src'),
@@ -81,7 +82,6 @@ const viteConfig = ({ mode }: ConfigEnv): UserConfig => {
         server: {
             port: parseInt(VITE_PORT),
             open: VITE_OPEN != 'false',
-            proxy: proxy,
         },
         build: {
             cssCodeSplit: false,
