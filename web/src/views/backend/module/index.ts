@@ -156,7 +156,11 @@ export const showInfo = (uid: string) => {
         })
 }
 
-export const onBuy = () => {
+/**
+ * 支付订单
+ * @param renew 是否是续费订单
+ */
+export const onBuy = (renew = false) => {
     state.dialog.buy = true
     state.loading.buy = true
     createOrder({
@@ -164,6 +168,7 @@ export const onBuy = () => {
     })
         .then((res) => {
             state.loading.buy = false
+            state.buy.renew = renew
             state.buy.info = res.data.info
         })
         .catch((err) => {
@@ -178,11 +183,11 @@ export const onPay = (payType: 'score' | 'wx' | 'balance' | 'zfb') => {
     state.loading.common = true
     payOrder(state.buy.info.id, payType)
         .then((res) => {
-            if (payType == 'wx' || payType == 'zfb') {
-                // 关闭其他弹窗
-                state.dialog.buy = false
-                state.dialog.goodsInfo = false
+            // 关闭其他弹窗
+            state.dialog.buy = false
+            state.dialog.goodsInfo = false
 
+            if (payType == 'wx' || payType == 'zfb') {
                 // 显示支付二维码
                 state.dialog.pay = true
                 state.payInfo = res.data
@@ -193,13 +198,21 @@ export const onPay = (payType: 'score' | 'wx' | 'balance' | 'zfb') => {
                         .then(() => {
                             state.payInfo.pay.status = 'success'
                             clearInterval(timer)
-                            onInstall(res.data.info.uid, res.data.info.id)
+                            if (state.buy.renew) {
+                                showInfo(res.data.info.uid)
+                            } else {
+                                onInstall(res.data.info.uid, res.data.info.id)
+                            }
                             state.dialog.pay = false
                         })
                         .catch(() => {})
                 }, 3000)
             } else {
-                onInstall(res.data.info.uid, res.data.info.id)
+                if (state.buy.renew) {
+                    showInfo(res.data.info.uid)
+                } else {
+                    onInstall(res.data.info.uid, res.data.info.id)
+                }
             }
         })
         .catch((err) => {
