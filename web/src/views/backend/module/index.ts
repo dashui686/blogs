@@ -267,6 +267,7 @@ export const execInstall = (uid: string, id: number, extend: anyObj = {}) => {
             state.common.dialogTitle = i18n.global.t('module.Installation complete')
             state.common.moduleState = moduleInstallState.INSTALLED
             state.common.type = 'done'
+            onRefreshTableData()
         })
         .catch((res) => {
             if (loginExpired(res)) return
@@ -306,11 +307,11 @@ export const execInstall = (uid: string, id: number, extend: anyObj = {}) => {
                     zIndex: 9999,
                 })
                 state.dialog.common = false
+                onRefreshTableData()
             }
         })
         .finally(() => {
             state.loading.common = false
-            onRefreshTableData()
         })
 }
 
@@ -321,15 +322,25 @@ const terminalTaskExecComplete = (res: number, type: string) => {
         })
         if (state.common.waitInstallDepend.length == 0) {
             state.common.dependInstallState = 'success'
+
+            // 仅在命令全部执行完毕才刷新数据
+            if (router.currentRoute.value.name === 'moduleStore/moduleStore') {
+                onRefreshTableData()
+            }
         }
     } else {
         const terminal = useTerminal()
         terminal.toggle(true)
         state.common.dependInstallState = 'fail'
+
+        // 有命令执行失败了，刷新一次数据
+        if (router.currentRoute.value.name === 'moduleStore/moduleStore') {
+            onRefreshTableData()
+        }
     }
 
+    // 连续安装模块的情况中，首个模块的命令执行完毕时，自动启动了热更新
     if (router.currentRoute.value.name === 'moduleStore/moduleStore') {
-        onRefreshTableData()
         closeHotUpdate('modules')
     }
 }
@@ -386,7 +397,6 @@ export const onDisable = (confirmConflict = false) => {
                 }
                 state.common.uid = state.goodsInfo.uid
                 execCommand(commandsData)
-                onRefreshTableData()
             } else if (res.code == -3) {
                 // 更新
                 onInstall(state.goodsInfo.uid, state.goodsInfo.purchased)
@@ -396,6 +406,7 @@ export const onDisable = (confirmConflict = false) => {
                     message: res.msg,
                     zIndex: 9999,
                 })
+                onRefreshTableData()
             }
         })
         .finally(() => {
