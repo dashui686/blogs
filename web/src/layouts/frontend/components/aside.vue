@@ -38,7 +38,7 @@
                     :key="index"
                     @click="routerPush('', menu)"
                     class="user-menu-item"
-                    :class="memberCenter.state.activeRoute?.name == menu.name ? 'active' : ''"
+                    :class="route.name == menu.name ? 'active' : ''"
                 >
                     <Icon :name="menu.meta?.icon" size="16" color="var(--el-text-color-secondary)" />
                     <span>{{ menu.meta?.title }}</span>
@@ -49,12 +49,13 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, type RouteRecordRaw } from 'vue-router'
+import { useRoute, useRouter, type RouteRecordRaw } from 'vue-router'
 import { useUserInfo } from '/@/stores/userInfo'
 import { useMemberCenter } from '/@/stores/memberCenter'
 import { onClickMenu } from '/@/utils/router'
 import { fullUrl } from '/@/utils/common'
 
+const route = useRoute()
 const router = useRouter()
 const userInfo = useUserInfo()
 const memberCenter = useMemberCenter()
