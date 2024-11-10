@@ -50,20 +50,17 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter, type RouteRecordRaw } from 'vue-router'
-import { useUserInfo } from '/@/stores/userInfo'
 import { useMemberCenter } from '/@/stores/memberCenter'
-import { onClickMenu } from '/@/utils/router'
+import { useUserInfo } from '/@/stores/userInfo'
 import { fullUrl } from '/@/utils/common'
+import { onClickMenu } from '/@/utils/router'
 
 const route = useRoute()
 const router = useRouter()
 const userInfo = useUserInfo()
 const memberCenter = useMemberCenter()
 
-const routerPush = (routeName = '', route?: RouteRecordRaw) => {
-    if (document.body.clientWidth < 992) {
-        memberCenter.toggleMenuExpand(false)
-    }
+const routerPush = (routeName: string, route?: RouteRecordRaw) => {
     if (routeName) {
         router.push({ name: routeName })
     } else if (route) {
