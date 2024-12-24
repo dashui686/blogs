@@ -114,6 +114,16 @@ public class AjaxResult extends HashMap<String, Object> implements Serializable
      *
      * @return 成功消息
      */
+    public static AjaxResult list(Object list)
+    {
+        return AjaxResult.success().data(LIST_TAG, list);
+    }
+
+    /**
+     * 构建row
+     *
+     * @return 成功消息
+     */
     public static AjaxResult row(Object data)
     {
         return AjaxResult.success().data(ROW_TAG, data);

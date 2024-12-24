@@ -24,6 +24,8 @@ import com.dashui.blogs.service.admin.AdminRuleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -52,6 +54,8 @@ public class CommonController {
 
     private final IAuthStrategy authStrategy;
 
+    // @Value("${sa-token.token-name}")
+    // public String tokenName;
     /**
      * 重新获取登录认证
      * @param refreshToken

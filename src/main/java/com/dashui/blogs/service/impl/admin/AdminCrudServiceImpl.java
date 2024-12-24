@@ -36,6 +36,15 @@ public class AdminCrudServiceImpl extends ServiceImpl<AdminCrudMapper, AdminCrud
         other.setId(0L);
         return Optional.ofNullable(one).orElse(other);
     }
+    // @Override
+    // public AdminCrud checkCrudLog(CrudTableBo crudTableBo) {
+    //     AdminCrud one = getOne(new LambdaQueryWrapper<AdminCrud>().select(AdminCrud::getId).eq(AdminCrud::getTableName, crudTableBo.getTable()));
+    //     AdminCrud other = new AdminCrud();
+    //     other.setId(0L);
+    //     return Optional.ofNullable(one).orElse(other);
+    // }
+
+
 
 
 }

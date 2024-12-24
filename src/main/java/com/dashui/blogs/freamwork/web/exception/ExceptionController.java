@@ -13,6 +13,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Arrays;
+
 
 /**
  * @Author Administrator$
@@ -89,7 +91,7 @@ public class ExceptionController {
         String requestURI = request.getRequestURI();
 
         log.error("请求地址'{}',认证失败'{}',无法访问系统资源", requestURI, e.getMessage());
-        return AjaxResult.error(e.getType().equals(NotLoginException.TOKEN_TIMEOUT)?HttpStatus.FORBIDDEN:HttpStatus.UNAUTHORIZED, "认证失败，无法访问系统资源");
+        return AjaxResult.error(Arrays.asList(NotLoginException.TOKEN_TIMEOUT,NotLoginException.TOKEN_FREEZE).contains(e.getType())?HttpStatus.FORBIDDEN:HttpStatus.UNAUTHORIZED, "认证失败，无法访问系统资源");
     }
 
 

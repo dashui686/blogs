@@ -14,7 +14,7 @@ const viteConfig = ({ mode }: ConfigEnv): UserConfig => {
     const { VITE_PORT, VITE_OPEN, VITE_BASE_PATH, VITE_OUT_DIR, VITE_PROXY_URL } = loadEnv(mode, process.cwd())
 
     const alias: Record<string, string> = {
-        '/@': pathResolve('./src/'),
+        '/@': pathResolve('./src'),
         assets: pathResolve('./src/assets'),
         'vue-i18n': isProd(mode) ? 'vue-i18n/dist/vue-i18n.cjs.prod.js' : 'vue-i18n/dist/vue-i18n.cjs.js',
     }
@@ -22,7 +22,7 @@ const viteConfig = ({ mode }: ConfigEnv): UserConfig => {
     let proxy: Record<string, string | ProxyOptions> = {}
     if (VITE_PROXY_URL) {
         proxy = {
-            'api': {
+            api: {
                 target: VITE_PROXY_URL,
                 changeOrigin: true,
             },

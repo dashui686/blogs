@@ -47,6 +47,14 @@ public class BaseController
         return AjaxResult.success(data);
     }
     /**
+     * 成功响应返回结果
+     *
+     * @return 操作结果
+     */
+    protected AjaxResult success() {
+        return AjaxResult.success(null);
+    }
+    /**
      * 页面跳转
      */
     public String redirect(String url) {
