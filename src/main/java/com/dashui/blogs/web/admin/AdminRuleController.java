@@ -8,7 +8,7 @@ import com.dashui.blogs.bo.AdminRuleBo;
 import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.page.TableDataInfo;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.core.web.BaseController;
 import com.dashui.blogs.domain.AdminRule;
 import com.dashui.blogs.dto.AdminRuleDto;
@@ -56,10 +56,10 @@ public class AdminRuleController extends BaseController {
      * @return 单条数据
      */
     @GetMapping("edit")
-    public AjaxResult selectOne(@RequestParam Serializable id) {
-        // return AjaxResult.success().data(Constants.DATA,this.adminRuleService.queryVoById(id));
+    public R selectOne(@RequestParam Serializable id) {
+        // return R.success().data(Constants.DATA,this.adminRuleService.queryVoById(id));
 
-        return AjaxResult.row(this.adminRuleService.getVoById(id));
+        return R.row(this.adminRuleService.getVoById(id));
     }
 
     /**
@@ -69,7 +69,7 @@ public class AdminRuleController extends BaseController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public AjaxResult insert(@RequestBody AdminRuleDto adminRuleDto) {
+    public R insert(@RequestBody AdminRuleDto adminRuleDto) {
         boolean save = this.adminRuleService.add(adminRuleDto);
         return toAjax(true);
     }
@@ -81,7 +81,7 @@ public class AdminRuleController extends BaseController {
      * @return 修改结果
      */
     @PostMapping("edit")
-    public AjaxResult update(@RequestBody AdminRuleDto adminRuleDto) {
+    public R update(@RequestBody AdminRuleDto adminRuleDto) {
         return toAjax(this.adminRuleService.saveEdit(adminRuleDto));
     }
 
@@ -92,8 +92,8 @@ public class AdminRuleController extends BaseController {
      * @return 删除结果
      */
     @DeleteMapping("del")
-    public AjaxResult delete(@RequestParam("ids[]") List<Long> idList) {
-        return AjaxResult.success(this.adminRuleService.removeByIds(idList));
+    public R delete(@RequestParam("ids[]") List<Long> idList) {
+        return R.success(this.adminRuleService.removeByIds(idList));
     }
 }
 

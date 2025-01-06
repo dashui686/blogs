@@ -3,7 +3,7 @@ package com.dashui.blogs.service.admin;
 import com.dashui.blogs.bo.AdminRuleBo;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.page.TableDataInfo;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.domain.AdminRule;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dashui.blogs.dto.AdminRuleDto;
@@ -22,7 +22,7 @@ public interface AdminRuleService extends IService<AdminRule> {
 
     List<AdminRuleRoute> getRouter();
 
-    AjaxResult queryPage(AdminRule adminBo, PageQuery pageQuery);
+    R queryPage(AdminRule adminBo, PageQuery pageQuery);
 
     TableDataInfo<AdminRuleVo> selectPageVo(AdminRuleBo adminRuleBo, PageQuery pageQuery);
 

@@ -11,7 +11,7 @@ import com.dashui.blogs.bo.AdminRuleBo;
 import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.page.TableDataInfo;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.utils.StringUtils;
 import com.dashui.blogs.domain.AdminRule;
 import com.dashui.blogs.dto.AdminRuleDto;
@@ -67,9 +67,9 @@ public class AdminRuleServiceImpl extends ServiceImpl<AdminRuleMapper, AdminRule
 
 
     @Override
-    public AjaxResult queryPage(AdminRule adminBo, PageQuery pageQuery) {
+    public R queryPage(AdminRule adminBo, PageQuery pageQuery) {
 
-        return AjaxResult.success();
+        return R.success();
     }
 
     @Override

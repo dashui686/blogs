@@ -10,7 +10,7 @@ import com.dashui.blogs.bo.AdminGroupBo;
 import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.service.GroupService;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.utils.StringUtils;
 import com.dashui.blogs.domain.AdminGroup;
 import com.dashui.blogs.domain.AdminRule;
@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.dashui.blogs.common.core.page.TableDataInfo.LIST_TAG;
 
 /**
 * @author Administrator
@@ -68,12 +67,12 @@ public class AdminGroupServiceImpl extends ServiceImpl<AdminGroupMapper, AdminGr
     }
 
     @Override
-    public AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
+    public R selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
         List<AdminGroupVo> adminGroupVos = adminGroupMapper.selectVoList(this.buildQueryWrapper(adminGroupBo), AdminGroupVo.class);
         if(adminGroupBo.isTree()){
-            return AjaxResult.options(adminGroupVos);
+            return R.options(adminGroupVos);
         }else{
-            return AjaxResult.group(adminGroupVos.stream().filter(adminGroupVo -> adminGroupVo.getPid() == 0).map(AdminGroupVo::getId).collect(Collectors.toList()),buildOptions(adminGroupVos, 0));
+            return R.group(adminGroupVos.stream().filter(adminGroupVo -> adminGroupVo.getPid() == 0).map(AdminGroupVo::getId).collect(Collectors.toList()),buildOptions(adminGroupVos, 0));
         }
     }
 

@@ -37,28 +37,67 @@ spring:
       # 允许对象忽略json中不存在的属性
       fail_on_unknown_properties: false
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver # 8.0
-    #    driverClassName: com.mysql.jdbc.Driver # 5.7
-    url: jdbc:mysql://localhost:3306/dashui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-    username: root
-    password: 123456
-    # hikari连接池
     type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      #最大连接数，小于等于0会被重置为默认值10；大于零小于1会被重置为minimum-idle的值
-      maximum-pool-size: 10
-      #最小空闲连接，默认值 10，小于0或大于maximum-pool-size，都会重置为maximum-pool-size
-      minimum-idle: 10
-      #连接超时时间:毫秒，小于250毫秒，否则被重置为默认值30秒
-      connection-timeout: 60000
-      #空闲连接超时时间，默认值600000ms（10分钟），大于等于max-lifetime且max-lifetime>0，会被重置为0；
-      #不等于0且小于10秒，会被重置为10秒。
-      #只有空闲连接数大于最大连接数且空闲时间超过该值，才会被释放(自动释放过期链接)
-      idle-timeout: 600000
-      #连接最大存活时间.不等于0且小于30秒，会被重置为默认值30分钟.设置应该比mysql设置的超时时间短
-      max-lifetime: 640000
-      #连接测试查询
-      connection-test-query: SELECT 1
+    # 动态数据源文档 https://www.kancloud.cn/tracy5546/dynamic-datasource/content
+    dynamic:
+      # 性能分析插件(有性能损耗 不建议生产环境使用)
+      p6spy: true
+      # 设置默认的数据源或者数据源组,默认值即为 master
+      primary: master
+      # 严格模式 匹配不到数据源则报错
+      strict: false
+      datasource:
+        # 主库数据源
+        master:
+          type: ${spring.datasource.type}
+          driverClassName: com.mysql.cj.jdbc.Driver
+          # jdbc 所有参数配置参考 https://lionli.blog.csdn.net/article/details/122018562
+          # rewriteBatchedStatements=true 批处理优化 大幅提升批量插入更新删除性能(对数据库有性能损耗 使用批量操作应考虑性能问题)
+          url: jdbc:mysql://localhost:3306/dashui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+          username: root
+          password: 123456
+        # 从库数据源
+        slave:
+          lazy: true
+          type: ${spring.datasource.type}
+          driverClassName: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/dashui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+          username: root
+          password: 123456
+      #        oracle:
+      #          type: ${spring.datasource.type}
+      #          driverClassName: oracle.jdbc.OracleDriver
+      #          url: jdbc:oracle:thin:@//localhost:1521/XE
+      #          username: ROOT
+      #          password: root
+      #        postgres:
+      #          type: ${spring.datasource.type}
+      #          driverClassName: org.postgresql.Driver
+      #          url: jdbc:postgresql://localhost:5432/postgres?useUnicode=true&characterEncoding=utf8&useSSL=true&autoReconnect=true&reWriteBatchedInserts=true
+      #          username: root
+      #          password: root
+      #        sqlserver:
+      #          type: ${spring.datasource.type}
+      #          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      #          url: jdbc:sqlserver://localhost:1433;DatabaseName=tempdb;SelectMethod=cursor;encrypt=false;rewriteBatchedStatements=true
+      #          username: SA
+      #          password: root
+      hikari:
+        # 最大连接池数量
+        maxPoolSize: 20
+        # 最小空闲线程数量
+        minIdle: 10
+        # 配置获取连接等待超时的时间
+        connectionTimeout: 30000
+        # 校验超时时间
+        validationTimeout: 5000
+        # 空闲连接存活最大时间，默认10分钟
+        idleTimeout: 600000
+        # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认30分钟
+        maxLifetime: 1800000
+        # 多久检查一次连接的活性
+        keepaliveTime: 30000
+
     # redis 配置
   data:
     redis:
@@ -157,7 +196,7 @@ sa-token:
   # token有效期，单位s 默认30天, -1代表永不过期 604800 (30天)
   timeout: 604800
   # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒  包含自动续签 每次调用获取用户ID 或者 间接调用用户ID
-  active-timeout: 10
+  active-timeout: 86400
   # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
   is-concurrent: true
   # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)

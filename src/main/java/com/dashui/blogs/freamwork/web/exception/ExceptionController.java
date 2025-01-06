@@ -2,7 +2,7 @@ package com.dashui.blogs.freamwork.web.exception;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import com.dashui.blogs.common.core.constants.HttpStatus;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.freamwork.exception.ServiceException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -33,31 +33,31 @@ public class ExceptionController {
      * 校验异常
      */
     @ExceptionHandler(BindException.class)
-    public AjaxResult handleBindException(BindException e)
+    public R handleBindException(BindException e)
     {
         log.error(e.getMessage(), e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
-        return AjaxResult.error(message);
+        return R.error(message);
     }
 
     /**
      * 业务异常
      */
     @ExceptionHandler(ServiceException.class)
-    public AjaxResult handleBindException(ServiceException e)
+    public R handleBindException(ServiceException e)
     {
         log.error(e.getMessage(), e);
-        return AjaxResult.error(e.getMessage());
+        return R.error(e.getMessage());
     }
 
     /**
      * 运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public AjaxResult handleBindException(RuntimeException e)
+    public R handleBindException(RuntimeException e)
     {
         log.error(e.getMessage(), e);
-        return AjaxResult.error(e.getMessage());
+        return R.error(e.getMessage());
     }
 
     /**
@@ -68,18 +68,18 @@ public class ExceptionController {
     {
         log.error(e.getMessage(), e);
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
-        return AjaxResult.error(message);
+        return R.error(message);
     }
 
     /**
      * 请求方式不支持
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public AjaxResult handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
+    public R handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
                                                           HttpServletRequest request)
     {
         log.error("请求地址'{}',不支持'{}'请求", request.getRequestURI(), e.getMethod());
-        return AjaxResult.error(e.getMessage());
+        return R.error(e.getMessage());
     }
 
 
@@ -87,11 +87,11 @@ public class ExceptionController {
      * 认证失败
      */
     @ExceptionHandler(NotLoginException.class)
-    public AjaxResult handleNotLoginException(NotLoginException e, HttpServletRequest request) {
+    public R handleNotLoginException(NotLoginException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
 
         log.error("请求地址'{}',认证失败'{}',无法访问系统资源", requestURI, e.getMessage());
-        return AjaxResult.error(Arrays.asList(NotLoginException.TOKEN_TIMEOUT,NotLoginException.TOKEN_FREEZE).contains(e.getType())?HttpStatus.FORBIDDEN:HttpStatus.UNAUTHORIZED, "认证失败，无法访问系统资源");
+        return R.error(Arrays.asList(NotLoginException.TOKEN_TIMEOUT,NotLoginException.TOKEN_FREEZE).contains(e.getType())?HttpStatus.FORBIDDEN:HttpStatus.UNAUTHORIZED, "认证失败，无法访问系统资源");
     }
 
 

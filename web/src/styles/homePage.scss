@@ -1,0 +1,1080 @@
+
+// 公共样式 start
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    background: transparent;
+  }
+
+a {
+font-size: 100%;
+vertical-align: baseline;
+background: transparent;
+text-decoration: none !important;
+}
+
+
+.el-col,.el-col-24,.el-col-sm-24,.el-col-md-12{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+//   font-family: '黑体', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em; 
+}
+
+h2 {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h4{
+    font-size: 14px;
+    line-height: 30px;
+}
+
+
+a {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none !important;
+}
+
+
+p {
+    font-size: 17px;
+    color: #888;
+    line-height: 27px;
+    font-family: 'Roboto', sans-serif;
+}
+
+[class*="-section"] {
+    overflow: hidden;
+}
+
+
+
+.spad{
+    padding: 80px 0;
+}
+
+.container {
+    padding: 0 30px;
+    margin: 0 auto;
+}
+
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.el-row{
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+
+
+
+
+
+@media (min-width: 992px){
+    .container {
+        width: 970px;
+    }
+}
+// 浏览器 特定
+@media  (max-width: 905px){
+    .container {
+        width: 870px;
+    }
+}
+@media  (max-width: 850px){
+    .container {
+        width: auto;
+    }
+}
+
+@media (min-width: 1200px){
+    .container {
+        width: 1170px;
+    }
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+//   公共样式 end
+
+
+// 导航栏 开始
+
+
+nav.subpage-nav {
+    position: relative;
+    display: block;
+}
+
+nav  {
+    position: fixed;
+    background: #fff;
+    z-index: 9;
+    display: none;
+    width: 100%;
+    padding: 20px;
+    top: 0;
+    left: 0;
+    clear: both;
+    box-shadow: -5px 10px 12px -10px rgba(201, 201, 201, 0.67);
+}
+
+.logo {
+    float: left;
+}
+
+.mobile-bar {
+    width: 35px;
+    height: 21px;
+    display: none;
+    float: right;
+    position: relative;
+    cursor: pointer;
+}
+
+.mobile-bar span {
+    height: 3px;
+    width: 35px;
+    display: block;
+    background: #000;
+    position: absolute;
+    top: 9px;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.nav-menu {
+    float: right;
+    line-height: 32px;
+    display: block;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    float: left;
+    margin-right: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+nav ul li a {
+    color: #000;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+    position: relative;
+}
+
+.mobile-bar span:before {
+    top: -8px;
+}
+
+.mobile-bar span:after {
+    top: 8px;
+}
+
+.mobile-bar span:after, .mobile-bar span:before {
+    position: absolute;
+    content: "";
+    width: 35px;
+    height: 3px;
+    background: #000;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.mobile-bar.active span:before {
+    top: 0px;
+    width: 30px;
+    -webkit-transform: rotate(-40deg);
+    transform: rotate(-40deg);
+}
+
+.mobile-bar.active span:after {
+    top: 0px;
+    width: 30px;
+    -webkit-transform: rotate(40deg);
+    transform: rotate(40deg);
+}
+
+.mobile-bar.active span {
+    background-color: transparent;
+}
+@media only screen and (max-width: 767px){
+    .nav-menu {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        box-shadow: 0px 9px 11px rgba(206, 206, 206, 0.3);
+        opacity: 0;
+        -webkit-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+        -webkit-transform-origin: top center;
+        transform-origin: top center;
+    }
+
+    
+    .mobile-bar {
+        display: block !important;
+    }
+
+    .nav-menu.active {
+        opacity: 1;
+        -webkit-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+    }
+
+    .nav-menu {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        box-shadow: 0px 9px 11px rgba(206, 206, 206, 0.3);
+        opacity: 0;
+        -webkit-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+        -webkit-transform-origin: top center;
+        transform-origin: top center;
+    }
+
+
+    .nav-menu li {
+        overflow: hidden;
+    }
+    .nav-menu li {
+        display: block;
+        float: none;
+        border-top: 1px solid #efefef;
+        background: #fff;
+        padding-left: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        margin: 0;
+    }
+}
+
+// 导航栏 结束
+
+
+
+// 主页超链接图标 开始
+
+
+.social {
+    display: block;
+}
+
+.social a {
+    font-size: 18px;
+    margin: 0 8px;
+    color: #fff;
+
+}
+
+.social svg:hover {
+    color: #666;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+
+// 主页超链接图标 结束
+
+
+
+//  我的详情
+
+.intro-section {
+    background-image: url('/@/assets/images/bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: table;
+}
+// 遮罩层
+.intro-section:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #000;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+
+.intro-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+.intro-content h1 {
+    font-size: 80px;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+}
+
+
+// 最大宽度 479
+@media only screen and (max-width: 479px) {
+    .intro-content h1 {
+        font-size: 20px;
+    }
+}
+
+// 最大宽度 767
+@media only screen and (max-width: 767px) {
+    .intro-content h1 {
+        font-size: 40px;
+    }
+}
+
+
+// 我的详情
+
+
+
+
+// 关于我 开始
+
+.about-image img {
+    min-width: 100%;
+}
+
+.about-text h3 {
+    margin-bottom: 25px;
+}
+.about-text {
+    margin-bottom: 20px;
+}
+
+.about-text p{
+    letter-spacing:4px
+}
+
+.single-progress-item h4 {
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    line-height: 20px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.single-progress-item{
+    margin-bottom: 30px;
+}
+
+// 关于我 结束
+
+
+
+// 爱好 开始
+
+
+.hobby-section {
+    background: #f6f6f6;
+}
+.hobby-item{
+    text-align: center;
+}
+
+.hobby-item h4 {
+    font-weight: 600;
+}
+
+
+.hobby-item .icon {
+    width: 50px;
+    height: 50px;
+    display: table;
+    margin: 0 auto;
+    position: relative;
+    top: 0px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.hobby-item .icon i {
+    // display: table-cell;
+    // vertical-align: middle;
+    text-align: center;
+    font-size: 50px;
+}
+.hobby-item p {
+    padding: 0 10px ;
+}
+
+
+@media only screen and (max-width: 767px){
+    .hobby-item {
+        margin-bottom: 30px;
+    }
+
+    .hobby-item p {
+        padding: 0;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+    .hobby-item {
+        margin-bottom: 30px;
+    }
+}
+
+.hobby-item .icon:after,
+.hobby-item .icon:before,
+.hobby-item .icon span:after,
+.hobby-item .icon span:before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.hobby-item .icon:after {
+  left: -10px;
+  top: -10px;
+  border-left: 2px solid #333;
+  border-top: 2px solid #333;
+}
+.hobby-item .icon:before {
+  right: -10px;
+  bottom: -10px;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
+}
+.hobby-item .icon span:after {
+  right: -10px;
+  top: -10px;
+  border-right: 2px solid #333;
+  border-top: 2px solid #333;
+}
+.hobby-item .icon span:before {
+  left: -10px;
+  bottom: -10px;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid #333;
+}
+.hobby-item:hover .icon:after,
+.hobby-item:hover .icon:before,
+.hobby-item:hover .icon span:after,
+.hobby-item:hover .icon span:before {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+  opacity: 1;
+}
+.hobby-item:hover .icon {
+  top: -10px;
+}
+
+// 爱好 结束
+
+
+// 博客列表 开始
+
+
+.blog-item{
+    display: block;
+    margin-bottom: 30px;
+    /* 过渡动画 */
+    transition: width 1s;
+    /* 过渡时长 */
+    transition-duration: 1s; 
+    /* 整个过渡动画变化的速度 
+        ease:(默认值),从慢到快到慢下来
+        linear：设置线性速度
+        ease-in：从慢到快的变化过程
+        ease-out：从快到慢的过程
+        可以通过浏览器进行调节获取贝塞尔曲线
+    */
+    transition-timing-function:ease;
+    transition-property: all;
+}
+.blog-item > div {
+    box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.15);
+}
+.blog-item img {
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.blog-item-text {
+    background-color: white;
+    padding: 10px;
+}
+
+.blog-item-text h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.blog-item-text h5 {
+    margin-top: 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #616161;
+}
+
+.blog-item-text>p{
+    height: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.blog-item:hover{
+    transform:scale(1.1)
+}
+
+a.site-button {
+    border: 2px solid #000;
+    color: #000;
+}
+
+.site-button {
+    padding: 13px 40px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    background: none;
+    border: 2px solid;
+    border-radius: 50px;
+    -webkit-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+    box-shadow: 0 0 3px 7px transparent;
+}
+
+.site-button:hover {
+    box-shadow: 0 0 0 0 #000;
+    background: #000;
+    color: #fff;
+    -webkit-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+}
+
+
+//  博客列表 结束
+
+
+// 博客详情 开始
+
+
+
+.by-admin {
+    padding: 15px 0;
+}
+
+.by-admin h5 {
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.single-social {
+    text-align: right;
+    padding: 15px 0;
+}
+
+.single-social a {
+    color: #333;
+    font-size: 14px;
+    margin-left: 12px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.post-img{
+    width: 100%;
+}
+
+.comment {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.comment h3 {
+    margin: 20px 0;
+}
+
+.comment-list li.reply-has {
+    border-bottom: none;
+}
+
+.comment-list li {
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+}
+
+
+.comment-list li img {
+    width: 8%;
+    float: left;
+    border-radius: 50%;
+}
+.comment-info p {
+    margin-bottom: 0;
+    padding-right: 10px;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+
+.comment-info {
+    width: 90%;
+    float: left;
+    padding: 0px 15px 10px;
+}
+
+
+.comment-info .reply {
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    color: #333;
+}
+
+.reply-comment-list {
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    clear: both;
+    background: #f9f9f9;
+}
+
+.comment-form {
+    margin-top: 60px;
+}
+
+.comment-form input {
+    width: 100%;
+    height: 45px;
+    border: 0;
+    color: #000;
+    border-bottom: solid 1px #dfdfdf;
+    font-size: 13px;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    border: 0;
+    border-bottom: solid 1px #dfdfdf;
+    font-size: 13px;
+    padding: 20px 0 0 10px;
+    height: 119px;
+    margin-bottom: 15px;
+}
+
+.comment-form .site-button {
+    margin: auto;
+    margin-top: 30px;
+    display: block;
+}
+
+
+.site-button {
+    padding: 13px 40px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    background: none;
+    border: 2px solid;
+    border-radius: 50px;
+    -webkit-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+    box-shadow: 0 0 3px 7px transparent;
+}
+
+.site-button:hover {
+    box-shadow: 0 0 0 0 #000;
+    background: #000;
+    color: #fff;
+    -webkit-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+}
+@media only screen and (max-width: 767px)
+{
+
+    .by-admin {
+        text-align: center;
+        padding: 0;
+    }
+
+    .by-admin h5 {
+        font-size: 12px;
+    }
+
+    .single-social {
+        text-align: center;
+        padding-top: 5px;
+    }
+
+
+    .blog-item{
+        padding: 20px 50px;
+    }
+}
+
+
+// 博客详情 结束
+
+// 文件夹 开始
+
+
+.portfolio_container{
+    margin-bottom: -30px;
+  }
+  
+  .portfolio-filter {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  
+  .portfolio-filter li {
+      font-size: 13px;
+      display: inline-block;
+      margin-right: 10px;
+      cursor: pointer;
+  }
+  
+  .portfolio-filter li.active {
+    text-decoration: line-through;
+    color: #000;
+  }
+  
+  .work-zoom i {
+      display: table-cell;
+      vertical-align: middle;
+  }
+  .work-item {
+    position: relative;
+  }
+  
+  .work-item img {
+    max-width: 100%;
+  }
+  
+  .work-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    -webkit-perspective: 100px;
+    perspective: 100px;
+    -webkit-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
+  }
+  
+  .grid-item:hover .work-inner {
+    opacity: 1;
+  }
+  
+  .work-zoom {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    color: #333;
+    display: table;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    background: #fff;
+    font-size: 20px;
+    opacity: 0;
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    -webkit-transition: all 0.6s;
+    transition: all 0.6s;
+  }
+  
+  
+  .work-item:hover .work-zoom {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    opacity: 1;
+  }
+  
+  .work-popup {
+    max-width: 550px;
+    background: #fff;
+    position: relative!important;
+    margin: 30px auto;
+    left: 0!important;
+  }
+  
+  .work-popup img {
+    width: 100%;
+    height: 100%;
+  }
+  .work-popup-content {
+    padding: 25px;
+  }
+  .work-popup-content h3 {
+    font-size: 26px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .work-popup-content p {
+    text-align: left;
+    line-height: 23px;
+  }
+  .mfp-close-btn-in .mfp-close {
+    position: absolute;
+    background: #fff;
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    opacity: 1;
+    color: #333;
+    box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+// 文件夹 结束
+
+// 联系我 开始
+
+.contact-section {
+    background: #f6f6f6;
+}
+
+.contact-left {
+    position: relative;
+}
+
+.con-info {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.con-info li {
+    margin-bottom: 20px;
+}
+
+.con-info li span {
+    display: block;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    margin: 5.2px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.con-info li i {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+
+#contact-form input {
+    display: block;
+    min-width: 100%;
+    margin-bottom: 30px;
+    height: 55px;
+    padding: 7px 10px;
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.send-btn-div {
+    position: relative;
+    line-height: 0;
+}
+
+#contact-form textarea {
+    min-width: 100%;
+    height: 160px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding-right: 80px;
+    border: none;
+    line-height: initial;
+}
+
+.send-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 80px;
+    background: #333;
+    border: none;
+    font-size: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    box-shadow: inset 0 0 15px 5px #333;
+}
+
+.send-btn:hover {
+    background: transparent;
+    color: #333;
+    box-shadow: inset 0 0 0 5px #333;
+}
+.con-info li:last-child {
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 767px) {
+    .con-info {
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (max-width: 905px){
+    .con-info {
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (max-width: 977px){
+    .con-info {
+        margin-bottom: 30px;
+    }
+}
+
+// 联系我 结束
+
+
+
+
+
+
+
+
+// 页脚 开始
+footer {
+    background: #111;
+    text-align: center;
+    padding: 70px 0;
+}
+
+footer p {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 20px;
+}
+footer p a {
+    color: #888;
+}
+
+
+// 页脚 结束
+
+
+
+
+// 动画
+
+.left-enter-active,
+.left-leave-active {
+    transition: all .8s ease;
+}
+
+.left-enter-from,
+.left-leave-to {
+    transform: translateX(200px);
+    opacity: 0;
+}
+
+
+.right-enter-active,
+.right-leave-active {
+    transition: all .8s ease;
+}
+
+.right-enter-from,
+.right-leave-to {
+    transform: translateX(-200px);
+    opacity: 0;
+}

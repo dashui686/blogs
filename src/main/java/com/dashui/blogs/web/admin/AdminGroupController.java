@@ -7,7 +7,7 @@ import com.dashui.blogs.bo.AdminBo;
 import com.dashui.blogs.bo.AdminGroupBo;
 import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.core.page.PageQuery;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.core.web.BaseController;
 import com.dashui.blogs.domain.AdminGroup;
 import com.dashui.blogs.service.admin.AdminGroupService;
@@ -43,7 +43,7 @@ public class AdminGroupController extends BaseController {
      * @return 所有数据
      */
     @GetMapping("/index")
-    public AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
+    public R selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery) {
         return adminGroupService.selectTreeAll(adminGroupBo,pageQuery);
     }
 
@@ -54,8 +54,8 @@ public class AdminGroupController extends BaseController {
      * @return 单条数据
      */
     @GetMapping("edit")
-    public AjaxResult selectOne(Integer id) {
-        return AjaxResult.row(this.adminGroupService.queryVoById(id));
+    public R selectOne(Integer id) {
+        return R.row(this.adminGroupService.queryVoById(id));
     }
 
     /**
@@ -65,7 +65,7 @@ public class AdminGroupController extends BaseController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public AjaxResult insert(@RequestBody AdminGroupInfoVo adminGroupInfoVo) {
+    public R insert(@RequestBody AdminGroupInfoVo adminGroupInfoVo) {
         return success(this.adminGroupService.saveEdit(adminGroupInfoVo));
     }
 
@@ -76,7 +76,7 @@ public class AdminGroupController extends BaseController {
      * @return 修改结果
      */
     @PostMapping("edit")
-    public AjaxResult update(@RequestBody AdminGroupInfoVo adminGroupInfoVo) {
+    public R update(@RequestBody AdminGroupInfoVo adminGroupInfoVo) {
         return success(this.adminGroupService.saveEdit(adminGroupInfoVo));
     }
 
@@ -87,7 +87,7 @@ public class AdminGroupController extends BaseController {
      * @return 删除结果
      */
     @DeleteMapping("del")
-    public AjaxResult delete(@RequestParam("ids[]") List<Long> idList) {
+    public R delete(@RequestParam("ids[]") List<Long> idList) {
         return success(this.adminGroupService.removeByIds(idList));
     }
 }

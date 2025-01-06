@@ -1,6 +1,7 @@
 package com.dashui.blogs.common.core.web;
 
 
+import com.dashui.blogs.common.core.constants.HttpStatus;
 import com.dashui.blogs.common.core.page.TableDataInfo;
 import com.dashui.blogs.common.utils.StringUtils;
 import org.slf4j.Logger;
@@ -17,14 +18,30 @@ public class BaseController
 {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
+
+    /**
+     * 响应请求分页数据
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    protected TableDataInfo getDataTable(List<?> list)
+    {
+        TableDataInfo rspData = new TableDataInfo();
+        rspData.setCode(HttpStatus.SUCCESS);
+        rspData.setMsg("查询成功");
+        rspData.setList(list);
+        rspData.setTotal(list.size());
+        return rspData;
+    }
+
     /**
      * 响应返回结果
      *
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected AjaxResult toAjax(int rows) {
-        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+    protected R toAjax(int rows) {
+        return rows > 0 ? R.success() : R.error();
     }
 
     /**
@@ -33,8 +50,8 @@ public class BaseController
      * @param result 结果
      * @return 操作结果
      */
-    protected AjaxResult toAjax(boolean result) {
-        return result ? AjaxResult.success() : AjaxResult.error();
+    protected R toAjax(boolean result) {
+        return result ? R.success() : R.error();
     }
 
     /**
@@ -43,16 +60,16 @@ public class BaseController
      * @param data 结果
      * @return 操作结果
      */
-    protected AjaxResult success(Object data) {
-        return AjaxResult.success(data);
+    protected R success(Object data) {
+        return R.success(data);
     }
     /**
      * 成功响应返回结果
      *
      * @return 操作结果
      */
-    protected AjaxResult success() {
-        return AjaxResult.success(null);
+    protected R success() {
+        return R.success(null);
     }
     /**
      * 页面跳转
@@ -65,18 +82,18 @@ public class BaseController
     /**
      * 返回失败消息
      */
-    public AjaxResult error()
+    public R error()
     {
-        return AjaxResult.error();
+        return R.error();
     }
 
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error(String message)
+    public R error(String message)
     {
-        return AjaxResult.error(message);
+        return R.error(message);
     }
 
 

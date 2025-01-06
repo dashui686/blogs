@@ -9,7 +9,7 @@ export function index(): ApiPromise {
     }) as ApiPromise
 }
 
-export function blogs(data: anyObj) {
+export function blogs(data: anyObj): ApiTableDataPromise {
     return createAxios({
         url: controllerUrl + 'index/blogs',
         method: 'get',

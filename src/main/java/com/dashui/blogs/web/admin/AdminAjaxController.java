@@ -5,7 +5,7 @@ import cn.hutool.db.meta.Table;
 import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.core.web.BaseController;
 
 import com.dashui.blogs.service.admin.AdminCrudService;
@@ -35,18 +35,13 @@ public class AdminAjaxController extends BaseController {
 
     private final AdminCrudService adminCrudService;
     @GetMapping("/getTableList")
-    public AjaxResult getTableList(@RequestParam HashMap<String,Object> request) {
-
-        // adminCrudService.getTableList(request)
-        System.out.println(request);
+    public R getTableList(@RequestParam HashMap<String,Object> request) {
         DynamicRoutingDataSource bean = SpringUtil.getBean(DynamicRoutingDataSource.class);
         DataSource connection = bean.getDataSource(request.get("connection").toString());
-
         List<String> tables = MetaUtil.getTables(connection);
         List<HashMap<String, Object>> hashMaps = new ArrayList<>();
         tables.forEach(e->{
             Table tableMeta = MetaUtil.getTableMeta(bean, e);
-
             HashMap<String, Object> tableData = new HashMap<>();
             tableData.put("table",e);
             tableData.put("comment",tableMeta.getComment());
@@ -54,12 +49,11 @@ public class AdminAjaxController extends BaseController {
             tableData.put("prefix","");
             hashMaps.add(tableData);
         });
-        return AjaxResult.list(tables);
+        return R.list(hashMaps);
     }
 
     @GetMapping("/getDatabaseConnectionList")
-    public AjaxResult getDatabaseConnectionList() {
-
+    public R getDatabaseConnectionList() {
         DynamicRoutingDataSource bean = SpringUtil.getBean(DynamicRoutingDataSource.class);
         Map<String, DataSource> dataSources = bean.getDataSources();
         List<HashMap<String, Object>> collect = dataSources.entrySet().stream().map(e -> {
@@ -83,7 +77,7 @@ public class AdminAjaxController extends BaseController {
         //     System.out.println("DataSource name: " + name);
         //     // 可以从dataSource获取连接信息等
         // });
-        return AjaxResult.options(collect);
+        return R.options(collect);
     }
 
 }

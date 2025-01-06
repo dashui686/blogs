@@ -11,6 +11,8 @@ import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/display.css'
 import 'font-awesome/css/font-awesome.min.css'
 import '/@/styles/index.scss'
+import plugins from './plugins' // plugins
+
 // modules import mark, Please do not remove.
 
 async function start() {
@@ -22,6 +24,7 @@ async function start() {
 
     app.use(router)
     app.use(ElementPlus)
+    app.use(plugins)
 
     // 全局注册
     directives(app) // 指令

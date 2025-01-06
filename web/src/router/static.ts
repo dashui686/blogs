@@ -15,13 +15,40 @@ const staticRoutes: Array<RouteRecordRaw> = [
         // 首页
         path: '/',
         name: '/',
-        component: () => import('/@/views/frontend/index.vue'),
-        // component: () => import('../views/frontend/home/Home.vue'),
+        // component: () => import('/@/views/frontend/index.vue'),
+        component: () => import('../views/frontend/home/Home.vue'),
         meta: {
             title: pageTitle('home'),
         },
     },
-
+    {
+        path: '/blogPage',
+        name: 'blogPage',
+        // 使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
+        component: () => import('../views/frontend/blog/blogPage.vue'),
+        meta: {
+            title: pageTitle('home'),
+        },
+    },
+    {
+        path: '/blogInfo/:id(\\d+)',
+        name: 'blogInfo',
+        sensitive: true,
+        // 使用import可以路由懒加载，如果不使用，太多组件一起加载会造成白屏
+        component: () => import('/@/views/frontend/blog/blogInfo.vue'),
+        meta: {
+            title: pageTitle('home'),
+        },
+    },
+    {
+        // 首页
+        path: '/front',
+        name: '/front',
+        component: () => import('/@/views/frontend/index.vue'),
+        meta: {
+            title: pageTitle('home'),
+        },
+    },
     {
         // 管理员登录页 - 不放在 adminBaseRoute.children 因为登录页不需要使用后台的布局
         path: adminBaseRoutePath + '/login',

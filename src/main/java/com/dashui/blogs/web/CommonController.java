@@ -6,7 +6,7 @@ import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.dashui.blogs.common.core.constants.HttpStatus;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.utils.ConfigUtils;
 import com.dashui.blogs.common.utils.ServletUtils;
 import com.dashui.blogs.dto.RefreshToken;
@@ -71,7 +71,7 @@ public class CommonController {
      * -7	NotLoginException.NO_PREFIX	未按照指定前缀提交 token
      */
     @PostMapping("refreshToken")
-    public AjaxResult refreshToken(@RequestBody RefreshToken refreshToken, HttpServletRequest httpServletRequest) {
+    public R refreshToken(@RequestBody RefreshToken refreshToken, HttpServletRequest httpServletRequest) {
 
         if(StrUtil.isBlank(refreshToken.getRefreshToken())){
             String token = ServletUtils.getHeader(httpServletRequest, "refreshToken");
@@ -92,7 +92,7 @@ public class CommonController {
             LoginAdmin admin = (LoginAdmin) session.get("admin");
             LoginAdminVo login = authStrategy.login(new LoginBody(admin.getUsername(),admin.getPassword()));
             StpUtil.getTokenSessionByToken(login.getToken()).set("admin", login);
-            return AjaxResult.success().data("token",StpUtil.getTokenValue());
+            return R.success().data("token",StpUtil.getTokenValue());
         }
 
         // 判断是否过期
@@ -100,9 +100,9 @@ public class CommonController {
             // 过期续费
             // StpUtil.getSession().set("admin", login);
             StpUtil.updateLastActiveToNow();
-            return AjaxResult.success().data("token",StpUtil.getTokenValue());
+            return R.success().data("token",StpUtil.getTokenValue());
         }
         // 没有过期则返回当前token
-        return AjaxResult.success().data("token",StpUtil.getTokenValue());
+        return R.success().data("token",StpUtil.getTokenValue());
     }
 }

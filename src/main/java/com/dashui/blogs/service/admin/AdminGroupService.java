@@ -2,7 +2,7 @@ package com.dashui.blogs.service.admin;
 
 import com.dashui.blogs.bo.AdminGroupBo;
 import com.dashui.blogs.common.core.page.PageQuery;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.domain.AdminGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dashui.blogs.vo.AdminGroupInfoVo;
@@ -15,7 +15,7 @@ import com.dashui.blogs.vo.AdminGroupVo;
 */
 public interface AdminGroupService extends IService<AdminGroup> {
 
-    AjaxResult selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery);
+    R selectTreeAll(AdminGroupBo adminGroupBo, PageQuery pageQuery);
 
     AdminGroupInfoVo queryVoById(Integer id);
 

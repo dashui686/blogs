@@ -16,6 +16,7 @@ interface TableDefaultData<T = any> {
     list: T
     remark: string
     total: number
+    code?: number
 }
 
 interface ApiResponse<T = any> {
@@ -26,5 +27,7 @@ interface ApiResponse<T = any> {
 }
 
 type ApiPromise<T = any> = Promise<ApiResponse<T>>
+
+type ApiTableDataPromise<T = any> = Promise<TableDefaultData<T>>
 
 type Writeable<T> = { -readonly [P in keyof T]: T[P] }

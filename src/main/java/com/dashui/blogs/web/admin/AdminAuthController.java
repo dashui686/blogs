@@ -5,7 +5,7 @@ import com.dashui.blogs.bo.AdminBo;
 import com.dashui.blogs.common.core.constants.Constants;
 import com.dashui.blogs.common.core.page.PageQuery;
 import com.dashui.blogs.common.core.page.TableDataInfo;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.core.web.BaseController;
 import com.dashui.blogs.domain.Admin;
 import com.dashui.blogs.freamwork.exception.ServiceException;
@@ -53,11 +53,11 @@ public class AdminAuthController extends BaseController {
      * @return 单条数据
      */
     @GetMapping("/edit")
-    public AjaxResult queryById(Long id) {
+    public R queryById(Long id) {
         if(ObjectUtil.isNull(id)){
             throw new ServiceException("请输入用户ID");
         }
-        return AjaxResult.row(this.adminService.queryVoById(id));
+        return R.row(this.adminService.queryVoById(id));
     }
 
     /**
@@ -67,8 +67,8 @@ public class AdminAuthController extends BaseController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public AjaxResult add(@RequestBody AdminVo admin) {
-        return AjaxResult.success(this.adminService.saveEdit(admin));
+    public R add(@RequestBody AdminVo admin) {
+        return R.success(this.adminService.saveEdit(admin));
     }
 
     /**
@@ -78,8 +78,8 @@ public class AdminAuthController extends BaseController {
      * @return 编辑结果
      */
     @PostMapping("edit")
-    public AjaxResult edit(@RequestBody AdminVo admin) {
-        return AjaxResult.success((this.adminService.saveEdit(admin)));
+    public R edit(@RequestBody AdminVo admin) {
+        return R.success((this.adminService.saveEdit(admin)));
     }
 
     /**
@@ -89,7 +89,7 @@ public class AdminAuthController extends BaseController {
      * @return 删除是否成功
      */
     @DeleteMapping("del")
-    public AjaxResult deleteById(@RequestParam("ids[]") List<Long> idList) {
-        return AjaxResult.success((this.adminService.removeByIds(idList)));
+    public R deleteById(@RequestParam("ids[]") List<Long> idList) {
+        return R.success((this.adminService.removeByIds(idList)));
     }
 }

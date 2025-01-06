@@ -3,7 +3,7 @@ package com.dashui.blogs.web.admin;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.dashui.blogs.common.core.constants.UserConstants;
-import com.dashui.blogs.common.core.web.AjaxResult;
+import com.dashui.blogs.common.core.web.R;
 import com.dashui.blogs.common.utils.ConfigUtils;
 import com.dashui.blogs.common.utils.StringUtils;
 import com.dashui.blogs.domain.Admin;
@@ -52,11 +52,11 @@ public class AdminController {
     private final AdminRuleService adminRuleService;
 
     @GetMapping("/index")
-    public AjaxResult index(){
+    public R index(){
         SiteConfig siteConfig = ConfigUtils.getSiteConfig();
 
         // 获取登录用户信息
-        return AjaxResult.success(new HashMap<String,Object>(){{
+        return R.success(new HashMap<String,Object>(){{
             LoginAdminVo loginVo = new LoginAdminVo(getLoginAdmin());
             loginVo.setToken("Bearer "+ StpUtil.getTokenValue());
 
@@ -72,8 +72,8 @@ public class AdminController {
      * @return
      */
     @GetMapping("login")
-    public AjaxResult login(){
-        return AjaxResult.success(Collections.singletonMap("captcha",false));
+    public R login(){
+        return R.success(Collections.singletonMap("captcha",false));
     }
 
     /**
@@ -81,7 +81,7 @@ public class AdminController {
      * @return
      */
     @PostMapping("login")
-    public AjaxResult login(@RequestBody @Valid LoginBody loginBody){
+    public R login(@RequestBody @Valid LoginBody loginBody){
         // 登录
         LoginAdminVo loginVo = IAuthStrategy.login(loginBody, LoginHandlerType.Admin.getLoginHandlerType());
 
@@ -91,7 +91,7 @@ public class AdminController {
         }, 3, TimeUnit.SECONDS);
 
         // 返回登录信息
-        return AjaxResult.success(Collections.singletonMap(USER_INFO,loginVo));
+        return R.success(Collections.singletonMap(USER_INFO,loginVo));
     }
 
 
