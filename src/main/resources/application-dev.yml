@@ -248,6 +248,7 @@ security:
     - /index/**
     - /admin/Index/login
     - /static/**
+    - /test/**
     # api/common
     - /common/refreshToken
 
