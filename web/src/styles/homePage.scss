@@ -139,19 +139,22 @@ ul, ol {
 
 
 nav.subpage-nav {
-    position: relative;
+    // position: relative;
     display: block;
 }
 
 nav  {
+    overflow: auto;
     position: fixed;
     background: #fff;
-    z-index: 9;
     display: none;
     width: 100%;
     padding: 20px;
     top: 0;
     left: 0;
+    right: 0; /* 确保右边对齐页面边缘 */
+    width: 100%; /* 避免宽度过大 */
+    z-index: 10; /* 确保层级正常 */
     clear: both;
     box-shadow: -5px 10px 12px -10px rgba(201, 201, 201, 0.67);
 }

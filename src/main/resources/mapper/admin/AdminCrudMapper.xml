@@ -5,7 +5,7 @@
 <mapper namespace="com.dashui.blogs.mapper.admin.AdminCrudMapper">
 
 
-    <select id="databaseList" resultType="java.util.HashMap">
+    <select id="databaseList" resultType="map">
         select * from information_schema.tables
         where table_name NOT LIKE 'pj_%' and table_name NOT LIKE 'gen_%' and table_schema = (select database())
         <!-- and table_name in -->
@@ -14,7 +14,7 @@
         <!-- </foreach> -->
 
     </select>
-    <select id="checkCrudLog" resultType="java.lang.Object">
-        select id from crud_log where table_name = #{table}
-    </select>
+    <!-- <select id="checkCrudLog" resultType="java.lang.String"> -->
+    <!--     select id from crud_log where table_name = #{table} -->
+    <!-- </select> -->
 </mapper>

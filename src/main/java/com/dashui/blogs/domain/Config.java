@@ -114,7 +114,7 @@ public class Config implements Serializable {
      */
     @TableLogic
     @TableField(value = "del_flag")
-    private Object del_flag;
+    private String del_flag;
 
     /**
      * 备注

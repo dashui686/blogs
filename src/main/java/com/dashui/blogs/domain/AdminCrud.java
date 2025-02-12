@@ -44,7 +44,7 @@ public class AdminCrud implements Serializable {
      * 状态:delete=已删除,success=成功,error=失败,start=生成中
      */
     @TableField(value = "status")
-    private Object status;
+    private String status;
 
     /**
      * 数据库连接配置标识

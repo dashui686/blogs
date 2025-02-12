@@ -20,7 +20,7 @@ public class CrudTableBo {
     private String samePrefix;
     private String initKey;
     private String quickSearch;
-    private Object initValue;
+    private String initValue;
     private boolean select;
 
     // 去除表

@@ -226,7 +226,7 @@ logging:
     com.dashui: info
     org.springframework: warn
     tech.powerjob.worker.background: warn
-#  config: classpath:logback-plus.xml
+  config: classpath:logback-plus.xml
 
 security:
   excludes:

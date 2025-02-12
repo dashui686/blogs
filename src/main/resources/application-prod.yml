@@ -39,7 +39,7 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver # 8.0
     #    driverClassName: com.mysql.jdbc.Driver # 5.7
-    url: jdbc:mysql://lidashui.top:3806/dashui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://lidashui.top:3806/blogs?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
     password: 123456
     # hikari连接池
@@ -71,7 +71,7 @@ spring:
       # 数据库索引
       database: 0
         # 密码
-        #      password:
+      password: 132767
       # 连接超时时间
       timeout: 10s
       # 是否开启ssl

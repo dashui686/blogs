@@ -26,7 +26,7 @@ public interface AdminCrudMapper extends BaseMapper<AdminCrud> {
 
     List<HashMap<String, Object>> databaseList();
 
-    Object checkCrudLog(CrudTableBo crudTableBo);
+    // String checkCrudLog(CrudTableBo crudTableBo);
 }
 
 
