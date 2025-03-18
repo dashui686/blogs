@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="dashui-blogs-server:prod" type="docker-deploy" factoryName="dockerfile" server-name="lidashui.top">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="imageTag" value="dashui/dashui-blogs-server:1.0.0" />
+        <option name="buildOnly" value="true" />
+        <option name="containerName" value="dashui-blogs-server" />
+        <option name="sourceFilePath" value="Dockerfile" />
+      </settings>
+    </deployment>
+    <method v="2">
+      <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean package -Dprofiles.active=prod" />
+    </method>
+  </configuration>
+</component>

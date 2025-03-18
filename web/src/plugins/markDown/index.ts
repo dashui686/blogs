@@ -50,27 +50,27 @@ import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index'
 //   });
 
 VueMarkdownEditor.use(vuepressTheme, {
-  Prism,
-  // codeHighlightExtensionMap：key 为要扩展的名称，value 为代码高亮支持的语言。
-  // codeHighlightExtensionMap: {
-  //     vue: 'html',
-  //   },
-  // extend(md:any) {
-  // md为 markdown-it 实例，可以在此处进行修改配置,并使用 plugin 进行语法扩展
-  // md.set(option).use(plugin);
-  // },
+    Prism,
+    // codeHighlightExtensionMap：key 为要扩展的名称，value 为代码高亮支持的语言。
+    // codeHighlightExtensionMap: {
+    //     vue: 'html',
+    //   },
+    // extend(md:any) {
+    // md为 markdown-it 实例，可以在此处进行修改配置,并使用 plugin 进行语法扩展
+    // md.set(option).use(plugin);
+    // },
 })
 
 VueMarkdownPreview.use(vuepressTheme, {
-  Prism,
-  // codeHighlightExtensionMap：key 为要扩展的名称，value 为代码高亮支持的语言。
-  // codeHighlightExtensionMap: {
-  //     vue: 'html',
-  //   },
-  // extend(md:any) {
-  // md为 markdown-it 实例，可以在此处进行修改配置,并使用 plugin 进行语法扩展
-  // md.set(option).use(plugin);
-  // },
+    Prism,
+    // codeHighlightExtensionMap：key 为要扩展的名称，value 为代码高亮支持的语言。
+    // codeHighlightExtensionMap: {
+    //     vue: 'html',
+    //   },
+    // extend(md:any) {
+    // md为 markdown-it 实例，可以在此处进行修改配置,并使用 plugin 进行语法扩展
+    // md.set(option).use(plugin);
+    // },
 })
 
 VueMarkdownEditor.use(createEmojiPlugin())
